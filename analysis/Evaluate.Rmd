@@ -1,0 +1,23 @@
+---
+title: "Evaluate"
+author: "Ben Weinstein"
+date: "4/20/2018"
+output: html_document
+---
+
+```{r}
+library(dplyr)
+library(knitr)
+library(maptools)
+library(ggplot2)
+```
+
+```{r}
+shps<-list.files("/Users/ben/Dropbox/Weecology/ECODSEdataset/Task1/ITC/",pattern=".shp",full.names = T)
+itcs<-lapply(shps,readShapePoly)
+
+names(itcs)<-sapply(itcs,function(x){
+  id<-unique(x$Plot_ID)
+  })
+print(names(itcs))
+```
