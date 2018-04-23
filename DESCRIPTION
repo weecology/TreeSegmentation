@@ -16,5 +16,8 @@ Imports:
   sp,
   rgdal,
   raster,
-  stringr
+  stringr,
+  rlang,
+  purrr,
+  ggplot2
 

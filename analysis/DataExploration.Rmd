@@ -7,12 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,warning = F,message = F)
-library(ggplot2)
-library(raster)
-library(maptools)
-library(dplyr)
-library(rgdal)
-library(stringr)
+library(TreeSegmentation)
 ```
 
 #Task 1

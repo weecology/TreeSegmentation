@@ -19,5 +19,4 @@ A raster with the canopy height estimated for each grid cell.
 LASfile <- system.file("extdata", "MixedConifer.laz", package="lidR")
 tile = readLAS(LASfile, select = "xyz", filter = "-drop_z_below 0"
 chm=canopy_model(tile)
-
 }

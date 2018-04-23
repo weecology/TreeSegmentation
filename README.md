@@ -1,4 +1,4 @@
-#TreeSegmentation
+# TreeSegmentation
 
 An R package to replicate the work using ensemble tree segmentation methdods in R.
 
@@ -9,7 +9,7 @@ This package follows the "Research Compendium" [philosophy](https://github.com/r
 Source can be cloned directly
 
 ```
-git clone 
+git clone https://github.com/weecology/TreeSegmentation.git
 ```
 
 Or installed directly into R.

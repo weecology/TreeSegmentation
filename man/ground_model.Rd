@@ -19,5 +19,4 @@ NA. By default operation is done in place to reduce memory.
 LASfile <- system.file("extdata", "MixedConifer.laz", package="lidR")
 tile = readLAS(LASfile, select = "xyz", filter = "-drop_z_below 0"
 ground_model(tile)
-
 }

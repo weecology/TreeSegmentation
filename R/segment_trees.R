@@ -10,6 +10,7 @@
 #' tile = readLAS(LASfile, select = "xyz", filter = "-drop_z_below 0"
 #' chm=canopy_model(tile)
 #' treelas=segment_trees(tile,algorithm="watershed",chm=chm)
+#' @export
 segment_trees<-function(las,algorithm="watershed",chm=chm){
 
   if(algorithm=="watershed"){
@@ -21,7 +22,7 @@ segment_trees<-function(las,algorithm="watershed",chm=chm){
     plot(tree, color = "treeID", colorPalette = pastel.colors(100), size = 1)
 
     # More stuff
-    contour = rasterToPolygons(crowns, dissolve = TRUE)
+    contour = raster::rasterToPolygons(crowns, dissolve = TRUE)
 
     plot(chm, col = height.colors(50))
     plot(contour, add = T)
@@ -30,11 +31,11 @@ segment_trees<-function(las,algorithm="watershed",chm=chm){
   if (algorithm=="dalponte2016"){
 
     # Dalponte 2016
-    ttops = tree_detection(chm, 5, 2)
-    crowns <- lastrees_dalponte(las, chm, ttops,extra=T)
+    ttops = lidR::tree_detection(chm, 5, 2)
+    crowns <- lidR::lastrees_dalponte(las, chm, ttops,extra=T)
     plot(crowns, color = "treeID", colorPalette = col)
 
-    contour = rasterToPolygons(crowns, dissolve = TRUE)
+    contour = raster::rasterToPolygons(crowns, dissolve = TRUE)
 
     plot(chm, col = height.colors(50))
     plot(contour, add = T)
@@ -43,10 +44,10 @@ segment_trees<-function(las,algorithm="watershed",chm=chm){
 
   if(algorithm=="li2012"){
     # tree segmentation
-    lastrees(las, "li2012", R = 5)
+    lidR::lastrees(las, "li2012", R = 5)
 
     # display
-    tree = lasfilter(las, !is.na(treeID))
+    tree = lidR::lasfilter(las, !is.na(treeID))
     plot(tree, color = "treeID", colorPalette = pastel.colors(100), size = 1)
 
     return(las)
@@ -54,16 +55,16 @@ segment_trees<-function(las,algorithm="watershed",chm=chm){
 
   if(algorithm=="silva2016"){
 
-    ttops = tree_detection(chm, 5, 2)
-    crowns<-lastrees_silva(las, chm, ttops, max_cr_factor = 0.6, exclusion = 0.3,
+    ttops = lidR::tree_detection(chm, 5, 2)
+    crowns<-lidR::lastrees_silva(las, chm, ttops, max_cr_factor = 0.6, exclusion = 0.3,
                            extra = T)
 
     # display
-    tree = lasfilter(las, !is.na(treeID))
+    tree = lidR::lasfilter(las, !is.na(treeID))
     plot(tree, color = "treeID", colorPalette = pastel.colors(100), size = 1,backend="rgl")
 
     # More stuff
-    contour = rasterToPolygons(crowns, dissolve = TRUE)
+    contour = raster::rasterToPolygons(crowns, dissolve = TRUE)
 
     plot(chm, col = height.colors(50))
     plot(contour, add = T)

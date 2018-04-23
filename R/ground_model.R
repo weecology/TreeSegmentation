@@ -7,13 +7,13 @@
 #' LASfile <- system.file("extdata", "MixedConifer.laz", package="lidR")
 #' tile = readLAS(LASfile, select = "xyz", filter = "-drop_z_below 0"
 #' ground_model(tile)
-#'
+#' @export
 ground_model<-function(las){
   ws = seq(3,21, 3)
   th = seq(0.1, 6, length.out = length(ws))
 
-  lasground(las, "pmf", ws, th)
+  lidR::lasground(las, "pmf", ws, th)
 
   # normalization
-  lasnormalize(las, method = "kriging", k = 10L, model = gstat::vgm(0.59, "Sph", 874))
+  lidR::lasnormalize(las, method = "kriging", k = 10L, model = gstat::vgm(0.59, "Sph", 874))
 }
