@@ -1,5 +1,5 @@
 ---
-title: "Evaluate"
+title: "Evaluate Tree Crown Method Based on Segmentation Algorithms"
 author: "Ben Weinstein"
 date: "4/20/2018"
 output: html_document
@@ -9,9 +9,11 @@ output: html_document
 library(dplyr)
 library(knitr)
 library(maptools)
+library(TreeSegmentation)
 library(ggplot2)
 ```
 
+# Load in ground-truth
 ```{r}
 shps<-list.files("/Users/ben/Dropbox/Weecology/ECODSEdataset/Task1/ITC/",pattern=".shp",full.names = T)
 itcs<-lapply(shps,readShapePoly)
@@ -20,4 +22,19 @@ names(itcs)<-sapply(itcs,function(x){
   id<-unique(x$Plot_ID)
   })
 print(names(itcs))
+plot(itcs[[1]])
 ```
+# Find corresponding tile
+
+```{r,webgl=TRUE}
+fname<-get_tile_filname(itcs[[1]])
+tile<-readLAS(paste("../data/NEON_D03_OSBS_DP1_402000_3286000_classified_point_cloud.laz"))
+plot(tile)
+```
+
+# Silva 2016 Crown Segmentation Model
+
+```{r}
+convex_hulls<-silva2016(paste("../data/NEON_D03_OSBS_DP1_402000_3286000_classified_point_cloud.laz"))
+```
+

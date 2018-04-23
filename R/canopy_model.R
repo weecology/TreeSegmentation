@@ -6,8 +6,9 @@
 #' @param las A lidar cloud read in by lidR package
 #' @return A raster with the canopy height estimated for each grid cell.
 #' @examples
+#' library(lidR)
 #' LASfile <- system.file("extdata", "MixedConifer.laz", package="lidR")
-#' tile = readLAS(LASfile, select = "xyz", filter = "-drop_z_below 0"
+#' tile = readLAS(LASfile, select = "xyz", filter = "-drop_z_below 0")
 #' chm=canopy_model(tile)
 #' @export
 canopy_model<-function(las){

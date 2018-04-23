@@ -8,6 +8,9 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,warning = F,message = F)
 library(TreeSegmentation)
+library(maptools)
+library(raster)
+library(stringr)
 ```
 
 #Task 1
@@ -63,7 +66,6 @@ names(rgb)<-sapply(rgb,function(x){
     id<-names(x[[1]])
     str_match(id,"(\\w+)_camera")[,2]
 })
-
 
 ```
 

@@ -16,7 +16,8 @@ A raster with the canopy height estimated for each grid cell.
 \code{canopy_model} returns a canopy height raster from a lidR point cloud
 }
 \examples{
+library(lidR)
 LASfile <- system.file("extdata", "MixedConifer.laz", package="lidR")
-tile = readLAS(LASfile, select = "xyz", filter = "-drop_z_below 0"
+tile = readLAS(LASfile, select = "xyz", filter = "-drop_z_below 0")
 chm=canopy_model(tile)
 }

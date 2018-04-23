@@ -4,7 +4,7 @@ Title: Consensus methods for tree crown classification in R.
 Version: 0.1.0
 Author: Ben Weinstein
 Maintainer: Ben Weinstein <ben.weinstein@weecology.org>
-Description: 
+Description: The aim of this package is to reproduce analysis of tree crown segmentation methods.
 License: MIT
 Encoding: UTF-8
 LazyData: true
@@ -19,5 +19,9 @@ Imports:
   stringr,
   rlang,
   purrr,
-  ggplot2
+  ggplot2,
+  reshape2,
+  diceR,
+  gstat,
+  methods
 
