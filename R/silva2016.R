@@ -2,6 +2,7 @@
 #'
 #' \code{silva2016} assigns each point in a lidR cloud to a treeID.
 #' @param path A filename of a .las or .laz file to be read in by the lidR package
+#' @param extra Output both the tile and the convex polygons
 #' @param tile Optionally a lidR object in memory
 #' @return A \code{\link[sp]{SpatialPolygonsDataFrame}} object with tree crown polygons
 #' @examples
@@ -9,7 +10,7 @@
 #' convex_hulls <- silva2016(path=LASfile)
 #' @export
 
-silva2016<-function(path=NULL,tile=NULL){
+silva2016<-function(path=NULL,tile=NULL,extra=F){
 
   if(is.null(tile)){
     tile = lidR::readLAS(path, select = "xyz", filter = "-drop_z_below 0")
@@ -34,5 +35,9 @@ silva2016<-function(path=NULL,tile=NULL){
   #create polygons
   print("Creating tree polygons")
   silva_convex<-get_convex_hulls(silva2016,silva2016@data$treeID)
+
+  if(extra){
+    return(list(silva_convex=silva_convex,silva_tile=tile))
+  }
 }
 

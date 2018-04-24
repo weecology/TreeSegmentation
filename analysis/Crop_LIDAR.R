@@ -24,14 +24,22 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation")) %dopar% {
 
   #Get Tile
   fname<-get_tile_filname(itcs[[x]])
-  tile<-readLAS(paste("/ufrc/ewhite/s.marconi/NeonData/2017_Campaign/D03/OSBS/L1/DiscreteLidar/Classified_point_cloud/",fname,sep=""))
 
+  inpath<-paste("/ufrc/ewhite/s.marconi/NeonData/2017_Campaign/D03/OSBS/L1/DiscreteLidar/Classified_point_cloud/",fname,sep="")
+
+  if(!file_test("-f",inpath)){
+    paste(inpath," does not exist"," for itc ",x,sep="")
+    return(NULL)
+  }
+
+  tile<-readLAS(inpath)
   #Clip Tile
   clip_ext<-3.5*extent(itcs[[x]])
   clipped_las<-lasclipRectangle(tile,xleft=clip_ext@xmin,xright=clip_ext@xmax,ytop=clip_ext@ymax,ybottom=clip_ext@ymin)
 
   #filename
   cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/DiscreteLidar/Cropped/","cropped_",fname,sep="")
+  print(cname)
   writeLAS(clipped_las,cname)
 }
 

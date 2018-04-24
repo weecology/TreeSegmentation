@@ -11,6 +11,11 @@ library(knitr)
 library(maptools)
 library(TreeSegmentation)
 library(ggplot2)
+library(rgl)
+library(igraph)
+#set color ramp for treeID
+col = pastel.colors(200)
+
 ```
 
 # Load in ground-truth
@@ -34,17 +39,56 @@ plot(tile)
 # Silva 2016 Crown Segmentation Model
 
 ```{r}
-convex_hulls<-silva2016(tile=tile)
+silva<-silva2016(tile=tile,extra=T)
 ```
 
 #Overlay ground truth and predictions
 
 ```{r}
 plot(ground_truth,col='red')
-plot(convex_hulls,add=T)
+plot(silva$silva_convex,add=T)
 ```
+
+Classified lidar cloud versus predicted polygons
 
 ```{r}
-plot(tile)
+plot(silva$silva_tile,color="treeID",col=col,size=2)
+show2d(face='z+',z=0,{
+  plot(silva$silva_convex,col=rgb(255, 0, 0, 30, maxColorValue=255) )
+})
 ```
 
+
+Classified lidar cloud versus ground_truth
+
+```{r}
+plot(silva$silva_tile,color="treeID",col=col)
+show2d(face='z+',z=0,{
+  plot(ground_truth,col=rgb(255, 0, 0, 30, maxColorValue=255) )
+})
+```
+
+
+# Intersection over union
+
+```{r}
+
+IoU<-function(ground_truth,prediction){
+  #Find overlap among all pairs
+  for(x in 1:nrow(ground_truth)){
+    pol<-ground_truth[x,]
+    
+    #Find all overlapping polygons
+    
+    
+  }
+  area(raster::intersect(ground_truth,prediction))
+  
+  
+}
+
+#Find overlap among polygons
+overlap<-polygon_overlap_all(ground_truth,prediction) 
+
+
+```
