@@ -32,6 +32,7 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation")) %dopar% {
 
   #filename
   cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/DiscreteLidar/Cropped/","cropped_",fname,sep="")
+  print(cname)
   writeLAS(clipped_las,cname)
 }
 
