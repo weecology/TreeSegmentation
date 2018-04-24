@@ -15,11 +15,11 @@ names(itcs)<-sapply(itcs,function(x){
 })
 
 #Crop lidar by itc extent (buffered by 3x) and write to file
-cores<-detectCores()
-cl<-makeCluster(cores)
+#cores<-detectCores()
+cl<-makeCluster(12)
 registerDoSNOW(cl)
 
-foreach(x=1:length(itcs)) %dopar% {
+foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation")) %dopar% {
   #plot(itcs[[x]])
 
   #Get Tile
@@ -31,7 +31,7 @@ foreach(x=1:length(itcs)) %dopar% {
   clipped_las<-lasclipRectangle(tile,xleft=clip_ext@xmin,xright=clip_ext@xmax,ytop=clip_ext@ymax,ybottom=clip_ext@ymin)
 
   #filename
-  cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/DiscreteLidar/Cropped","cropped_",fname,sep="")
+  cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/DiscreteLidar/Cropped/","cropped_",fname,sep="")
   writeLAS(clipped_las,cname)
 }
 
