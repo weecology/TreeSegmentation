@@ -4,6 +4,7 @@ library(raster)
 library(TreeSegmentation)
 library(doSNOW)
 library(foreach)
+library(lidR)
 
 shps<-list.files("/orange/ewhite/b.weinstein/ITC",pattern=".shp",full.names = T)
 itcs<-lapply(shps,readShapePoly)
@@ -13,6 +14,10 @@ names(itcs)<-sapply(itcs,function(x){
 })
 
 #Crop lidar by itc extent (buffered by 3x) and write to file
+cores<-detectCores()
+cl<-makeCluster(cores)
+registerDoSNOW(cl)
+
 foreach(x=1:length(itcs)) %dopar% {
   #plot(itcs[[x]])
 
