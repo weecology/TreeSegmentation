@@ -12,7 +12,8 @@ library(maptools)
 library(TreeSegmentation)
 library(ggplot2)
 library(rgl)
-library(igraph)
+library(clue)
+
 #set color ramp for treeID
 col = pastel.colors(200)
 
@@ -68,10 +69,15 @@ show2d(face='z+',z=0,{
 })
 ```
 
+# Assign Trees
+
+Each tree is assigned based on the maximum overlap. Pairwise membership is done using a Hungarian Algorithm. See clue::solve_LSAP.
 
 # Intersection over union
 
 ```{r}
+
+assignment<-assign_trees(ground_truth,prediction)
 
 IoU<-function(ground_truth,prediction){
   #Find overlap among all pairs
@@ -87,8 +93,6 @@ IoU<-function(ground_truth,prediction){
   
 }
 
-#Find overlap among polygons
-overlap<-polygon_overlap_all(ground_truth,prediction) 
 
 
 ```

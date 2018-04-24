@@ -23,5 +23,6 @@ Imports:
   reshape2,
   diceR,
   gstat,
-  methods
+  methods,
+  clue
 
