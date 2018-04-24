@@ -22,41 +22,29 @@ names(itcs)<-sapply(itcs,function(x){
   id<-unique(x$Plot_ID)
   })
 print(names(itcs))
-plot(itcs[[1]])
+plot(ground_truth<-itcs[[1]])
 ```
 # Find corresponding tile
 
 ```{r,webgl=TRUE}
-fname<-get_tile_filname(itcs[[1]])
-tile<-readLAS(paste("../data/NEON_D03_OSBS_DP1_402000_3286000_classified_point_cloud.laz"))
-summary(tile)
+tile<-readLAS("/Users/ben/Dropbox/Weecology/NEON/cropped_NEON_D03_OSBS_DP1_402000_3286000_classified_point_cloud.laz")
 plot(tile)
 ```
 
 # Silva 2016 Crown Segmentation Model
 
 ```{r}
-convex_hulls<-silva2016(paste("../data/NEON_D03_OSBS_DP1_402000_3286000_classified_point_cloud.laz"))
-plot(convex_hulls)
+convex_hulls<-silva2016(tile=tile)
+```
+
+#Overlay ground truth and predictions
+
+```{r}
+plot(ground_truth,col='red')
+plot(convex_hulls,add=T)
 ```
 
 ```{r}
-clip_ext<-3*extent(itcs[[1]])
-clipped_hulls<-raster::crop(convex_hulls,clip_ext)
-plot(itcs[[1]],col="red")
-plot(clipped_hulls,add=T)
-clipped_las<-lasclipRectangle(tile,xleft=clip_ext@xmin,xright=clip_ext@xmax,ytop=clip_ext@ymax,ybottom=clip_ext@ymin)
-
-
-```{r}
-plot(clipped_las)
-
-#add ground truth
-trnlim <- range(trn)
-trnlen <- trnlim[2] - trnlim[1] + 1
-colorlut <- terrain.colors(trnlen,alpha=0) # height color lookup table
-col <- colorlut[ trn-trnlim[1]+1 ] # assign colors to heights for each point
-open3d()
-rgl.surface(x,y,z,color=col)
+plot(tile)
 ```
 

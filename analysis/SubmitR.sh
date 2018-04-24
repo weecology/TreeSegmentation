@@ -9,10 +9,10 @@
 #SBATCH --cpus-per-task=12            # Number of cores per MPI rank
 #SBATCH --mem=4000
 #SBATCH --time=00:59:00       #Time limit hrs:min:sec
-#SBATCH --output=R.out   # Standard output and error log
-#SBATCH --error=R.err
+#SBATCH --output=/home/b.weinstein/logs/R.out   # Standard output and error log
+#SBATCH --error=/home/b.weinstein/logs/R.err
 
 #This is a generic R submission script
 module load R
 
-Rscript --default-packages=methods CropLIDAR.R
+Rscript --default-packages=methods Crop_LIDAR.R
