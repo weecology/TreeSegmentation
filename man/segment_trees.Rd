@@ -4,7 +4,7 @@
 \alias{segment_trees}
 \title{Find individual tree crowns using normalized las and a canopy height model}
 \usage{
-segment_trees(las, algorithm = "watershed", chm = chm)
+segment_trees(las, algorithm = "watershed", chm = chm, plots = F)
 }
 \arguments{
 \item{las}{A lidar cloud read in by lidR package}
@@ -12,6 +12,8 @@ segment_trees(las, algorithm = "watershed", chm = chm)
 \item{algorithm}{a segmentation method, see \code{\link[lidR]{lastrees}}}
 
 \item{chm}{a canopy height model see \code{\link{canopy_model}}}
+
+\item{plots}{generate useful plots for visualization. This can be time-consuming for very large tiles}
 }
 \value{
 A las object with treeID field updated based on individual tree segmentation.
@@ -20,6 +22,7 @@ A las object with treeID field updated based on individual tree segmentation.
 \code{segment_trees} assigns each point in a lidR cloud to a treeID.
 }
 \examples{
+library(lidR)
 LASfile <- system.file("extdata", "MixedConifer.laz", package="lidR")
 tile = readLAS(LASfile, select = "xyz", filter = "-drop_z_below 0"
 chm=canopy_model(tile)

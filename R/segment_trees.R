@@ -4,14 +4,16 @@
 #' @param las A lidar cloud read in by lidR package
 #' @param algorithm a segmentation method, see \code{\link[lidR]{lastrees}}
 #' @param chm a canopy height model see \code{\link{canopy_model}}
+#' @param plots generate useful plots for visualization. This can be time-consuming for very large tiles
 #' @return A las object with treeID field updated based on individual tree segmentation.
 #' @examples
+#' library(lidR)
 #' LASfile <- system.file("extdata", "MixedConifer.laz", package="lidR")
 #' tile = readLAS(LASfile, select = "xyz", filter = "-drop_z_below 0"
 #' chm=canopy_model(tile)
 #' treelas=segment_trees(tile,algorithm="watershed",chm=chm)
 #' @export
-segment_trees<-function(las,algorithm="watershed",chm=chm){
+segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F){
 
   if(algorithm=="watershed"){
     # tree segmentation
@@ -19,13 +21,16 @@ segment_trees<-function(las,algorithm="watershed",chm=chm){
 
     # display
     tree = lidR::lasfilter(las, !is.na(treeID))
-    plot(tree, color = "treeID", colorPalette = pastel.colors(100), size = 1)
 
     # More stuff
     contour = raster::rasterToPolygons(crowns, dissolve = TRUE)
 
-    plot(chm, col = height.colors(50))
-    plot(contour, add = T)
+    if(plots){
+      plot(tree, color = "treeID", colorPalette = pastel.colors(100), size = 1)
+      plot(chm, col = height.colors(50))
+      plot(contour, add = T)
+    }
+
     return(las)
   }
   if (algorithm=="dalponte2016"){
@@ -33,12 +38,15 @@ segment_trees<-function(las,algorithm="watershed",chm=chm){
     # Dalponte 2016
     ttops = lidR::tree_detection(chm, 5, 2)
     crowns <- lidR::lastrees_dalponte(las, chm, ttops,extra=T)
-    plot(crowns, color = "treeID", colorPalette = col)
 
     contour = raster::rasterToPolygons(crowns, dissolve = TRUE)
 
-    plot(chm, col = height.colors(50))
-    plot(contour, add = T)
+    if(plots){
+      plot(crowns, color = "treeID", colorPalette = col)
+      plot(chm, col = height.colors(50))
+      plot(contour, add = T)
+    }
+
     return(las)
   }
 
@@ -48,7 +56,10 @@ segment_trees<-function(las,algorithm="watershed",chm=chm){
 
     # display
     tree = lidR::lasfilter(las, !is.na(treeID))
-    plot(tree, color = "treeID", colorPalette = pastel.colors(100), size = 1)
+
+    if(plots){
+      plot(tree, color = "treeID", colorPalette = pastel.colors(100), size = 1)
+    }
 
     return(las)
   }
@@ -61,13 +72,15 @@ segment_trees<-function(las,algorithm="watershed",chm=chm){
 
     # display
     tree = lidR::lasfilter(las, !is.na(treeID))
-    plot(tree, color = "treeID", colorPalette = pastel.colors(100), size = 1,backend="rgl")
 
     # More stuff
     contour = raster::rasterToPolygons(crowns, dissolve = TRUE)
 
-    plot(chm, col = height.colors(50))
-    plot(contour, add = T)
+    if(plots){
+      plot(tree, color = "treeID", colorPalette = pastel.colors(100), size = 1,backend="rgl")
+      plot(chm, col = height.colors(50))
+      plot(contour, add = T)
+    }
     return(las)
   }
 

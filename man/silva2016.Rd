@@ -17,6 +17,5 @@ A \code{\link[sp]{SpatialPolygonsDataFrame}} object with tree crown polygons
 }
 \examples{
 LASfile <- system.file("extdata", "MixedConifer.laz", package="lidR")
-tile = readLAS(LASfile, select = "xyz", filter = "-drop_z_below 0")
-convex_hulls <- silva2016(tile)
+convex_hulls <- silva2016(path=LASfile)
 }

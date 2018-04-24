@@ -8,6 +8,7 @@ output: html_document
 library(rgl)
 library(knitr)
 library(TreeSegmentation)
+library(lidR)
 opts_chunk$set(warning=F,message=F)
 #load("ITCs.RData")
 ```
@@ -102,19 +103,21 @@ pandoc.table(df,style="rmarkdown")
 # Consensus
 
 ```{r}
-tile<-consensus(ptlist=ptlist)
+tile<-consensus(ptlist=ptlist[!names(ptlist) %in% "li2012"])
+paste("Consensus trees: ",length(unique(tile@data$treeID[!is.na(tile@data$treeID)])))
 plot(tile,color="consensus",colorPalette = sample(pastel.colors(500)), size = 1)
 ```
 
 # Next steps
 
-* Tree Extractor (probably in python)
+* Bounding Box Extractor 
 
 but let's just look at some individual trees. The question is, can we classify them based on the lidar cloud? Do we need to drape on the RGB data.
 
 ```{r}
 ind_trees= split(tile@data, tile@data$treeID)
 ind_trees = lapply(ind_trees, LAS, header = tile@header)
+
 ```
 
 ```{r,webgl=TRUE}
@@ -126,12 +129,20 @@ plot(ind_trees[[30]],color="treeID",bg="grey90")
 ```
 
 ```{r,webgl=TRUE}
-plot(ind_trees[[40]],color="treeID",bg="grey90")
+plot(ind_trees[[3]],color="treeID",bg="grey90")
 ```
 
 Clearly, more work to be done. Especially in reference to the ground model. 
 
 # Create bounding boxes for each tree.
+
+```{r}
+ind_trees[[3]]
+
+get_bounding_box<-function(las){
+  las@data
+}
+```
 
 ```{r}
 #save.image("ITCs.RData")

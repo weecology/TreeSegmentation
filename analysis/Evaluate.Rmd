@@ -29,6 +29,7 @@ plot(itcs[[1]])
 ```{r,webgl=TRUE}
 fname<-get_tile_filname(itcs[[1]])
 tile<-readLAS(paste("../data/NEON_D03_OSBS_DP1_402000_3286000_classified_point_cloud.laz"))
+summary(tile)
 plot(tile)
 ```
 
@@ -36,5 +37,10 @@ plot(tile)
 
 ```{r}
 convex_hulls<-silva2016(paste("../data/NEON_D03_OSBS_DP1_402000_3286000_classified_point_cloud.laz"))
+plot(convex_hulls)
+```
+
+```{r}
+
 ```
 

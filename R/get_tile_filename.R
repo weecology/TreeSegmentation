@@ -6,6 +6,7 @@
 #' @return A file path
 #' @examples
 #' Not usually called directly by user.
+#' @export
 get_tile_filname<-function(polygon,basename="NEON_D03_OSBS_DP1_"){
   extnt<-raster::extent(polygon)
   #get extent name

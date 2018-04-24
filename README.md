@@ -1,10 +1,10 @@
 # TreeSegmentation
 
-An R package to replicate the work using ensemble tree segmentation methdods in R.
+An R package to replicate the work using ensemble tree segmentation methods in R.
 
 This package follows the "Research Compendium" [philosophy](https://github.com/ropensci/rrrpkg/blob/master/README.md) advocated by ROpenSci.
 
-#Installation
+# Installation
 
 Source can be cloned directly
 
