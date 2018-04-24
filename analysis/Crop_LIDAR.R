@@ -5,6 +5,7 @@ library(TreeSegmentation)
 library(doSNOW)
 library(foreach)
 library(lidR)
+library(parallel)
 
 shps<-list.files("/orange/ewhite/b.weinstein/ITC",pattern=".shp",full.names = T)
 itcs<-lapply(shps,readShapePoly)
