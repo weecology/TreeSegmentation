@@ -41,6 +41,22 @@ plot(convex_hulls)
 ```
 
 ```{r}
+clip_ext<-3*extent(itcs[[1]])
+clipped_hulls<-raster::crop(convex_hulls,clip_ext)
+plot(itcs[[1]],col="red")
+plot(clipped_hulls,add=T)
+clipped_las<-lasclipRectangle(tile,xleft=clip_ext@xmin,xright=clip_ext@xmax,ytop=clip_ext@ymax,ybottom=clip_ext@ymin)
 
+
+```{r}
+plot(clipped_las)
+
+#add ground truth
+trnlim <- range(trn)
+trnlen <- trnlim[2] - trnlim[1] + 1
+colorlut <- terrain.colors(trnlen,alpha=0) # height color lookup table
+col <- colorlut[ trn-trnlim[1]+1 ] # assign colors to heights for each point
+open3d()
+rgl.surface(x,y,z,color=col)
 ```
 

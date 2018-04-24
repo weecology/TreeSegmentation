@@ -2,16 +2,19 @@
 #'
 #' \code{silva2016} assigns each point in a lidR cloud to a treeID.
 #' @param path A filename of a .las or .laz file to be read in by the lidR package
+#' @param tile Optionally a lidR object in memory
 #' @return A \code{\link[sp]{SpatialPolygonsDataFrame}} object with tree crown polygons
 #' @examples
 #' LASfile <- system.file("extdata", "MixedConifer.laz", package="lidR")
 #' convex_hulls <- silva2016(path=LASfile)
 #' @export
 
-silva2016<-function(path){
+silva2016<-function(path=NULL,tile=NULL){
 
+  if(is.null(tile)){
+    tile = lidR::readLAS(path, select = "xyz", filter = "-drop_z_below 0")
+  }
   #Read in tile
-  tile = lidR::readLAS(path, select = "xyz", filter = "-drop_z_below 0")
 
   print("Computing Ground Model")
   #Compute ground model
