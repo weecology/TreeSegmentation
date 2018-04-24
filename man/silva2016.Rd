@@ -4,12 +4,14 @@
 \alias{silva2016}
 \title{Find tree crown polygons using the Silva 2016 algorithm}
 \usage{
-silva2016(path = NULL, tile = NULL)
+silva2016(path = NULL, tile = NULL, extra = F)
 }
 \arguments{
 \item{path}{A filename of a .las or .laz file to be read in by the lidR package}
 
 \item{tile}{Optionally a lidR object in memory}
+
+\item{extra}{Output both the tile and the convex polygons}
 }
 \value{
 A \code{\link[sp]{SpatialPolygonsDataFrame}} object with tree crown polygons
