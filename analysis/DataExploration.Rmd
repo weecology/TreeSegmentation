@@ -17,7 +17,7 @@ library(stringr)
 
 ## Ground truth polygons
 
-One file per plot
+One file per plot 
 
 ```{r}
 shps<-list.files("/Users/ben/Dropbox/Weecology/ECODSEdataset/Task1/ITC/",pattern=".shp",full.names = T)

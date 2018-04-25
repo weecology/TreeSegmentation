@@ -5,7 +5,7 @@ date: "4/20/2018"
 output: html_document
 ---
 
-```{r}
+```{r,warning=F,message=F}
 library(dplyr)
 library(knitr)
 library(maptools)
@@ -14,8 +14,9 @@ library(ggplot2)
 library(rgl)
 library(clue)
 library(lidR)
+knit_hooks$set(webgl = hook_webgl)
 
-opts_chunk$set(warnings=F,messages=F)
+opts_chunk$set(warning=F,message=F)
 
 #set color ramp for treeID
 col = pastel.colors(200)
@@ -47,7 +48,7 @@ plot(tile)
 
 # Silva 2016 Crown Segmentation Model
 
-```{r}
+```{r,webgl=TRUE}
 silva<-silva2016(tile=tile,extra=T)
 ```
 
@@ -70,7 +71,7 @@ show2d(face='z+',z=0,{
 
 Classified lidar cloud versus ground_truth
 
-```{r}
+```{r,webgl=TRUE}
 plot(silva$silva_tile,color="treeID",col=col)
 show2d(face='z+',z=0,{
   plot(ground_truth,col=rgb(255, 0, 0, 30, maxColorValue=255) )
