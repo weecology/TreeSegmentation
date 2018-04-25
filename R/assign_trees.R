@@ -14,7 +14,7 @@ assign_trees<-function(ground_truth,prediction){
   #Create adjacency matrix
   adj_matrix_overlap<-reshape2::acast(overlap,crown_id ~ prediction_id)
 
-  assignment<-clue::solve_LSAP(adj_matrix_overlap)
+  assignment<-clue::solve_LSAP(adj_matrix_overlap,maximum = T)
   assignmentdf<-data.frame(crown_id=rownames(adj_matrix_overlap),prediction_id=as.integer(assignment))
   return(assignmentdf)
 }

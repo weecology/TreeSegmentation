@@ -13,6 +13,9 @@ library(TreeSegmentation)
 library(ggplot2)
 library(rgl)
 library(clue)
+library(lidR)
+
+opts_chunk$set(warnings=F,messages=F)
 
 #set color ramp for treeID
 col = pastel.colors(200)
@@ -23,17 +26,22 @@ col = pastel.colors(200)
 ```{r}
 shps<-list.files("/Users/ben/Dropbox/Weecology/ECODSEdataset/Task1/ITC/",pattern=".shp",full.names = T)
 itcs<-lapply(shps,readShapePoly)
+itcs[[1]]
 
 names(itcs)<-sapply(itcs,function(x){
   id<-unique(x$Plot_ID)
   })
 print(names(itcs))
 plot(ground_truth<-itcs[[1]])
+itcs[[1]]
+#proj_itc <-spTransform(itc, CRS("+init=epsg:32617"))
+
 ```
 # Find corresponding tile
 
 ```{r,webgl=TRUE}
-tile<-readLAS("/Users/ben/Dropbox/Weecology/NEON/cropped_NEON_D03_OSBS_DP1_402000_3286000_classified_point_cloud.laz")
+fname<-get_tile_filname(itcs[[1]])
+tile<-readLAS(paste("/Users/ben/Dropbox/Weecology/NEON/cropped_",fname,sep=""))
 plot(tile)
 ```
 
@@ -73,26 +81,16 @@ show2d(face='z+',z=0,{
 
 Each tree is assigned based on the maximum overlap. Pairwise membership is done using a Hungarian Algorithm. See clue::solve_LSAP.
 
+```{r}
+assignment<-assign_trees(ground_truth,prediction=silva$silva_convex)
+```
+
 # Intersection over union
 
 ```{r}
-
-assignment<-assign_trees(ground_truth,prediction)
-
-IoU<-function(ground_truth,prediction){
-  #Find overlap among all pairs
-  for(x in 1:nrow(ground_truth)){
-    pol<-ground_truth[x,]
-    
-    #Find all overlapping polygons
-    
-    
-  }
-  area(raster::intersect(ground_truth,prediction))
-  
-  
-}
-
-
-
+#loop through assignments and get jaccard statistic for each assignment pair
+statdf<-calc_jaccard(assignment=assignment,ground_truth = ground_truth,prediction=silva$silva_convex)
+qplot(statdf$IoU)
+mean(statdf$IoU)
+median(statdf$IoU)
 ```
