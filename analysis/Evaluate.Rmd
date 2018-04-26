@@ -27,7 +27,7 @@ col = pastel.colors(200)
 
 # Load in ground-truth
 ```{r}
-shps<-list.files("/Users/ben/Dropbox/Weecology/ECODSEdataset/Task1/ITC/",pattern=".shp",full.names = T)
+shps<-list.files("/Users/ben/Downloads/vector/",pattern=".shp",full.names = T)
 itcs<-lapply(shps,readShapePoly)
 
 names(itcs)<-sapply(itcs,function(x){
