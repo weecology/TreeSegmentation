@@ -2,9 +2,9 @@
 #'
 #' \code{evaluate} computes an lidar based segmentation, assigns polygons to closest match and calculates jaccard stat
 #' @param ground_truth A SpatialPolygonDataFrame of ground truth polygons
-#' @param algorithm A lidar unsupervised classification algorithm. Currently only "silva" is available.
+#' @param algorithm A character or vector of lidar unsupervised classification algorithm(s). Currently only "silva" is implemented.
 #' @param path_to_tiles Location of lidar tiles on system.
-#' @return dataframe of the jaccard overlap among polygon pairs
+#' @return dataframe of the jaccard overlap among polygon pairs for each selected method
 #' @export
 #'
 evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL){
@@ -18,11 +18,29 @@ evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL){
     return(NULL)
   }
 
-  if(algorithm=="silva"){
-    silva<-silva2016(path=inpath,extra=T)
-    prediction<-silva$silva_convex
+  #Run segmentation methods
+  predictions<-list()
+  if("silva" %in% algorithm){
+    predictions$silva<-silva2016(path=inpath)
   }
-  assignment<-assign_trees(ground_truth=ground_truth,prediction=prediction)
-  statdf<-calc_jaccard(assignment=assignment,ground_truth = ground_truth,prediction=silva$silva_convex)
+
+  if("dalponte" %in% algorithm){
+    predictions$dalponte<-dalponte2016(path=inpath)
+  }
+
+  if("li" %in% algorithm){
+    predictions$li<-li2012(path=inpath)
+  }
+
+  #For each method compute result statistics
+  statdf<-list()
+  for(i in 1:length(predictions)){
+
+    #Assign ground truth based on overlap
+    assignment<-assign_trees(ground_truth=ground_truth,prediction=predictions[[i]])
+    statdf[[i]]<-calc_jaccard(assignment=assignment,ground_truth = ground_truth,prediction=predictions[[i]]) %>% mutate(Method=algorithm[i])
+  }
+
+  statdf<-dplyr::bind_rows(statdf)
   return(statdf)
 }

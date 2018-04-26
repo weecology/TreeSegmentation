@@ -9,12 +9,12 @@ evaluate(ground_truth, algorithm = "silva", path_to_tiles = NULL)
 \arguments{
 \item{ground_truth}{A SpatialPolygonDataFrame of ground truth polygons}
 
-\item{algorithm}{A lidar unsupervised classification algorithm. Currently only "silva" is available.}
+\item{algorithm}{A character or vector of lidar unsupervised classification algorithm(s). Currently only "silva" is implemented.}
 
 \item{path_to_tiles}{Location of lidar tiles on system.}
 }
 \value{
-dataframe of the jaccard overlap among polygon pairs
+dataframe of the jaccard overlap among polygon pairs for each selected method
 }
 \description{
 \code{evaluate} computes an lidar based segmentation, assigns polygons to closest match and calculates jaccard stat

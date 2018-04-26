@@ -13,11 +13,11 @@ IoU<-function(x,y){
     warning("No intersection, returning zero overlap\n")
     return(0)
   }
-  area_intersection<-intersection@polygons[[1]]@area
+  area_intersection<-sum(sapply(intersection@polygons,function(x){x@area}))
 
   #find area of union
   union_polygon<-raster::union(x,y)
-  area_union<-union_polygon@polygons[[1]]@area
+  area_union<-sum(sapply(union_polygon@polygons,function(x){x@area}))
 
   return(area_intersection/area_union)
 }

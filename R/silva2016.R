@@ -39,7 +39,10 @@ silva2016<-function(path=NULL,tile=NULL,extra=F){
   silva_convex<-get_convex_hulls(silva2016,silva2016@data$treeID)
 
   if(extra){
-    return(list(silva_convex=silva_convex,silva_tile=silva2016))
+    return(list(convex=silva_convex,tile=silva2016))
+  } else{
+    return(silva_convex)
   }
+
 }
 

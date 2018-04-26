@@ -1,11 +1,11 @@
 ---
-title: "Evaluate tree crown methods based on segmentation algorithms"
+title: "Evaluate tree crown segmentation algorithms using Lidar"
 author: "Ben Weinstein"
 date: "4/20/2018"
 output: 
   html_document:
-    toc:true
-    numbered_sections:true
+    toc: true
+    number_sections: true
 ---
 
 ```{r,warning=F,message=F}
@@ -52,60 +52,68 @@ plot(tile)
 
 ## Compute Segmentation
 
-```{r,webgl=TRUE}
+```{r}
 silva<-silva2016(tile=tile,extra=T)
+dalponte<-dalponte2016(tile=tile,extra=T)
 ```
 
 ## View 3d segmentation
-```{r}
-plot(silva$silva_tile,color="treeID",col=col)
+```{r,webgl=TRUE}
+plot(silva$tile,color="treeID",col=col)
 ```
 
 ### Overlay ground truth and predictions
 
 ```{r}
 plot(ground_truth,col='red')
-plot(silva$silva_convex,add=T)
+plot(silva$convex,add=T)
 ```
 
 ### CHM versus predicted polygons
 
 ```{r}
-chm=canopy_model(silva$silva_tile)
+chm=canopy_model(silva$tile)
 plot(chm,ext=extent(ground_truth))
 plot(ground_truth,add=T,col='red')
-plot(silva$silva_convex,add=T)
+plot(silva$convex,add=T)
 ```
 
 Okay that's not great, but let's keep going for the moment.
+
+### Compare Methods
+
+```{r}
+plot(silva$convex,col="blue")
+plot(dalponte$convex,add=T)
+```
 
 ## Assign Trees
 
 Each tree is assigned based on the maximum overlap. Pairwise membership is done using a Hungarian Algorithm. See clue::solve_LSAP.
 
 ```{r}
-assignment<-assign_trees(ground_truth,prediction=silva$silva_convex)
+assignment<-assign_trees(ground_truth,prediction=silva$convex)
 ```
 
 ## Calculate Intersection over union
 
 ```{r}
 #loop through assignments and get jaccard statistic for each assignment pair
-statdf<-calc_jaccard(assignment=assignment,ground_truth = ground_truth,prediction=silva$silva_convex)
-qplot(statdf$IoU)
+statdf<-calc_jaccard(assignment=assignment,ground_truth = ground_truth,prediction=silva$convex)
+ggplot(statdf) + geom_histogram(aes(IoU)) + labs(x="Intersection over union") + theme_bw()
 mean(statdf$IoU)
 median(statdf$IoU)
 ```
 
-# As a wrapper for one tile
+# As a wrapper for one tile, multiple methods
 ```{r}
-silvadf<-evaluate(ground_truth=itcs[[5]],algorithm = "silva",path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_")
-mean(silvadf$IoU)
+results<-evaluate(ground_truth=itcs[[5]],algorithm = c("silva","dalponte","li"),path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_")
+ggplot(results,aes(x=IoU,fill=Method)) + geom_histogram(position = position_dodge()) + theme_bw()
 ```
 
 #Wrapper across all tiles
 
-```{r}
+```{r,eval=F}
 system.time(silvadf<-evaluate_all(itcs=itcs,algorithm = "silva",path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_"))
 qplot(silvadf$IoU)
 mean(silvadf$IoU)
