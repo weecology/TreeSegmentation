@@ -14,6 +14,7 @@ library(knitr)
 library(maptools)
 library(rgdal)
 library(TreeSegmentation)
+library(sp)
 library(ggplot2)
 library(rgl)
 library(clue)
@@ -91,7 +92,6 @@ Li versus watershed
 
 ```{r}
 plot(li$convex)
-
 ```
 
 ## Assign Trees
@@ -119,10 +119,10 @@ ggplot(results,aes(x=IoU,fill=Method)) + geom_histogram(position = position_dodg
 results %>% group_by(Method) %>% summarize(mean=mean(IoU),median=median(IoU))
 ```
 
-#Wrapper across all tiles
+# Parallel Wrapper across all tiles
 
-```{r,eval=F}
-system.time(silvadf<-evaluate_all(itcs=itcs,algorithm = "silva",path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_"))
-qplot(silvadf$IoU)
-mean(silvadf$IoU)
+```{r,eval=T}
+system.time(results_all<-evaluate_all(itcs=itcs,algorithm = c("dalponte","silva","li"),path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_",cores=4))
+ggplot(results_all,aes(x=IoU,fill=Method)) + geom_histogram(position = position_dodge()) + theme_bw()
+results_all %>% group_by(Method) %>% summarize(mean=mean(IoU),median=median(IoU))
 ```

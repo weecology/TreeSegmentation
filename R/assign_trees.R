@@ -1,6 +1,6 @@
-#' Find area of overlap among sets of polygons
+#' Find matches between predicted and ground truth tree based on maximum area of overlap.
 #'
-#' \code{assign_trees} is a wrapper function to iterate through a SpatialPolygonsDataFrame
+#' \code{assign_trees} implements the hungarian algorithm in \code{\link[clue]{solve_LSAP}} to match sets of trees
 #' @param ground_truth A ground truth polygon in SpatialPolygonsDataFrame
 #' @param prediction prediction polygons in SpatialPolygonsDataFrame
 #' @return A data frame with the crown ID matched to the prediction ID.
@@ -8,6 +8,7 @@
 #'
 #' @export
 assign_trees<-function(ground_truth,prediction){
+
   #Find overlap among polygons
   overlap<-polygon_overlap_all(ground_truth,prediction)
 

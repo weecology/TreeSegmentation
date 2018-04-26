@@ -1,6 +1,6 @@
-#' Collect jaccard statistics for ground truth and prediction polygons
+#' Collect jaccard statistic for ground truth and prediction polygons
 #'
-#' \code{calc_jaccard} finds the jaccard statistic for two input polygons
+#' \code{calc_jaccard} finds the jaccard statistic for two input polygons, defined as the area of intersection over the area of union.
 #' @param assignment A dataframe that connects ground truth and prediction poylgons see \code{\link{assign_trees}} SpatialPolygonDataFrame of length 1
 #' @param ground_truth A SpatialPolygonDataFrame of ground truth polygons
 #' @param prediction A SpatialPolygonDataFrame of ground truth polygons
