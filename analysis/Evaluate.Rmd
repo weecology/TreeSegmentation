@@ -43,9 +43,11 @@ itcs<-lapply(itcs,function(x){
 
 ## Read in Data
 ```{r,webgl=TRUE}
-fname<-get_tile_filname(itcs[[6]])
+ground_truth<-itcs[[20]]
+fname<-get_tile_filname(ground_truth)
 tile<-readLAS(paste("/Users/ben/Dropbox/Weecology/NEON/cropped_",fname,sep=""))
 tile@crs<-CRS("+init=epsg:32617")
+plot(tile)
 ```
 
 ## Compute Segmentation
