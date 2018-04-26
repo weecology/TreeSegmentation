@@ -27,7 +27,7 @@ col = pastel.colors(200)
 
 # Load in ground-truth
 ```{r}
-shps<-list.files("/Users/ben/Downloads/vector/",pattern=".shp",full.names = T)
+shps<-list.files("/Users/ben/Dropbox/Weecology/ECODSEdataset/Task1/ITC/",pattern=".shp",full.names = T)
 itcs<-lapply(shps,readShapePoly)
 
 names(itcs)<-sapply(itcs,function(x){
@@ -116,7 +116,7 @@ median(statdf$IoU)
 
 # As a wrapper for one tile, multiple methods
 ```{r}
-results<-evaluate(ground_truth=itcs[[5]],algorithm = c("silva","dalponte","li","watershed"),path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_")
+results<-evaluate(ground_truth=itcs[[20]],algorithm = c("silva","dalponte","li","watershed"),path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_")
 ggplot(results,aes(x=IoU,fill=Method)) + geom_histogram(position = position_dodge()) + theme_bw()
 results %>% group_by(Method) %>% summarize(mean=mean(IoU),median=median(IoU))
 ```
