@@ -32,6 +32,10 @@ evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL){
     predictions$li<-li2012(path=inpath)
   }
 
+  if("watershed" %in% algorithm){
+    predictions$watershed<-watershed(path=inpath)
+  }
+
   #For each method compute result statistics
   statdf<-list()
   for(i in 1:length(predictions)){

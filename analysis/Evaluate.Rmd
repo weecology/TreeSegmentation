@@ -12,6 +12,7 @@ output:
 library(dplyr)
 library(knitr)
 library(maptools)
+library(rgdal)
 library(TreeSegmentation)
 library(ggplot2)
 library(rgl)
@@ -26,19 +27,16 @@ col = pastel.colors(200)
 ```
 
 # Load in ground-truth
-```{r}
+```{r,results='hide'}
 shps<-list.files("/Users/ben/Dropbox/Weecology/ECODSEdataset/Task1/ITC/",pattern=".shp",full.names = T)
-itcs<-lapply(shps,readShapePoly)
+itcs<-lapply(shps,readOGR,verbose=F)
 
 names(itcs)<-sapply(itcs,function(x){
   id<-unique(x$Plot_ID)
   })
-
-itcs<-lapply(itcs,function(x){
-  proj4string(x)<-CRS("+init=epsg:32617")
-  return(x)
-})
 ```
+
+
 # Example Pipeline
 
 ## Read in Data

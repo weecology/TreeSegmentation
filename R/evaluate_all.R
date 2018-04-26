@@ -7,11 +7,16 @@
 #' @return dataframe of the jaccard overlap among polygon pairs
 #' @export
 #'
-evaluate_all<-function(itcs,algorithm = "silva",path_to_tiles=NULL){
-  results<-list()
-  for(i in 1:length(itcs)){
+evaluate_all<-function(itcs,algorithm = "silva",path_to_tiles=NULL,cores=NULL){
+
+  #If running in parallel
+  if(!is.null(cores)){
+    cl<-parallel::makeCluster(cores)
+    doSNOW::registerDoSNOW(cl)
+  }
+  results<-foreach(i=1:length(itcs)){
     ground_truth<-itcs[[i]]
-    results[[i]]<-evaluate(ground_truth=ground_truth,algorithm=algorithm,path_to_tiles=path_to_tiles)
+    evaluate(ground_truth=ground_truth,algorithm=algorithm,path_to_tiles=path_to_tiles)
   }
   results<-dplyr::bind_rows(results)
   return(results)

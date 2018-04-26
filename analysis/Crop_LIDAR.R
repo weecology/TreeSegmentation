@@ -6,14 +6,10 @@ library(doSNOW)
 library(foreach)
 library(lidR)
 library(parallel)
+library(rgdal)
 
 shps<-list.files("/orange/ewhite/b.weinstein/ITC",pattern=".shp",full.names = T)
-itcs<-lapply(shps,readShapePoly)
-
-itcs<-lapply(itcs,function(x){
-  proj4string(x)<-CRS("+init=epsg:32617")
-  return(x)
-})
+itcs<-lapply(shps,readOGR,verbose=F)
 
 names(itcs)<-sapply(itcs,function(x){
   id<-unique(x$Plot_ID)
@@ -24,7 +20,7 @@ names(itcs)<-sapply(itcs,function(x){
 cl<-makeCluster(12)
 registerDoSNOW(cl)
 
-foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation")) %dopar% {
+foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp")) %dopar% {
   #plot(itcs[[x]])
 
   #Get Tile
