@@ -56,6 +56,11 @@ plot(tile)
 silva<-silva2016(tile=tile,extra=T)
 ```
 
+## View 3d segmentation
+```{r}
+plot(silva$silva_tile,color="treeID",col=col)
+```
+
 ### Overlay ground truth and predictions
 
 ```{r}
@@ -63,24 +68,16 @@ plot(ground_truth,col='red')
 plot(silva$silva_convex,add=T)
 ```
 
-### 3d classified lidar cloud versus predicted polygons
+### CHM versus predicted polygons
 
 ```{r}
-plot(silva$silva_tile,color="treeID",col=col,size=2)
-show2d(face='z+',z=0,{
-  plot(silva$silva_convex,col=rgb(255, 0, 0, 30, maxColorValue=255) )
-})
+chm=canopy_model(silva$silva_tile)
+plot(chm,ext=extent(ground_truth))
+plot(ground_truth,add=T,col='red')
+plot(silva$silva_convex,add=T)
 ```
 
-
-### Classified lidar cloud versus ground_truth
-
-```{r,webgl=TRUE}
-plot(silva$silva_tile,color="treeID",col=col)
-show2d(face='z+',z=0,{
-  plot(ground_truth,col=rgb(255, 0, 0, 30, maxColorValue=255) )
-})
-```
+Okay that's not great, but let's keep going for the moment.
 
 ## Assign Trees
 

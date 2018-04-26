@@ -31,5 +31,7 @@ get_convex_hulls<-function(tile,ID){
   #make into sp dataframe
   IDs <- sapply(slot(convex_polygons, "polygons"), function(x) slot(x, "ID"))
   df <- data.frame(ID=1:length(IDs), row.names=IDs)
-  sp::SpatialPolygonsDataFrame(convex_polygons,df)
+  result<-sp::SpatialPolygonsDataFrame(convex_polygons,df)
+  proj4string(result)<-tile@crs
+  return(result)
 }

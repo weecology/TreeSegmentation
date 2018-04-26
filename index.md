@@ -25,4 +25,4 @@ install_github("Weecology/TreeSegmentation")
 
 ## Example
 
-The main analysis document is Evaluate.Rmd. The knitted html can be viewed [here](https://github.com/weecology/TreeSegmentation/blob/master/analysis/Evaluate.html).
+The main analysis document is Evaluate.Rmd. The knitted html can be viewed [here](analysis/Evaluate.html).
