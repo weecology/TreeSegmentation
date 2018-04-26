@@ -24,5 +24,7 @@ Imports:
   diceR,
   gstat,
   methods,
-  clue
+  clue,
+  foreach,
+  doSNOW
 
