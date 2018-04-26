@@ -22,3 +22,7 @@ install_github("Weecology/TreeSegmentation")
 ## Package structure
 * \analysis - The main analysis scripts to generate trees from lidR clouds
 * \data - The publically available data. 
+
+## Example
+
+The main analysis document is Evaluate.Rmd. The knitted html can be viewed [here](https://github.com/weecology/TreeSegmentation/blob/master/analysis/Evaluate.html).

@@ -10,6 +10,11 @@ library(parallel)
 shps<-list.files("/orange/ewhite/b.weinstein/ITC",pattern=".shp",full.names = T)
 itcs<-lapply(shps,readShapePoly)
 
+itcs<-lapply(itcs,function(x){
+  proj4string(x)<-CRS("+init=epsg:32617")
+  return(x)
+})
+
 names(itcs)<-sapply(itcs,function(x){
   id<-unique(x$Plot_ID)
 })
@@ -32,8 +37,10 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation")) %dopar% {
   }
 
   tile<-readLAS(inpath)
+  tile@crs<-CRS("+init=epsg:32617")
+
   #Clip Tile
-  clip_ext<-3.5*extent(itcs[[x]])
+  clip_ext<-3*extent(itcs[[x]])
   clipped_las<-lasclipRectangle(tile,xleft=clip_ext@xmin,xright=clip_ext@xmax,ytop=clip_ext@ymax,ybottom=clip_ext@ymin)
 
   #filename

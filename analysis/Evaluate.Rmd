@@ -1,18 +1,25 @@
 ---
-title: "Evaluate Tree Crown Method Based on Segmentation Algorithms"
+title: "Evaluate tree crown segmentation algorithms using Lidar"
 author: "Ben Weinstein"
 date: "4/20/2018"
-output: html_document
+output: 
+  html_document:
+    toc: true
+    number_sections: true
 ---
 
-```{r}
+```{r,warning=F,message=F}
 library(dplyr)
 library(knitr)
 library(maptools)
 library(TreeSegmentation)
 library(ggplot2)
 library(rgl)
-library(igraph)
+library(clue)
+library(lidR)
+knit_hooks$set(webgl = hook_webgl)
+opts_chunk$set(warning=F,message=F)
+
 #set color ramp for treeID
 col = pastel.colors(200)
 
@@ -26,69 +33,98 @@ itcs<-lapply(shps,readShapePoly)
 names(itcs)<-sapply(itcs,function(x){
   id<-unique(x$Plot_ID)
   })
-print(names(itcs))
-plot(ground_truth<-itcs[[1]])
-```
-# Find corresponding tile
 
+itcs<-lapply(itcs,function(x){
+  proj4string(x)<-CRS("+init=epsg:32617")
+  return(x)
+})
+```
+# Example Pipeline
+
+## Read in Data
 ```{r,webgl=TRUE}
-tile<-readLAS("/Users/ben/Dropbox/Weecology/NEON/cropped_NEON_D03_OSBS_DP1_402000_3286000_classified_point_cloud.laz")
+ground_truth<-itcs[[20]]
+fname<-get_tile_filname(ground_truth)
+tile<-readLAS(paste("/Users/ben/Dropbox/Weecology/NEON/cropped_",fname,sep=""))
+tile@crs<-CRS("+init=epsg:32617")
 plot(tile)
 ```
 
-# Silva 2016 Crown Segmentation Model
+## Compute Segmentation
 
 ```{r}
 silva<-silva2016(tile=tile,extra=T)
+dalponte<-dalponte2016(tile=tile,extra=T)
+li<-li2012(tile=tile,extra=T)
 ```
 
-#Overlay ground truth and predictions
+## View 3d segmentation
+```{r,webgl=TRUE}
+plot(silva$tile,color="treeID",col=col)
+```
+
+### Overlay ground truth and predictions
 
 ```{r}
 plot(ground_truth,col='red')
-plot(silva$silva_convex,add=T)
+plot(silva$convex,add=T)
 ```
 
-Classified lidar cloud versus predicted polygons
+### CHM versus predicted polygons
 
 ```{r}
-plot(silva$silva_tile,color="treeID",col=col,size=2)
-show2d(face='z+',z=0,{
-  plot(silva$silva_convex,col=rgb(255, 0, 0, 30, maxColorValue=255) )
-})
+chm=canopy_model(silva$tile)
+plot(chm,ext=extent(ground_truth))
+plot(ground_truth,add=T,col='red')
+plot(silva$convex,add=T)
 ```
 
+Okay that's not great, but let's keep going for the moment.
 
-Classified lidar cloud versus ground_truth
+### Compare Methods
 
+Silva v Dalponte
 ```{r}
-plot(silva$silva_tile,color="treeID",col=col)
-show2d(face='z+',z=0,{
-  plot(ground_truth,col=rgb(255, 0, 0, 30, maxColorValue=255) )
-})
+plot(silva$convex)
+plot(dalponte$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
 ```
 
-
-# Intersection over union
+Li versus watershed
 
 ```{r}
+plot(li$convex)
 
-IoU<-function(ground_truth,prediction){
-  #Find overlap among all pairs
-  for(x in 1:nrow(ground_truth)){
-    pol<-ground_truth[x,]
-    
-    #Find all overlapping polygons
-    
-    
-  }
-  area(raster::intersect(ground_truth,prediction))
-  
-  
-}
+```
 
-#Find overlap among polygons
-overlap<-polygon_overlap_all(ground_truth,prediction) 
+## Assign Trees
 
+Each tree is assigned based on the maximum overlap. Pairwise membership is done using a Hungarian Algorithm. See clue::solve_LSAP.
 
+```{r}
+assignment<-assign_trees(ground_truth,prediction=silva$convex)
+```
+
+## Calculate Intersection over union
+
+```{r}
+#loop through assignments and get jaccard statistic for each assignment pair
+statdf<-calc_jaccard(assignment=assignment,ground_truth = ground_truth,prediction=silva$convex)
+ggplot(statdf) + geom_histogram(aes(IoU)) + labs(x="Intersection over union") + theme_bw()
+mean(statdf$IoU)
+median(statdf$IoU)
+```
+
+# As a wrapper for one tile, multiple methods
+```{r}
+results<-evaluate(ground_truth=itcs[[20]],algorithm = c("silva","dalponte","li","watershed"),path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_")
+ggplot(results,aes(x=IoU,fill=Method)) + geom_histogram(position = position_dodge()) + theme_bw()
+results %>% group_by(Method) %>% summarize(mean=mean(IoU),median=median(IoU))
+```
+
+#Wrapper across all tiles
+
+```{r,eval=F}
+system.time(silvadf<-evaluate_all(itcs=itcs,algorithm = "silva",path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_"))
+qplot(silvadf$IoU)
+mean(silvadf$IoU)
 ```

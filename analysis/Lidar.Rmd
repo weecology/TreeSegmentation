@@ -10,6 +10,8 @@ library(knitr)
 library(TreeSegmentation)
 library(lidR)
 opts_chunk$set(warning=F,message=F)
+knit_hooks$set(webgl = hook_webgl)
+
 #load("ITCs.RData")
 ```
 

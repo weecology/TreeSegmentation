@@ -14,9 +14,10 @@ silva2016<-function(path=NULL,tile=NULL,extra=F){
 
   if(is.null(tile)){
     tile = lidR::readLAS(path, select = "xyz", filter = "-drop_z_below 0")
+    tile@crs<-CRS("+init=epsg:32617")
   }
-  #Read in tile
 
+  #Read in tile
   print("Computing Ground Model")
   #Compute ground model
   ground_model(tile)
@@ -27,17 +28,21 @@ silva2016<-function(path=NULL,tile=NULL,extra=F){
 
   #remove ground points, Classification == 2.
   tile<-tile %>% lidR::lasfilter(!Classification==2)
+  tile@crs<-CRS("+init=epsg:32617")
 
   #Compute unsupervised classification method
   print("Clustering Trees")
-  print(system.time(silva2016<-segment_trees(tile,algorithm = "silva2016",chm=chm)))
+  print(system.time(silva2016<-segment_trees(las=tile,algorithm = "silva2016",chm=chm)))
 
   #create polygons
   print("Creating tree polygons")
   silva_convex<-get_convex_hulls(silva2016,silva2016@data$treeID)
 
   if(extra){
-    return(list(silva_convex=silva_convex,silva_tile=tile))
+    return(list(convex=silva_convex,tile=silva2016))
+  } else{
+    return(silva_convex)
   }
+
 }
 
