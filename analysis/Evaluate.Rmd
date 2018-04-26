@@ -1,8 +1,11 @@
 ---
-title: "Evaluate Tree Crown Method Based on Segmentation Algorithms"
+title: "Evaluate tree crown methods based on segmentation algorithms"
 author: "Ben Weinstein"
 date: "4/20/2018"
-output: html_document
+output: 
+  html_document:
+    toc:true
+    numbered_sections:true
 ---
 
 ```{r,warning=F,message=F}
@@ -15,7 +18,6 @@ library(rgl)
 library(clue)
 library(lidR)
 knit_hooks$set(webgl = hook_webgl)
-
 opts_chunk$set(warning=F,message=F)
 
 #set color ramp for treeID
@@ -27,39 +29,39 @@ col = pastel.colors(200)
 ```{r}
 shps<-list.files("/Users/ben/Dropbox/Weecology/ECODSEdataset/Task1/ITC/",pattern=".shp",full.names = T)
 itcs<-lapply(shps,readShapePoly)
-itcs[[1]]
 
 names(itcs)<-sapply(itcs,function(x){
   id<-unique(x$Plot_ID)
   })
-print(names(itcs))
-plot(ground_truth<-itcs[[1]])
-itcs[[1]]
-#proj_itc <-spTransform(itc, CRS("+init=epsg:32617"))
 
+itcs<-lapply(itcs,function(x){
+  proj4string(x)<-CRS("+init=epsg:32617")
+  return(x)
+})
 ```
-# Find corresponding tile
+# Example Pipeline
 
+## Read in Data
 ```{r,webgl=TRUE}
-fname<-get_tile_filname(itcs[[1]])
+fname<-get_tile_filname(itcs[[6]])
 tile<-readLAS(paste("/Users/ben/Dropbox/Weecology/NEON/cropped_",fname,sep=""))
-plot(tile)
+tile@crs<-CRS("+init=epsg:32617")
 ```
 
-# Silva 2016 Crown Segmentation Model
+## Compute Segmentation
 
 ```{r,webgl=TRUE}
 silva<-silva2016(tile=tile,extra=T)
 ```
 
-#Overlay ground truth and predictions
+### Overlay ground truth and predictions
 
 ```{r}
 plot(ground_truth,col='red')
 plot(silva$silva_convex,add=T)
 ```
 
-Classified lidar cloud versus predicted polygons
+### 3d classified lidar cloud versus predicted polygons
 
 ```{r}
 plot(silva$silva_tile,color="treeID",col=col,size=2)
@@ -69,7 +71,7 @@ show2d(face='z+',z=0,{
 ```
 
 
-Classified lidar cloud versus ground_truth
+### Classified lidar cloud versus ground_truth
 
 ```{r,webgl=TRUE}
 plot(silva$silva_tile,color="treeID",col=col)
@@ -78,7 +80,7 @@ show2d(face='z+',z=0,{
 })
 ```
 
-# Assign Trees
+## Assign Trees
 
 Each tree is assigned based on the maximum overlap. Pairwise membership is done using a Hungarian Algorithm. See clue::solve_LSAP.
 
@@ -86,7 +88,7 @@ Each tree is assigned based on the maximum overlap. Pairwise membership is done 
 assignment<-assign_trees(ground_truth,prediction=silva$silva_convex)
 ```
 
-# Intersection over union
+## Calculate Intersection over union
 
 ```{r}
 #loop through assignments and get jaccard statistic for each assignment pair
@@ -94,4 +96,18 @@ statdf<-calc_jaccard(assignment=assignment,ground_truth = ground_truth,predictio
 qplot(statdf$IoU)
 mean(statdf$IoU)
 median(statdf$IoU)
+```
+
+# As a wrapper for one tile
+```{r}
+silvadf<-evaluate(ground_truth=itcs[[5]],algorithm = "silva",path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_")
+mean(silvadf$IoU)
+```
+
+#Wrapper across all tiles
+
+```{r}
+system.time(silvadf<-evaluate_all(itcs=itcs,algorithm = "silva",path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_"))
+qplot(silvadf$IoU)
+mean(silvadf$IoU)
 ```
