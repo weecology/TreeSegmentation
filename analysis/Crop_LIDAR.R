@@ -28,8 +28,7 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation")) %dopar% {
   inpath<-paste("/ufrc/ewhite/s.marconi/NeonData/2017_Campaign/D03/OSBS/L1/DiscreteLidar/Classified_point_cloud/",fname,sep="")
 
   if(!file_test("-f",inpath)){
-    paste(inpath," does not exist"," for itc ",x,sep="")
-    return(NULL)
+    return(paste(inpath," does not exist"," for itc ",x,sep=""))
   }
 
   tile<-readLAS(inpath)
@@ -41,5 +40,6 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation")) %dopar% {
   cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/DiscreteLidar/Cropped/","cropped_",fname,sep="")
   print(cname)
   writeLAS(clipped_las,cname)
+  return(cname)
 }
 
