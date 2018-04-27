@@ -43,10 +43,17 @@ names(itcs)<-sapply(itcs,function(x){
 ## Read in Data
 ```{r,webgl=TRUE}
 ground_truth<-itcs[[20]]
-fname<-get_tile_filname(ground_truth)
-tile<-readLAS(paste("../data/cropped_",fname,sep=""))
+fname<-get_tile_filname(ground_truth,basename = "2014_OSBS_1_",extension = "_colorized.laz")
+tile<-readLAS(paste("../data/2015/cropped_",fname,sep=""))
 tile@crs<-CRS("+init=epsg:32617")
 plot(tile)
+```
+
+## Confirm overlap
+
+```{r}
+plot(extent(tile),col='red')
+plot(extent(ground_truth),col='blue',add=T)
 ```
 
 ## Compute Segmentation
