@@ -7,7 +7,7 @@
 #SBATCH --nodes=1                 # Number of MPI ranks
 #SBATCH --ntasks=1                 # Number of MPI ranks
 #SBATCH --cpus-per-task=30            # Number of cores per MPI rank
-#SBATCH --mem=5000
+#SBATCH --mem=30GB
 #SBATCH --time=05:59:00       #Time limit hrs:min:sec
 #SBATCH --output=/home/b.weinstein/logs/R.out   # Standard output and error log
 #SBATCH --error=/home/b.weinstein/logs/R.err
