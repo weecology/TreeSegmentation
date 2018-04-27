@@ -17,11 +17,11 @@ names(itcs)<-sapply(itcs,function(x){
 
 
 #Crop lidar by itc extent (buffered by 3x) and write to file
-#cores<-detectCores()
 cl<-makeCluster(15)
+#cl<-makeCluster(2)
 registerDoSNOW(cl)
 
-foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp")) %dopar% {
+foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp","raster")) %dopar% {
   #plot(itcs[[x]])
 
   #Look for corresponding tile
@@ -33,7 +33,7 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp")) %dopar% {
 
   for (i in 1:length(fils)){
     r<-stack(fils[[i]])
-    do_they_intersect<-intersect(extent(r),extent(itcs[[x]]))
+    do_they_intersect<-raster::intersect(extent(r),extent(itcs[[x]]))
     if(is.null(do_they_intersect)){
       next
     } else{
@@ -49,7 +49,7 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp")) %dopar% {
 
   #Clip matched tile
   clip_ext<-3*extent(itcs[[x]])
-  clipped_rgb<-crop(matched_tile,clip_ext)
+  clipped_rgb<-raster::crop(matched_tile,clip_ext)
 
   #filename
   cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/Spectrometer/RGBtifs/2017092713/","cropped_",unique(itcs[[x]]$Plot_ID),".tif",sep="")
