@@ -1,13 +1,15 @@
 #' Wrapper for calculating overlap among predictiong and ground truth polygons for lidar-based tree segmentation methods
 #'
 #' \code{evaluate} computes an lidar based segmentation, assigns polygons to closest match and calculates jaccard stat
-#' @param ground_truth A SpatialPolygonDataFrame of ground truth polygons
-#' @param algorithm A character or vector of lidar unsupervised classification algorithm(s). Currently only "silva" is implemented.
-#' @param path_to_tiles Location of lidar tiles on system.
-#' @return dataframe of the jaccard overlap among polygon pairs for each selected method
+#' @param ground_truth SpatialPolygonDataFrame of ground truth polygons
+#' @param algorithm  Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \code{\link[lidR]{lastrees}}
+#' @param path_to_tiles Character. Location of lidar tiles on system.
+#' @param compute_consensus Generate a consensus from selected methods, see \code{\link{consensus}}.
+#' @param extra logical. Indicating whether convexs and lidar tiles should be returned
+#' @return dataframe of the jaccard overlap among polygon pairs for each selected method. If extra=T, \code{evaluate} will return a list object of results, predicted polygons, as well as output lidR tiles.
 #' @export
 #'
-evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL){
+evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL,compute_consensus=F,extra=F){
   #set file name
   fname<-get_tile_filname(ground_truth)
   inpath<-paste(path_to_tiles,fname,sep="")
@@ -20,20 +22,41 @@ evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL){
 
   #Run segmentation methods
   predictions<-list()
+  tiles<-list()
   if("silva" %in% algorithm){
-    predictions$silva<-silva2016(path=inpath)
+    print("silva")
+    silva<-silva2016(path=inpath,extra=T)
+    predictions$silva<-silva$convex
+    tiles$silva<-silva$tile
   }
 
   if("dalponte" %in% algorithm){
-    predictions$dalponte<-dalponte2016(path=inpath)
+    print("Dalpone")
+    dalponte<-dalponte2016(path=inpath,extra=T)
+    predictions$dalponte<-dalponte$convex
+    tiles$dalponte<-dalponte$tile
   }
 
   if("li" %in% algorithm){
-    predictions$li<-li2012(path=inpath)
+    print("li")
+    li<-li2012(path=inpath,extra=T)
+    predictions$li<-li$convex
+    tiles$li<-li$tile
   }
 
   if("watershed" %in% algorithm){
-    predictions$watershed<-watershed(path=inpath)
+    print("watershed")
+    watershed_result<-watershed(path=inpath,extra=T)
+    predictions$watershed<-watershed_result$convex
+    tiles$watershed<-watershed_result$tile
+  }
+
+  if(compute_consensus){
+    print("consensus")
+    tiles$consensus<-consensus(ptlist=tiles)
+
+    #create consensus polygons
+    predictions$consensus<-get_convex_hulls(tiles$consensus,tiles$consensus@data$treeID)
   }
 
   #For each method compute result statistics
@@ -46,5 +69,11 @@ evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL){
   }
 
   statdf<-dplyr::bind_rows(statdf)
-  return(statdf)
+
+  if(extra){
+    return(list(results=statdf,predictions=predictions,tiles=tiles))
+  } else{
+    return(statdf)
+  }
+
 }
