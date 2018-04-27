@@ -4,17 +4,22 @@
 \alias{evaluate}
 \title{Wrapper for calculating overlap among predictiong and ground truth polygons for lidar-based tree segmentation methods}
 \usage{
-evaluate(ground_truth, algorithm = "silva", path_to_tiles = NULL)
+evaluate(ground_truth, algorithm = "silva", path_to_tiles = NULL,
+  compute_consensus = F, extra = F)
 }
 \arguments{
-\item{ground_truth}{A SpatialPolygonDataFrame of ground truth polygons}
+\item{ground_truth}{SpatialPolygonDataFrame of ground truth polygons}
 
-\item{algorithm}{A character or vector of lidar unsupervised classification algorithm(s). Currently only "silva" is implemented.}
+\item{algorithm}{Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \code{\link[lidR]{lastrees}}}
 
-\item{path_to_tiles}{Location of lidar tiles on system.}
+\item{path_to_tiles}{Character. Location of lidar tiles on system.}
+
+\item{compute_consensus}{Generate a consensus from selected methods, see \code{\link{consensus}}.}
+
+\item{extra}{logical. Indicating whether convexs and lidar tiles should be returned}
 }
 \value{
-dataframe of the jaccard overlap among polygon pairs for each selected method
+dataframe of the jaccard overlap among polygon pairs for each selected method. If extra=T, \code{evaluate} will return a list object of results, predicted polygons, as well as output lidR tiles.
 }
 \description{
 \code{evaluate} computes an lidar based segmentation, assigns polygons to closest match and calculates jaccard stat

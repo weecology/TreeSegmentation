@@ -15,22 +15,35 @@
 #' @export
 #'
 consensus<-function(ptlist){
-  pdf<-reshape2::melt(ptlist,id.vars=colnames(ptlist[[1]]))
+
+  #Grab the data structure from the lidR file.
+  ptlist_data<-lapply(ptlist,function(x){x@data})
+
+  #add point column id
+  ptlist_data<-lapply(ptlist_data,function(x){
+    x$PointID<-1:nrow(x)
+    return(x)
+  })
+
+  pdf<-reshape2::melt(ptlist_data,id.vars=colnames(ptlist_data[[1]])) %>% filter(!is.na(treeID))
   points_to_remove<-pdf %>% group_by(PointID) %>% summarize(n=n()) %>% arrange(n) %>% filter(n < 3) %>% .$PointID
 
   pdf<-pdf %>% filter(!PointID %in% points_to_remove)
 
   res<-reshape2::dcast(pdf,PointID~L1,value.var = "treeID")
 
-  idframe<-res %>% add_rownames() %>% select(rowname,PointID)
+  idframe<-res %>% tibble::rownames_to_column() %>% select(rowname,PointID)
   head(res<-res %>% select(-PointID))
 
-  system.time(consensus<-diceR::majority_voting(res, is.relabelled = FALSE))
+  system.time(result<-diceR::majority_voting(res, is.relabelled = FALSE))
 
   #reassign to pointID
-  consensus_frame<-data.frame(rowname=rownames(res),consensus=consensus) %>% inner_join(idframe) %>% select(PointID,consensus)
+  consensus_frame<-data.frame(rowname=rownames(res),treeID=result) %>% inner_join(idframe) %>% select(PointID,treeID)
 
   #merge with the original tile
-  tile@data<-merge(tile@data,consensus_frame,all=T)
-  return(tile)
+  original<-ptlist[[1]]
+  original@data<-original@data %>% select(-treeID)
+  original@data$PointID<-1:nrow(original@data)
+  original@data<-merge(original@data,consensus_frame,all=T)
+  return(original)
   }

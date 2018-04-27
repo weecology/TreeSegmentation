@@ -15,4 +15,4 @@
 #This is a generic R submission script
 module load R
 
-Rscript --default-packages=methods Crop_LIDAR.R
+Rscript --default-packages=methods Crop_RGB.R

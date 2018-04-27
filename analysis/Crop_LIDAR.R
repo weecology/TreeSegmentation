@@ -45,4 +45,3 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp")) %dopar% {
   writeLAS(clipped_las,cname)
   return(cname)
 }
-

@@ -2,21 +2,27 @@
 % Please edit documentation in R/evaluate_all.R
 \name{evaluate_all}
 \alias{evaluate_all}
-\title{Wrapper among tiles for calculating overlap among predictiong and ground truth polygons for lidar-based tree segmentation methods}
+\title{Wrapper among tiles for calculating overlap among predicted and ground truth polygons for lidar-based tree segmentation methods}
 \usage{
 evaluate_all(itcs, algorithm = "silva", path_to_tiles = NULL,
-  cores = NULL)
+  cores = NULL, compute_consensus = F, extra = F)
 }
 \arguments{
-\item{algorithm}{A lidar unsupervised classification algorithm. Currently only "silva" is available.}
+\item{itcs}{A SpatialPolygonDataFrame of ground truth polygons}
 
-\item{path_to_tiles}{Location of lidar tiles on system.}
+\item{algorithm}{Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \code{\link[lidR]{lastrees}}}
 
-\item{ground_truth}{A SpatialPolygonDataFrame of ground truth polygons}
+\item{path_to_tiles}{Character. Location of lidar tiles on system.}
+
+\item{cores}{Optional parameter to specify the number of cores to parallelize using \code{\link[foreach]{foreach}}}
+
+\item{compute_consensus}{Generate a consensus from selected methods, see \code{\link{consensus}}.}
+
+\item{extra}{logical. Indicating whether convexs and lidar tiles should be returned}
 }
 \value{
 dataframe of the jaccard overlap among polygon pairs
 }
 \description{
-\code{evaluate_all} extends evaluate to multiple tiles, optionally run in parallel
+\code{evaluate_all} extends evaluate to multiple tiles, optionally run in parallel.
 }

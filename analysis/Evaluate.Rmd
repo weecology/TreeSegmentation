@@ -34,19 +34,27 @@ itcs<-lapply(shps,readOGR,verbose=F)
 
 names(itcs)<-sapply(itcs,function(x){
   id<-unique(x$Plot_ID)
+  #x@proj4string<-CRS("+init=epsg:32617")
+  return(x)
   })
 ```
-
 
 # Example Pipeline
 
 ## Read in Data
 ```{r,webgl=TRUE}
 ground_truth<-itcs[[20]]
-fname<-get_tile_filname(ground_truth)
-tile<-readLAS(paste("../data/cropped_",fname,sep=""))
+fname<-get_tile_filname(ground_truth,basename = "2014_OSBS_1_",extension = "_colorized.laz")
+tile<-readLAS(paste("../data/2015/cropped_",fname,sep=""))
 tile@crs<-CRS("+init=epsg:32617")
 plot(tile)
+```
+
+## Confirm overlap
+
+```{r}
+plot(extent(tile),col='red')
+plot(extent(ground_truth),col='blue',add=T)
 ```
 
 ## Compute Segmentation
@@ -96,7 +104,6 @@ Li versus watershed
 plot(li$convex)
 plot(watershed$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
 ```
-
 ## Assign Trees
 
 Each tree is assigned based on the maximum overlap. Pairwise membership is done using a Hungarian Algorithm. See clue::solve_LSAP.
@@ -115,9 +122,9 @@ mean(statdf$IoU)
 median(statdf$IoU)
 ```
 
-# As a wrapper for one tile, multiple methods
+# As a wrapper for one tile, multiple methods, and consensus
 ```{r}
-results<-evaluate(ground_truth=itcs[[1]],algorithm = c("silva","dalponte","li","watershed"),path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_")
+results<-evaluate(ground_truth=itcs[[1]],algorithm = c("silva","dalponte","li"),path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_",compute_consensus = T)
 ggplot(results,aes(x=IoU,fill=Method)) + geom_histogram(position = position_dodge()) + theme_bw()
 results %>% group_by(Method) %>% summarize(mean=mean(IoU),median=median(IoU))
 ```
@@ -125,7 +132,7 @@ results %>% group_by(Method) %>% summarize(mean=mean(IoU),median=median(IoU))
 # Parallel Wrapper across all tiles
 
 ```{r,eval=F}
-system.time(results_all<-evaluate_all(itcs=itcs,algorithm = c("dalponte","silva","li"),path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_",cores=4))
+system.time(results_all<-evaluate_all(itcs=itcs,algorithm = c("dalponte","silva","li"),path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_",cores=4,extra=F,compute_consensus=F))
 ggplot(results_all,aes(x=IoU,fill=Method)) + geom_histogram(position = position_dodge()) + theme_bw()
 results_all %>% group_by(Method) %>% summarize(mean=mean(IoU),median=median(IoU))
 ```
