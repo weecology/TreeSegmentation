@@ -29,6 +29,8 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp")) %dopar% {
   fils<-list.files("/ufrc/ewhite/s.marconi/NeonData/2017_Campaign/D03/OSBS/L1/Spectrometer/RGBtifs/2017092713/",full.names = T)
   filname<-list.files("/ufrc/ewhite/s.marconi/NeonData/2017_Campaign/D03/OSBS/L1/Spectrometer/RGBtifs/2017092713/")
 
+  rm(matched_tile)
+
   for (i in 1:length(fils)){
     r<-stack(fils[[i]])
     do_they_intersect<-intersect(extent(r),extent(itcs[[x]]))
@@ -36,6 +38,7 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp")) %dopar% {
       next
     } else{
       matched_tile<-r
+      break
     }
   }
 
@@ -49,8 +52,8 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp")) %dopar% {
   clipped_rgb<-crop(matched_tile,clip_ext)
 
   #filename
-  cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/Spectrometer/RGBtifs/2017092713/","cropped_",filname[x],sep="")
+  cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/Spectrometer/RGBtifs/2017092713/","cropped_",unique(itcs[[x]]$Plot_ID),".tif",sep="")
   print(cname)
-  writeRaster(clipped_rgb,cname)
+  writeRaster(clipped_rgb,cname,overwrite=T)
   return(cname)
 }
