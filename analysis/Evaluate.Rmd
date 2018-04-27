@@ -34,6 +34,8 @@ itcs<-lapply(shps,readOGR,verbose=F)
 
 names(itcs)<-sapply(itcs,function(x){
   id<-unique(x$Plot_ID)
+  #x@proj4string<-CRS("+init=epsg:32617")
+  return(x)
   })
 ```
 
