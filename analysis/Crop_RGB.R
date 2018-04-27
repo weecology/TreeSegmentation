@@ -18,7 +18,7 @@ names(itcs)<-sapply(itcs,function(x){
 
 #Crop lidar by itc extent (buffered by 3x) and write to file
 #cores<-detectCores()
-cl<-makeCluster(30)
+cl<-makeCluster(15)
 registerDoSNOW(cl)
 
 foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp")) %dopar% {
