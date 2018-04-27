@@ -4,7 +4,8 @@
 \alias{get_tile_filname}
 \title{Get correpsonding .laz tile from file based on the ground truth polygon}
 \usage{
-get_tile_filname(polygon, basename = "NEON_D03_OSBS_DP1_")
+get_tile_filname(polygon, basename = "NEON_D03_OSBS_DP1_",
+  extension = "_classified_point_cloud.laz")
 }
 \arguments{
 \item{polygon}{The SpatialPolygon file for the ground truth polygon}

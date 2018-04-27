@@ -7,10 +7,10 @@
 #' @examples
 #' Not usually called directly by user.
 #' @export
-get_tile_filname<-function(polygon,basename="NEON_D03_OSBS_DP1_"){
+get_tile_filname<-function(polygon,basename="NEON_D03_OSBS_DP1_",extension="_classified_point_cloud.laz"){
   extnt<-raster::extent(polygon)
   #get extent name
   exname<-paste(as.integer(extnt@xmin/1000)*1000,as.integer(extnt@ymax/1000)*1000, sep="_")
-  fullpath<-paste(basename,exname,"_classified_point_cloud.laz",sep="")
+  fullpath<-paste(basename,exname,extension,sep="")
   return(fullpath)
 }

@@ -24,7 +24,7 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp")) %dopar% {
   #plot(itcs[[x]])
 
   #Get Tile
-  fname<-get_tile_filname(itcs[[x]])
+  fname<-get_tile_filname(itcs[[x]],basename = "2014_OSBS_1_",extension = "_colorized.laz")
 
   inpath<-paste("/ufrc/ewhite/s.marconi/NeonData/2015_Campaign/D03/OSBS/L1/DiscreteLidar/Classified_point_cloud/",fname,sep="")
 
