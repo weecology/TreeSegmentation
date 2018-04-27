@@ -39,7 +39,6 @@ names(itcs)<-sapply(itcs,function(x){
   })
 ```
 
-
 # Example Pipeline
 
 ## Read in Data
