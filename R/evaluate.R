@@ -65,7 +65,7 @@ evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL,compute_con
 
     #Assign ground truth based on overlap
     assignment<-assign_trees(ground_truth=ground_truth,prediction=predictions[[i]])
-    statdf[[i]]<-calc_jaccard(assignment=assignment,ground_truth = ground_truth,prediction=predictions[[i]]) %>% mutate(Method=algorithm[i])
+    statdf[[i]]<-calc_jaccard(assignment=assignment,ground_truth = ground_truth,prediction=predictions[[i]]) %>% mutate(Method=names(predictions)[i])
   }
 
   statdf<-dplyr::bind_rows(statdf)
