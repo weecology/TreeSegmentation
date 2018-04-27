@@ -4,7 +4,8 @@
 \alias{evaluate_all}
 \title{Wrapper among tiles for calculating overlap among predictiong and ground truth polygons for lidar-based tree segmentation methods}
 \usage{
-evaluate_all(itcs, algorithm = "silva", path_to_tiles = NULL)
+evaluate_all(itcs, algorithm = "silva", path_to_tiles = NULL,
+  cores = NULL)
 }
 \arguments{
 \item{algorithm}{A lidar unsupervised classification algorithm. Currently only "silva" is available.}
@@ -17,5 +18,5 @@ evaluate_all(itcs, algorithm = "silva", path_to_tiles = NULL)
 dataframe of the jaccard overlap among polygon pairs
 }
 \description{
-\code{evaluate_all} extends evaluate to multiple tiles
+\code{evaluate_all} extends evaluate to multiple tiles, optionally run in parallel
 }

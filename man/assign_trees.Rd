@@ -2,7 +2,7 @@
 % Please edit documentation in R/assign_trees.R
 \name{assign_trees}
 \alias{assign_trees}
-\title{Find area of overlap among sets of polygons}
+\title{Find matches between predicted and ground truth tree based on maximum area of overlap.}
 \usage{
 assign_trees(ground_truth, prediction)
 }
@@ -15,7 +15,7 @@ assign_trees(ground_truth, prediction)
 A data frame with the crown ID matched to the prediction ID.
 }
 \description{
-\code{assign_trees} is a wrapper function to iterate through a SpatialPolygonsDataFrame
+\code{assign_trees} implements the hungarian algorithm in \code{\link[clue]{solve_LSAP}} to match sets of trees
 }
 \examples{
 

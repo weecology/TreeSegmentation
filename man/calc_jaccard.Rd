@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_jaccard.R
 \name{calc_jaccard}
 \alias{calc_jaccard}
-\title{Collect jaccard statistics for ground truth and prediction polygons}
+\title{Collect jaccard statistic for ground truth and prediction polygons}
 \usage{
 calc_jaccard(assignment, ground_truth, prediction)
 }
@@ -17,5 +17,5 @@ calc_jaccard(assignment, ground_truth, prediction)
 dataframe of the jaccard overlap among polygon pairs
 }
 \description{
-\code{calc_jaccard} finds the jaccard statistic for two input polygons
+\code{calc_jaccard} finds the jaccard statistic for two input polygons, defined as the area of intersection over the area of union.
 }
