@@ -4,10 +4,12 @@
 \alias{consensus}
 \title{Majority voting for individual tree crown segmentation based on multiple algorithms}
 \usage{
-consensus(ptlist, method = "majority")
+consensus(ptlist, method = "majority", debug = F)
 }
 \arguments{
 \item{ptlist}{A list of lidar clouds read in by lidR package, processed using \code{\link[lidR]{lastrees}}}
+
+\item{method}{Character. A cluster voting scheme. Currently implemented "majority" or "kmodes" see \code{\link[diceR]{majority_voting}}  processed using \code{\link[lidR]{lastrees}}}
 }
 \value{
 A las object with treeID field updated based on ensemble individual tree segmentation. A new column "consensus" is the consensus treeID.
