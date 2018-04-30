@@ -115,7 +115,7 @@ plot(watershed_result$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
 ##Compute consensus
 
 ```{r}
-ptlist<-list(li=li$tile,silva=silva$tile,dalponte=dalponte$tile)
+ptlist<-list(silva=silva$tile,li=li$tile,dalponte=dalponte$tile,watershed=watershed_result$tile)
 consensus_result<-consensus(ptlist=ptlist,method="majority")
 consensus_polygons<-get_convex_hulls(consensus_result,consensus_result@data$treeID)
 plot(consensus_polygons,col=rgb(0,0,255,20,maxColorValue=255))
@@ -126,13 +126,13 @@ plot(consensus_polygons,col=rgb(0,0,255,20,maxColorValue=255))
 #plot(consensus_result,color="treeID",col=col)
 ```
 
-### Compare Consensus to Silva
+### Compare Consensus
 
 ```{r}
 plot(silva$convex)
 plot(dalponte$convex)
 plot(li$convex)
-plot(consensus_polygons,add=T,col=rgb(0,0,255,20,maxColorValue=255))
+plot(consensus_polygons,add=T,col=rgb(0,0,255,40,maxColorValue=255))
 ```
 
 How many tree predictions 
@@ -170,8 +170,8 @@ results %>% group_by(Method) %>% summarize(mean=mean(IoU),median=median(IoU))
 
 # Parallel Wrapper across all tiles
 
-```{r,eval=F}
-system.time(results_all<-evaluate_all(itcs=itcs,algorithm = c("dalponte","silva","li"),path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_",cores=4,extra=F,compute_consensus=F))
+```{r,eval=T}
+system.time(results_all<-evaluate_all(itcs=itcs,algorithm = c("dalponte","silva","li","watershed"),path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_",cores=4,extra=F,compute_consensus=F))
 ggplot(results_all,aes(x=IoU,fill=Method)) + geom_histogram(position = position_dodge()) + theme_bw()
 results_all %>% group_by(Method) %>% summarize(mean=mean(IoU),median=median(IoU))
 ```
