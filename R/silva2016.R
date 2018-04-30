@@ -11,7 +11,7 @@ silva2016<-function(path=NULL,tile=NULL,output=c("all")){
 
   if(is.null(tile)){
     tile = lidR::readLAS(path, select = "xyz", filter = "-drop_z_below 0")
-    tile@crs<-CRS("+init=epsg:32617")
+    tile@crs<-sp::CRS("+init=epsg:32617")
   }
 
   #Read in tile
@@ -25,7 +25,7 @@ silva2016<-function(path=NULL,tile=NULL,output=c("all")){
 
   #remove ground points, Classification == 2.
   tile<-tile %>% lidR::lasfilter(!Classification==2)
-  tile@crs<-CRS("+init=epsg:32617")
+  tile@crs<-sp::CRS("+init=epsg:32617")
 
   #Compute unsupervised classification method
   print("Clustering Trees")

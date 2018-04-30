@@ -59,10 +59,10 @@ extract_trees<-function(path_to_tiles=NULL,algorithm="silva",compute_consensus=F
     tree_las<-list()
     for(i in 1:length(tiles)){
       ind_trees= split(tiles[[i]]@data, tiles[[i]]@data$treeID)
-      tree_las[[i]] = lapply(ind_trees, LAS, header = tile@header)
+      tree_las[[i]] = lapply(ind_trees, LAS, header = tiles[[i]]@header)
     }
     tree_las<-do.call(c, tree_las)
-    result[[g]]<-tree_las
+    return(tree_las)
   }
   #give result list the input file names
   names(results)<-path_to_tiles

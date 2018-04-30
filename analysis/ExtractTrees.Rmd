@@ -10,9 +10,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(lidR)
 library(TreeSegmentation)
-library
 ```
 
 # Compute segmentation

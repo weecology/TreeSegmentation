@@ -9,7 +9,7 @@
 convex_hull<-function(x,plot=FALSE){
   ch<-grDevices::chull(x$X,x$Y)
   poly_coords<-x[c(ch,ch[1]),c("X","Y")]
-  sp_poly <- sp::SpatialPolygons(list(Polygons(list(Polygon(poly_coords)), ID=1)))
+  sp_poly <- sp::SpatialPolygons(list(sp::Polygons(list(sp::Polygon(poly_coords)), ID=1)))
   return(sp_poly)
   if(plot){
     plot(sp_poly)
