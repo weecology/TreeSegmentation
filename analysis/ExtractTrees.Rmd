@@ -8,9 +8,12 @@ output:
     number_sections: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, include=FALSE,warning=FALSE,message=F}
 library(TreeSegmentation)
+library(rgl)
+library(knitr)
+knit_hooks$set(webgl = hook_webgl)
+opts_chunk$set(echo = TRUE)
 ```
 
 # Compute segmentation
@@ -19,6 +22,23 @@ library(TreeSegmentation)
 * Single or multiple methods
 
 ```{r}
-ind_trees<-extract_trees(path_to_tiles = "../data/2017/Lidar/cropped_NEON_D03_OSBS_DP1_402000_3283000_classified_point_cloud.laz")
+test_files<-c("../data/2017/Lidar/cropped_NEON_D03_OSBS_DP1_402000_3283000_classified_point_cloud.laz","../data/2017/Lidar/cropped_NEON_D03_OSBS_DP1_404000_3284000_classified_point_cloud.laz")
+system.time(ind_trees<-extract_trees(path_to_tiles=test_files,cores=1))
 ```
 
+Let's look at couple outputs from each tile
+
+```{r,webgl=TRUE}
+sample_tree<-function(x){
+  s<-x[[sample(length(x),1)]]
+  plot(s)
+}
+```
+
+```{r,webgl=TRUE}
+sample_tree(ind_trees[[1]])
+```
+
+```{r,webgl=TRUE}
+sample_tree(ind_trees[[2]])
+```

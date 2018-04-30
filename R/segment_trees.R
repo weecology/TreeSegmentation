@@ -37,7 +37,7 @@ segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F){
 
     # Dalponte 2016
     ttops = lidR::tree_detection(chm, 5, 2)
-    crowns <- lidR::lastrees_dalponte(las, chm, ttops,extra=T)
+    crowns <- lidR::lastrees_dalponte(las, chm, ttops,max_cr = 7,extra=T)
 
     contour = raster::rasterToPolygons(crowns, dissolve = TRUE)
 

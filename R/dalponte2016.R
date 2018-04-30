@@ -16,8 +16,9 @@ dalponte2016<-function(path=NULL,tile=NULL,output="all"){
 
   #Read in tile
   print("Computing Ground Model")
+
   #Compute ground model
-  ground_model(tile)
+  ground_model(tile,ground=F)
 
   #3. canopy model
   print("Computing Canopy Model")

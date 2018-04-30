@@ -15,7 +15,7 @@ extract_trees(path_to_tiles = NULL, algorithm = "silva",
 \item{compute_consensus}{Logical. Generate a consensus from selected methods, see \code{\link{consensus}}.}
 }
 \value{
-a list of lidR tiles.
+A nested list of lidR tiles equal to the length of path_to_tiles. Each list will have a list of segmented .las for each tree.
 }
 \description{
 \code{extra_trees} computes an lidar-based segmentation, based on multiple available methods, and splits the results into individual las files for each predicted tree.

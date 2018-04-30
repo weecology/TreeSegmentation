@@ -20,5 +20,10 @@ evaluate_all<-function(itcs,algorithm = "silva",path_to_tiles=NULL,cores=NULL,co
     TreeSegmentation::evaluate(ground_truth=ground_truth,algorithm=algorithm,path_to_tiles=path_to_tiles,compute_consensus = compute_consensus,extra=extra)
   }
   results<-dplyr::bind_rows(results)
+
+  #Stop cluster if needed
+  if(!is.null(cores)){
+    parallel::stopCluster(cl)
+  }
   return(results)
 }

@@ -4,10 +4,12 @@
 \alias{ground_model}
 \title{Generate a ground model from raw las}
 \usage{
-ground_model(las)
+ground_model(las, ground = T)
 }
 \arguments{
 \item{las}{A lidar cloud read in by lidR package}
+
+\item{ground}{Logical. Should a ground model be computed? Some tiles come pre-processed.}
 }
 \value{
 NA. By default operation is done in place to reduce memory.

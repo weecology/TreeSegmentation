@@ -4,7 +4,7 @@
 #' @param path_to_tiles Character or Vector. Location of lidar tiles on system. May be a single tile or vector of tiles.
 #' @param algorithm  Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \code{\link[lidR]{lastrees}}
 #' @param compute_consensus Logical. Generate a consensus from selected methods, see \code{\link{consensus}}.
-#' @return a list of lidR tiles.
+#' @return A nested list of lidR tiles equal to the length of path_to_tiles. Each list will have a list of segmented .las for each tree.
 #' @export
 #'
 extract_trees<-function(path_to_tiles=NULL,algorithm="silva",compute_consensus=F,cores=NULL){
@@ -23,7 +23,7 @@ extract_trees<-function(path_to_tiles=NULL,algorithm="silva",compute_consensus=F
 
   #set file name
   #for each tile in path_to_tiles
-  results<-foreach::foreach(g=1:length(path_to_tiles),.packages=c("TreeSegmentation")) %dopar% {
+  results<-foreach::foreach(g=1:length(path_to_tiles),.packages=c("TreeSegmentation","lidR")) %dopar% {
 
     #Select tile
     inpath<-path_to_tiles[g]
@@ -66,5 +66,11 @@ extract_trees<-function(path_to_tiles=NULL,algorithm="silva",compute_consensus=F
   }
   #give result list the input file names
   names(results)<-path_to_tiles
+
+  #Stop cluster if needed.
+  if(!is.null(cores)){
+    parallel::stopCluster(cl)
+  }
+
   return(results)
 }
