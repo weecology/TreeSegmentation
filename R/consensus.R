@@ -2,6 +2,7 @@
 #'
 #' \code{consensus} assigns each point in a lidR cloud to a treeID based on multiple segmentation algorithms
 #' @param ptlist A list of lidar clouds read in by lidR package, processed using \code{\link[lidR]{lastrees}}
+#' @param method Character. A cluster voting scheme. Currently implemented "majority" or "kmodes" see \code{\link[diceR]{majority_voting}}  processed using \code{\link[lidR]{lastrees}}
 #' @return A las object with treeID field updated based on ensemble individual tree segmentation. A new column "consensus" is the consensus treeID.
 #' @import dplyr
 #' @examples
@@ -14,7 +15,7 @@
 #' consensus(ptlist)
 #' @export
 #'
-consensus<-function(ptlist){
+consensus<-function(ptlist,method="majority"){
 
   #Grab the data structure from the lidR file.
   ptlist_data<-lapply(ptlist,function(x){x@data})
@@ -39,7 +40,13 @@ consensus<-function(ptlist){
   #complete cases
   res<-res[complete.cases(res),]
 
-  system.time(result<-diceR::majority_voting(res, is.relabelled = FALSE))
+  if(method=="majority"){
+    system.time(result<-diceR::majority_voting(res, is.relabelled = FALSE))
+  }
+
+  if(method=="kmodes"){
+    system.time(result<-diceR::k_modes(res, is.relabelled = FALSE))
+  }
 
   #reassign to pointID
   consensus_frame<-data.frame(rowname=rownames(res),treeID=result) %>% inner_join(idframe) %>% select(PointID,treeID)

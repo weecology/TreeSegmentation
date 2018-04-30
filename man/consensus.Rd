@@ -4,7 +4,7 @@
 \alias{consensus}
 \title{Majority voting for individual tree crown segmentation based on multiple algorithms}
 \usage{
-consensus(ptlist)
+consensus(ptlist, method = "majority")
 }
 \arguments{
 \item{ptlist}{A list of lidar clouds read in by lidR package, processed using \code{\link[lidR]{lastrees}}}

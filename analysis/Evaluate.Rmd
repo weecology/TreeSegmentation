@@ -99,6 +99,12 @@ plot(silva$convex)
 plot(dalponte$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
 ```
 
+```{r}
+plot(silva$convex)
+plot(dalponte$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
+plot(li$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
+```
+
 Li versus watershed
 
 ```{r}
@@ -109,14 +115,14 @@ plot(watershed_result$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
 ##Compute consensus
 
 ```{r}
-ptlist<-list(silva=silva$tile,dalponte=dalponte$tile)
+ptlist<-list(silva=silva$tile,dalponte=dalponte$tile,li=li$tile,watershed=watershed_result$tile)
 consensus_result<-consensus(ptlist=ptlist)
 consensus_polygons<-get_convex_hulls(consensus_result,consensus_result@data$treeID)
 ```
 
 ### View consensus segmentation
 ```{r,webgl=TRUE}
-plot(consensus_result,color="treeID",col=col)
+#plot(consensus_result,color="treeID",col=col)
 plot(consensus_polygons,col=rgb(0,0,255,20,maxColorValue=255))
 ```
 
