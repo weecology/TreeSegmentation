@@ -4,17 +4,19 @@
 \alias{li2012}
 \title{Find tree crown polygons using the Li (2012) algorithm}
 \usage{
-li2012(path = NULL, tile = NULL, extra = F)
+li2012(path = NULL, tile = NULL, output = "all")
 }
 \arguments{
-\item{path}{A filename of a .las or .laz file to be read in by the lidR package}
+\item{path}{Character. A filename of a .las or .laz file to be read in by the lidR package, see \code{\link[lidR]{readLAS}}}
 
-\item{tile}{Optionally a lidR object in memory}
-
-\item{extra}{Output both the tile and the convex polygons}
+\item{tile}{Character. Optionally a lidR object in memory}
 }
 \value{
-A \code{\link[sp]{SpatialPolygonsDataFrame}} object with tree crown polygons
+\preformatted{
+'tile' : .las tile with segmented trees in the treeID column
+'convex_hull': a \code{\link[sp]{SpatialPolygonsDataFrame}} object with tree crown polygons
+'all': Both a tile and convex hull output in a named list.
+}
 }
 \description{
 \code{li2012} assigns each point in a lidR cloud to a treeID.

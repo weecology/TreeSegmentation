@@ -1,16 +1,13 @@
 #' Find tree crown polygons using a simple watershed algorithm
 #'
 #' \code{watershed} assigns each point in a lidR cloud to a treeID.
-#' @param path A filename of a .las or .laz file to be read in by the lidR package
-#' @param extra Output both the tile and the convex polygons
-#' @param tile Optionally a lidR object in memory
-#' @return A \code{\link[sp]{SpatialPolygonsDataFrame}} object with tree crown polygons
+#' @inheritParams li2012
 #' @examples
 #' LASfile <- system.file("extdata", "MixedConifer.laz", package="lidR")
 #' convex_hulls <- watershed(path=LASfile)
 #' @export
 
-watershed<-function(path=NULL,tile=NULL,extra=F){
+watershed<-function(path=NULL,tile=NULL,output="all"){
 
   if(is.null(tile)){
     tile = lidR::readLAS(path, select = "xyz", filter = "-drop_z_below 0")
@@ -32,15 +29,22 @@ watershed<-function(path=NULL,tile=NULL,extra=F){
 
   #Compute unsupervised classification method
   print("Clustering Trees")
-  print(system.time(watershed<-segment_trees(las=tile,algorithm = "watershed",chm=chm)))
+  print(system.time(watershed_result<-segment_trees(las=tile,algorithm = "watershed",chm=chm)))
+
+  if(output=="tile"){
+    return(watershed_result)
+  }
 
   #create polygons
   print("Creating tree polygons")
-  convex<-get_convex_hulls(watershed,watershed@data$treeID)
+  convex<-get_convex_hulls(watershed_result,watershed_result@data$treeID)
 
-  if(extra){
-    return(list(convex=convex,tile=watershed))
-  } else{
+  #set outputs
+  if(output=="all"){
+    return(list(convex=convex,tile=watershed_result))
+  }
+
+  if(output=="convex_hull"){
     return(convex)
   }
 }

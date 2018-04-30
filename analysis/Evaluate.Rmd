@@ -60,10 +60,10 @@ plot(extent(ground_truth),col='blue',add=T)
 ## Compute Segmentation
 
 ```{r}
-silva<-silva2016(tile=tile,extra=T)
-dalponte<-dalponte2016(tile=tile,extra=T)
-li<-li2012(tile=tile,extra=T)
-watershed<-watershed(tile=tile,extra=T)
+silva<-silva2016(tile=tile,output="all")
+dalponte<-dalponte2016(tile=tile,output="all")
+li<-li2012(tile=tile,output="all")
+watershed<-watershed(tile=tile,output="all")
 ```
 
 ## View 3d segmentation

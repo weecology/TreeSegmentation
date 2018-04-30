@@ -4,17 +4,12 @@
 \alias{dalponte2016}
 \title{Find tree crown polygons using the Dalponte 2016 algorithm}
 \usage{
-dalponte2016(path = NULL, tile = NULL, extra = F)
+dalponte2016(path = NULL, tile = NULL, output = "all")
 }
 \arguments{
-\item{path}{A filename of a .las or .laz file to be read in by the lidR package}
+\item{path}{Character. A filename of a .las or .laz file to be read in by the lidR package, see \code{\link[lidR]{readLAS}}}
 
-\item{tile}{Optionally a lidR object in memory}
-
-\item{extra}{Output both the tile and the convex polygons}
-}
-\value{
-A \code{\link[sp]{SpatialPolygonsDataFrame}} object with tree crown polygons
+\item{tile}{Character. Optionally a lidR object in memory}
 }
 \description{
 \code{dalponte2016} assigns each point in a lidR cloud to a treeID.

@@ -1,16 +1,13 @@
 #' Find tree crown polygons using the Dalponte 2016 algorithm
 #'
 #' \code{dalponte2016} assigns each point in a lidR cloud to a treeID.
-#' @param path A filename of a .las or .laz file to be read in by the lidR package
-#' @param extra Output both the tile and the convex polygons
-#' @param tile Optionally a lidR object in memory
-#' @return A \code{\link[sp]{SpatialPolygonsDataFrame}} object with tree crown polygons
+#' @inheritParams li2012
 #' @examples
 #' LASfile <- system.file("extdata", "MixedConifer.laz", package="lidR")
 #' convex_hulls <- dalponte2016(path=LASfile)
 #' @export
 
-dalponte2016<-function(path=NULL,tile=NULL,extra=F){
+dalponte2016<-function(path=NULL,tile=NULL,output="all"){
 
   if(is.null(tile)){
     tile = lidR::readLAS(path, select = "xyz", filter = "-drop_z_below 0")
@@ -34,13 +31,20 @@ dalponte2016<-function(path=NULL,tile=NULL,extra=F){
   print("Clustering Trees")
   print(system.time(dalponte2016<-segment_trees(las=tile,algorithm = "dalponte2016",chm=chm)))
 
+  if(output=="tile"){
+    return(dalponte2016)
+  }
+
   #create polygons
   print("Creating tree polygons")
   dalponte_convex<-get_convex_hulls(dalponte2016,dalponte2016@data$treeID)
 
-  if(extra){
+  #set outputs
+  if(output=="all"){
     return(list(convex=dalponte_convex,tile=dalponte2016))
-  } else{
+  }
+
+  if(output=="convex_hull"){
     return(dalponte_convex)
   }
 }

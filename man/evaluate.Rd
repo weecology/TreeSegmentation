@@ -14,12 +14,12 @@ evaluate(ground_truth, algorithm = "silva", path_to_tiles = NULL,
 
 \item{path_to_tiles}{Character. Location of lidar tiles on system.}
 
-\item{compute_consensus}{Generate a consensus from selected methods, see \code{\link{consensus}}.}
+\item{compute_consensus}{Logical. Generate a consensus from selected methods, see \code{\link{consensus}}.}
 
-\item{extra}{logical. Indicating whether convexs and lidar tiles should be returned}
+\item{extra}{Logical. Return a list of segmented lidar tiles, predicted convex hull polygons, and the calculated evaluation statistics.}
 }
 \value{
-dataframe of the jaccard overlap among polygon pairs for each selected method. If extra=T, \code{evaluate} will return a list object of results, predicted polygons, as well as output lidR tiles.
+dataframe of the jaccard overlap among polygon pairs for each selected method. If extra=T, \code{evaluate} will return a list object of results, predicted polygons, as well as output lidR tiles. See e.g. \link{\code{silva2016}}
 }
 \description{
 \code{evaluate} computes an lidar based segmentation, assigns polygons to closest match and calculates jaccard stat

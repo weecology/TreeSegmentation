@@ -10,8 +10,8 @@
 evaluate_all<-function(itcs,algorithm = "silva",path_to_tiles=NULL,cores=NULL,compute_consensus=F,extra=F){
 
   #If running in parallel
+  `%dopar%` <- foreach::`%dopar%`
   if(!is.null(cores)){
-    `%dopar%` <- foreach::`%dopar%`
     cl<-parallel::makeCluster(cores)
     doSNOW::registerDoSNOW(cl)
   }
