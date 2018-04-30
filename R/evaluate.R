@@ -37,7 +37,7 @@ evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL,compute_con
   }
 
   if("dalponte" %in% algorithm){
-    print("Dalpone")
+    print("Dalponte")
     dalponte<-dalponte2016(path=inpath)
     predictions$dalponte<-dalponte$convex
     tiles$dalponte<-dalponte$tile

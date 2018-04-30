@@ -17,7 +17,7 @@
 li2012<-function(path=NULL,tile=NULL,output="all"){
 
   if(is.null(tile)){
-    tile = lidR::readLAS(path, select = "xyz", filter = "-drop_z_below 0")
+    tile = lidR::readLAS(path, filter = "-drop_z_below 0")
     tile@crs<-CRS("+init=epsg:32617")
   }
 

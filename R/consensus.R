@@ -26,14 +26,18 @@ consensus<-function(ptlist){
   })
 
   pdf<-reshape2::melt(ptlist_data,id.vars=colnames(ptlist_data[[1]])) %>% filter(!is.na(treeID))
-  points_to_remove<-pdf %>% group_by(PointID) %>% summarize(n=n()) %>% arrange(n) %>% filter(n < 3) %>% .$PointID
 
-  pdf<-pdf %>% filter(!PointID %in% points_to_remove)
+  #TODO complete cases?
+  #points_to_remove<-pdf %>% group_by(PointID) %>% summarize(n=n()) %>% arrange(n) %>% filter(!n==length(ptlist)) %>% .$PointID
+  #pdf<-pdf %>% filter(!PointID %in% points_to_remove)
 
   res<-reshape2::dcast(pdf,PointID~L1,value.var = "treeID")
 
   idframe<-res %>% tibble::rownames_to_column() %>% select(rowname,PointID)
   head(res<-res %>% select(-PointID))
+
+  #complete cases
+  res<-res[complete.cases(res),]
 
   system.time(result<-diceR::majority_voting(res, is.relabelled = FALSE))
 

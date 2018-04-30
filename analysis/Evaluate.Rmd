@@ -63,7 +63,8 @@ plot(extent(ground_truth),col='blue',add=T)
 silva<-silva2016(tile=tile,output="all")
 dalponte<-dalponte2016(tile=tile,output="all")
 li<-li2012(tile=tile,output="all")
-watershed<-watershed(tile=tile,output="all")
+watershed_result<-watershed(tile=tile,output="all")
+
 ```
 
 ## View 3d segmentation
@@ -102,8 +103,40 @@ Li versus watershed
 
 ```{r}
 plot(li$convex)
-plot(watershed$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
+plot(watershed_result$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
 ```
+
+##Compute consensus
+
+```{r}
+ptlist<-list(silva=silva$tile,dalponte=dalponte$tile)
+consensus_result<-consensus(ptlist=ptlist)
+consensus_polygons<-get_convex_hulls(consensus_result,consensus_result@data$treeID)
+```
+
+### View consensus segmentation
+```{r,webgl=TRUE}
+plot(consensus_result,color="treeID",col=col)
+plot(consensus_polygons,col=rgb(0,0,255,20,maxColorValue=255))
+```
+
+### Compare Consensus to Silva
+
+```{r}
+plot(silva$convex)
+plot(dalponte$convex)
+plot(li$convex)
+plot(consensus_polygons,add=T,col=rgb(0,0,255,20,maxColorValue=255))
+```
+
+How many tree predictions 
+```{r}
+library(pander)
+unique_total<-sapply(c(ptlist,consensus_result),function(x) length(unique(x@data$treeID)))
+df<-data.frame(Algorthm=c(names(ptlist),"consensus"),Total_Trees=as.numeric(unique_total))
+pandoc.table(df,style="rmarkdown")
+```
+
 ## Assign Trees
 
 Each tree is assigned based on the maximum overlap. Pairwise membership is done using a Hungarian Algorithm. See clue::solve_LSAP.
