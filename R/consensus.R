@@ -35,7 +35,7 @@ consensus<-function(ptlist,method="majority",debug=F){
   res<-reshape2::dcast(pdf,PointID~L1,value.var = "treeID")
 
   idframe<-res %>% tibble::rownames_to_column() %>% select(rowname,PointID)
-  head(res<-res %>% select(-PointID) %>% select(names(ptlist)))
+  print(head(res<-res %>% select(-PointID) %>% select(names(ptlist))))
 
   #complete cases?
   #res<-res[complete.cases(res),]

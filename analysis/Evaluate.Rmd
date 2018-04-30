@@ -43,7 +43,7 @@ names(itcs)<-sapply(itcs,function(x){
 
 ## Read in Data
 ```{r,webgl=TRUE}
-ground_truth<-itcs[[20]]
+ground_truth<-itcs[[1]]
 fname<-get_tile_filname(ground_truth,basename = "2014_OSBS_1_",extension = "_colorized.laz")
 tile<-readLAS(paste("../data/2015/cropped_",fname,sep=""))
 tile@crs<-CRS("+init=epsg:32617")
@@ -115,10 +115,11 @@ plot(watershed_result$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
 ##Compute consensus
 
 ```{r}
-ptlist<-list(silva=silva$tile,li=li$tile,dalponte=dalponte$tile,watershed=watershed_result$tile)
+ptlist<-list(dalponte=dalponte$tile,watershed=watershed_result$tile,li=li$tile,silva=silva$tile)
 consensus_result<-consensus(ptlist=ptlist,method="majority")
 consensus_polygons<-get_convex_hulls(consensus_result,consensus_result@data$treeID)
 plot(consensus_polygons,col=rgb(0,0,255,20,maxColorValue=255))
+paste(length(consensus_polygons),"consensus clusters found")
 ```
 
 ### View consensus segmentation
