@@ -21,6 +21,7 @@ evaluate_all<-function(itcs,algorithm = "silva",path_to_tiles=NULL,cores=NULL,co
   }
 
   #Report empty results
+  print(paste("ITC",which(sapply(results,is.null)),"has no overlap with cropped tile"))
 
   #remove empty results
   results<-results[!sapply(results,is.null)]
