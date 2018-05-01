@@ -11,6 +11,9 @@ get_tile_filname<-function(polygon,basename="NEON_D03_OSBS_DP1_",extension="_cla
   extnt<-raster::extent(polygon)
   #get extent name
   exname<-paste(as.integer(extnt@xmin/1000)*1000,as.integer(extnt@ymax/1000)*1000, sep="_")
-  fullpath<-paste(basename,exname,extension,sep="")
+
+  #get plot ID
+  plotid<-unique(polygon$Plot_ID)
+  fullpath<-paste(plotid,"_",basename,exname,extension,sep="")
   return(fullpath)
 }

@@ -30,7 +30,7 @@ path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_"
 #path_to_tiles="/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/DiscreteLidar/Cropped/2017/cropped_"
 
 #set cores
-cores<-3
+cores<-4
 #cores<-15
 ```
 
@@ -49,7 +49,7 @@ names(itcs)<-sapply(itcs,function(x){
 
 ## Read in Data
 ```{r,webgl=TRUE}
-ground_truth<-itcs[[8]]
+ground_truth<-itcs[[2]]
 fname<-get_tile_filname(ground_truth)
 tile<-readLAS(paste("../data/2017/Lidar/cropped_",fname,sep=""))
 tile@crs<-CRS("+init=epsg:32617")
