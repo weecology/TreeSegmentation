@@ -30,9 +30,11 @@ install_github("Weecology/TreeSegmentation")
 * \analysis - The main analysis scripts to generate trees from lidR clouds
 * \data - The publically available data.
 
-## Example
-
 The main analysis document is Evaluate.Rmd. The knitted html can be viewed [here](analysis/Evaluate.html).
+
+# Status 
+
+Below is a chart of the mean accuracy for the testing set of ground truth tree crowns.
 
 ```{r,message=FALSE,warning=F,echo=F}
 library(ggplot2)
