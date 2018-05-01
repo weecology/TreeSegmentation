@@ -26,10 +26,12 @@ opts_chunk$set(warning=F,message=F)
 col = pastel.colors(200)
 
 #set data paths
-path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_"
+#path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_"
+path_to_tiles="/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/DiscreteLidar/Cropped/2017/cropped_"
 
 #set cores
-cores<-3
+#cores<-3
+cores<-15
 ```
 
 # Load in ground-truth
