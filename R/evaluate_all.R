@@ -15,10 +15,17 @@ evaluate_all<-function(itcs,algorithm = "silva",path_to_tiles=NULL,cores=NULL,co
     cl<-parallel::makeCluster(cores)
     doSNOW::registerDoSNOW(cl)
   }
-  results<-foreach::foreach(i=1:length(itcs),.packages=c("TreeSegmentation","sp")) %dopar% {
+  results<-foreach::foreach(i=1:length(itcs),.packages=c("TreeSegmentation","sp"),.errorhandling = "remove" ) %dopar% {
     ground_truth<-itcs[[i]]
     TreeSegmentation::evaluate(ground_truth=ground_truth,algorithm=algorithm,path_to_tiles=path_to_tiles,compute_consensus = compute_consensus,extra=extra)
   }
+
+  #Report empty results
+
+  #remove empty results
+  results<-results[!sapply(results,is.null)]
+
+  #bind into single list
   results<-dplyr::bind_rows(results)
 
   #Stop cluster if needed

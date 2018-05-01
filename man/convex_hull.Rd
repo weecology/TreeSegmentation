@@ -17,6 +17,3 @@ A \code{\link[sp]{SpatialPolygons}} object containing a convex hull based on inp
 \description{
 \code{convex_hull} finds the outer hull of a set of points.
 }
-\examples{
-Not usually called directly, see \\code{\\link{get_convex_hulls}}
-}

@@ -26,6 +26,7 @@ consensus<-function(ptlist,method="majority",debug=F){
     return(x)
   })
 
+  #melt data into a dataframe for each method as a column
   pdf<-reshape2::melt(ptlist_data,id.vars=colnames(ptlist_data[[1]])) %>% filter(!is.na(treeID))
 
   #TODO complete cases?
@@ -35,7 +36,7 @@ consensus<-function(ptlist,method="majority",debug=F){
   res<-reshape2::dcast(pdf,PointID~L1,value.var = "treeID")
 
   idframe<-res %>% tibble::rownames_to_column() %>% select(rowname,PointID)
-  print(head(res<-res %>% select(-PointID) %>% select(names(ptlist))))
+  res<-res %>% select(-PointID) %>% select(names(ptlist))
 
   #complete cases?
   #res<-res[complete.cases(res),]

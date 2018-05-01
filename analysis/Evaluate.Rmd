@@ -1,5 +1,5 @@
 ---
-title: "Evaluate tree crown segmentation algorithms using Lidar"
+title: "Evaluate lidar-based tree crown segmentation algorithms"
 author: "Ben Weinstein"
 date: "4/20/2018"
 output: 
@@ -25,17 +25,21 @@ opts_chunk$set(warning=F,message=F)
 #set color ramp for treeID
 col = pastel.colors(200)
 
+#set data paths
+path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_"
+
+#set cores
+cores<-3
 ```
 
 # Load in ground-truth
 ```{r,results='hide'}
-shps<-list.files("/Users/ben/Dropbox/Weecology/ITCs/",pattern=".shp",full.names = T)
+shps<-list.files("../data/ITCs/test/",pattern=".shp",full.names = T)
 itcs<-lapply(shps,readOGR,verbose=F)
 
 names(itcs)<-sapply(itcs,function(x){
   id<-unique(x$Plot_ID)
-  #x@proj4string<-CRS("+init=epsg:32617")
-  return(x)
+  return(id)
   })
 ```
 
@@ -43,9 +47,9 @@ names(itcs)<-sapply(itcs,function(x){
 
 ## Read in Data
 ```{r,webgl=TRUE}
-ground_truth<-itcs[[6]]
-fname<-get_tile_filname(ground_truth,basename = "2014_OSBS_1_",extension = "_colorized.laz")
-tile<-readLAS(paste("../data/2015/cropped_",fname,sep=""))
+ground_truth<-itcs[[2]]
+fname<-get_tile_filname(ground_truth)
+tile<-readLAS(paste("../data/2017/Lidar/cropped_",fname,sep=""))
 tile@crs<-CRS("+init=epsg:32617")
 plot(tile)
 ```
@@ -64,10 +68,10 @@ silva<-silva2016(tile=tile,output="all")
 dalponte<-dalponte2016(tile=tile,output="all")
 li<-li2012(tile=tile,output="all")
 watershed_result<-watershed(tile=tile,output="all")
-
 ```
 
 ## View 3d segmentation
+
 ```{r,webgl=TRUE}
 plot(silva$tile,color="treeID",col=col)
 ```
@@ -75,6 +79,7 @@ plot(silva$tile,color="treeID",col=col)
 ### Overlay ground truth and predictions
 
 ```{r}
+plot(silva$convex)
 plot(ground_truth,col='red')
 plot(silva$convex,add=T)
 #plot(dalponte$convex,add=T)
@@ -115,7 +120,7 @@ plot(watershed_result$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
 ##Compute consensus
 
 ```{r}
-ptlist<-list(dalponte=dalponte$tile,watershed=watershed_result$tile,li=li$tile,silva=silva$tile)
+ptlist<-list(li=li$tile,dalponte=dalponte$tile,watershed=watershed_result$tile,silva=silva$tile)
 consensus_result<-consensus(ptlist=ptlist,method="majority")
 consensus_polygons<-get_convex_hulls(consensus_result,consensus_result@data$treeID)
 plot(consensus_polygons,col=rgb(0,0,255,20,maxColorValue=255))
@@ -123,6 +128,7 @@ paste(length(consensus_polygons),"consensus clusters found")
 ```
 
 ### View consensus segmentation
+
 ```{r,webgl=TRUE}
 #plot(consensus_result,color="treeID",col=col)
 ```
@@ -136,7 +142,8 @@ plot(li$convex)
 plot(consensus_polygons,add=T,col=rgb(0,0,255,40,maxColorValue=255))
 ```
 
-How many tree predictions 
+How many tree predictions?
+
 ```{r}
 library(pander)
 unique_total<-sapply(c(ptlist,consensus_result),function(x) length(unique(x@data$treeID)))
@@ -163,16 +170,28 @@ median(statdf$IoU)
 ```
 
 # As a wrapper for one tile, multiple methods, and consensus
-```{r}
+```{r,eval=F}
 results<-evaluate(ground_truth=itcs[[1]],algorithm = c("silva","dalponte","li"),path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_",compute_consensus = T)
-ggplot(results,aes(y=IoU,x=Method)) + geom_boxplot() + theme_bw()
+if(!is.null(results)){
+  ggplot(results,aes(y=IoU,x=Method)) + geom_boxplot() + theme_bw()
 results %>% group_by(Method) %>% summarize(mean=mean(IoU),median=median(IoU))
+}
 ```
 
-# Parallel Wrapper across all tiles
+# Parallel wrapper across all tiles
 
 ```{r,eval=T}
-system.time(results_all<-evaluate_all(itcs=itcs,algorithm = c("dalponte","silva","li","watershed"),path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_",cores=4,extra=F,compute_consensus=F))
+system.time(results_all<-evaluate_all(itcs=itcs,algorithm = c("dalponte","li","watershed"),path_to_tiles="/Users/ben/Dropbox/Weecology/NEON/cropped_",cores=cores,extra=F,compute_consensus=F))
+
+#plot results
 ggplot(results_all,aes(y=IoU,x=Method)) + geom_boxplot() + theme_bw()
-results_all %>% group_by(Method) %>% summarize(mean=mean(IoU),median=median(IoU))
+
+#Compute test statistics
+test_statistic<-results_all %>% group_by(Method) %>% summarize(mean=mean(IoU),median=median(IoU)) %>% mutate(Date=format(Sys.time(), "%m/%d/%y %H:%M:%S"))
+test_statistic
 ```
+
+```{r}
+write.csv(test_statistic,"Results/results.csv",append = T,col.names = NA)
+```
+

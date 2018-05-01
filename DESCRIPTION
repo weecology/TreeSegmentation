@@ -17,8 +17,6 @@ Imports:
   rgdal,
   raster,
   stringr,
-  rlang,
-  purrr,
   ggplot2,
   reshape2,
   diceR,

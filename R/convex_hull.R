@@ -4,8 +4,7 @@
 #' @param x A two column matrix with column names "X" and "Y"
 #' @param plot Whether to plot the results for visualization
 #' @return A \code{\link[sp]{SpatialPolygons}} object containing a convex hull based on input points.
-#' @examples
-#' Not usually called directly, see \code{\link{get_convex_hulls}}
+#'
 convex_hull<-function(x,plot=FALSE){
   ch<-grDevices::chull(x$X,x$Y)
   poly_coords<-x[c(ch,ch[1]),c("X","Y")]

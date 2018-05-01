@@ -24,12 +24,15 @@ silva2016<-function(path=NULL,tile=NULL,output=c("all")){
   chm=canopy_model(tile)
 
   #remove ground points, Classification == 2.
-  tile<-tile %>% lidR::lasfilter(!Classification==2)
-  tile@crs<-sp::CRS("+init=epsg:32617")
+  #tile<-tile %>% lidR::lasfilter(!Classification==2)
+  #tile@crs<-sp::CRS("+init=epsg:32617")
 
   #Compute unsupervised classification method
   print("Clustering Trees")
   print(system.time(silva2016<-segment_trees(las=tile,algorithm = "silva2016",chm=chm)))
+
+  #remove points that are not in treeID, we can add them back later as grounds.
+  silva2016<-silva2016 %>% lasfilter(!is.na(treeID))
 
   if(output=="tile"){
     return(silva2016)
@@ -37,7 +40,7 @@ silva2016<-function(path=NULL,tile=NULL,output=c("all")){
 
   #create polygons
   print("Creating tree polygons")
-  silva_convex<-get_convex_hulls(silva2016,silva2016@data$treeID)
+  silva_convex<-get_convex_hulls(tile = silva2016,ID = silva2016@data$treeID)
 
   #set outputs
   if(output=="all"){

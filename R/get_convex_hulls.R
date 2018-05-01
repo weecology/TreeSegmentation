@@ -23,10 +23,17 @@
 #'
 get_convex_hulls<-function(tile,ID){
   split_trees= split(tile@data, ID)
-  tree_poylgons<-lapply(split_trees,convex_hull)
-  convex_polygons<-list(tree_poylgons, makeUniqueIDs = T) %>%
-    rlang::flatten() %>%
-    do.call(rbind, .)
+  tree_polygons<-lapply(split_trees,convex_hull)
+
+  names(tree_polygons)<-NULL
+
+  #assign treeID as slot ID for each polygon
+  for(x in 1:length(tree_polygons)){
+    tree_polygons[[x]]@polygons[[1]]@ID<-names(split_trees)[x]
+  }
+
+  #bind into large SpatialPolygonsDataframe
+  convex_polygons<-do.call(raster::bind,unlist(tree_polygons))
 
   #make into sp dataframe
   IDs <- sapply(slot(convex_polygons, "polygons"), function(x) slot(x, "ID"))

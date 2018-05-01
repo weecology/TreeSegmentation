@@ -16,11 +16,22 @@ evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL,compute_con
     stop("Select more than 1 algorithm to generate consensus")
   }
 
+
   #set file name
   fname<-get_tile_filname(ground_truth)
   inpath<-paste(path_to_tiles,fname,sep="")
 
-  #Does the file exist?
+  #Sanity check, tile and ground truth must overlap in extent
+  tile_check <- lidR::readLAS(inpath, filter = "-drop_z_below 0")
+  tile_check@crs<-sp::CRS("+init=epsg:32617")
+  overlap_check<-raster::intersect(raster::extent(ground_truth),raster::extent(tile_check))
+
+  if(is.null(overlap_check)){
+    warning("Tile and ground truth do not overlap")
+    return(NULL)
+  }
+
+  #Sanity check, does the file exist?
   if(!file_test("-f",inpath)){
     warning(inpath,"does not exist")
     return(NULL)

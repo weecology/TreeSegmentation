@@ -15,7 +15,6 @@ names(itcs)<-sapply(itcs,function(x){
   id<-unique(x$Plot_ID)
 })
 
-
 #Crop lidar by itc extent (buffered by 3x) and write to file
 cl<-makeCluster(15)
 #cl<-makeCluster(2)
