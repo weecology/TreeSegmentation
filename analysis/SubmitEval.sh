@@ -13,6 +13,6 @@
 #SBATCH --error=/home/b.weinstein/logs/eval.err
 
 #This is a generic R submission script
-module load R
+module load rstudio
 
 Rscript -e 'library(rmarkdown); rmarkdown::render("Evaluate.Rmd", "html_document")'

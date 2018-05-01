@@ -36,11 +36,11 @@ The main analysis document is Evaluate.Rmd. The knitted html can be viewed [here
 
 ```{r,message=FALSE,warning=F,echo=F}
 library(ggplot2)
-results<-read.csv("analysis/Results/")
-colnames(results)<-c("mean","median","date")
+results<-read.csv("analysis/Results/results.csv")[,-1]
+colnames(results)<-c("Algorithm","mean","median","date")
 
 #set as date
-results$date<-as.POSIXct(results$date)
-ggplot(results,aes(x=date,y=mean)) + geom_line() + geom_point() + scale_x_datetime()
+results$date<-strptime(results$date,format="%m/%d/%y %H:%M:%S")
+ggplot(results,aes(x=as.Date(date),y=max(mean))) + geom_line() + geom_point() + ylim(0,1) + scale_x_date() + labs(x="Date",y="Mean Accuracy (IoU)") + theme_bw()
 ```
 
