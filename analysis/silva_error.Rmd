@@ -1,0 +1,116 @@
+---
+title: "Silva edges error"
+author: "Ben Weinstein"
+date: "5/1/2018"
+output: pdf_document
+---
+
+```{r}
+library(lidR)
+```
+
+# Read in data
+
+```{r}
+LASfile <- system.file("extdata", "MixedConifer.laz", package="lidR")
+las = readLAS(LASfile, select = "xyz", filter = "-drop_z_below 0")
+col = pastel.colors(200)
+```
+
+# Compute canopy model
+```{r}
+chm = grid_canopy(las, res = 0.5, subcircle = 0.3)
+chm = as.raster(chm)
+kernel = matrix(1,3,3)
+chm = raster::focal(chm, w = kernel, fun = mean, na.rm = TRUE)
+```
+
+# Perform segmentation
+```{r}
+ttops = lidR::tree_detection(chm, 5, 2)
+crowns<-lidR::lastrees_silva(las, chm, ttops, max_cr_factor = 0.6, exclusion = 0.6,
+                             extra = T)
+```
+
+# Get convex hulls
+
+These comes from a [package/analysis](https://github.com/weecology/TreeSegmentation) i'm working on.
+
+```{r}
+get_convex_hulls<-function(tile,ID){
+  split_trees= split(tile@data, ID)
+  tree_polygons<-lapply(split_trees,convex_hull)
+  
+  names(tree_polygons)<-NULL
+  
+  #assign treeID as slot ID for each polygon
+  for(x in 1:length(tree_polygons)){
+      tree_polygons[[x]]@polygons[[1]]@ID<-names(split_trees)[x]
+  }
+
+  #bind into large SpatialPolygonsDataframe
+  convex_polygons<-do.call(raster::bind,unlist(tree_polygons))
+
+  #make into sp dataframe
+  IDs <- sapply(slot(convex_polygons, "polygons"), function(x) slot(x, "ID"))
+  df <- data.frame(ID=1:length(IDs), row.names=IDs)
+  result<-sp::SpatialPolygonsDataFrame(convex_polygons,df)
+  sp::proj4string(result)<-tile@crs
+  return(result)
+}
+
+convex_hull<-function(x,plot=FALSE){
+  ch<-grDevices::chull(x$X,x$Y)
+  poly_coords<-x[c(ch,ch[1]),c("X","Y")]
+  sp_poly <- sp::SpatialPolygons(list(sp::Polygons(list(sp::Polygon(poly_coords)), ID=1)))
+  return(sp_poly)
+  if(plot){
+    plot(sp_poly)
+    points(cbind(x$X,x$Y))
+  }
+}
+
+```
+
+```{r}
+silva_convex<-get_convex_hulls(tile = las,ID = las@data$treeID)
+
+#view convex hulls
+raster::plot(silva_convex)
+```
+
+# Find strange polygons
+
+The largest ones should be them.
+
+```{r}
+areaF<-c()
+for(x in 1:length(silva_convex)){
+  areaF[x]<-silva_convex@polygons[[x]]@area
+}
+
+which.max(areaF)
+```
+
+# Confirm thats a weird polygon
+
+```{r}
+raster::plot(silva_convex[254,])
+```
+
+# Is that confusion in the orignal tile or just an artifact of the convex hull?
+
+```{r}
+split_trees= split(las@data, las@data$treeID)
+original_data<-split_trees[[254]]
+
+#Make sure that's the treeID
+unique(original_data$treeID)
+
+#find those points in the las
+bad_points<-las%>% lasfilter(treeID==254)
+raster::plot(extent(las))
+points(cbind(bad_points@data$X,bad_points@data$Y),col='red')
+```
+
+Its in the original segmentation. Those points all have the same treeID.
