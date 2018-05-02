@@ -17,6 +17,6 @@ get_tile_filname_multiple<-function(polygon,basename="NEON_D03_OSBS_DP1_",extens
 
   #get plot ID
   plotid<-unique(polygon$Plot_ID)
-  fullpath<-paste(plotid,"_",basename,exname,extension,sep="")
+  fullpath<-paste(basename,exname,extension,sep="")
   return(fullpath)
 }
