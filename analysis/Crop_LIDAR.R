@@ -23,31 +23,24 @@ registerDoSNOW(cl)
 foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp")) %dopar% {
   #plot(itcs[[x]])
 
-  #Get Tile
-  fname<-get_tile_filname_multiple(itcs[[x]])
   #path_to_tiles<-"/Users/ben/Dropbox/Weecology/NEON/"
   path_to_tiles<-"/ufrc/ewhite/s.marconi/NeonData/2017_Campaign/D03/OSBS/L1/DiscreteLidar/Classified_point_cloud/"
 
-  inpath<-paste(path_to_tiles,fname,sep="")
-  #if there are multiple overlapping tiles
-  for(i in 1:length(inpath)){
-    if(!file_test("-f",inpath[i])){
-      return(paste(inpath[i]," does not exist"," for itc ",x,sep=""))
-    }
+  #Create raster catalog
+  ctg<-catalog(path_to_tiles)
 
-    tile<-readLAS(inpath[i])
-    tile@crs<-CRS("+init=epsg:32617")
+  #create extent polygon
+  extent_polygon<-as(2.5*extent(itcs[[x]]),"SpatialPolygons")
+  extent_polygon<-extent_polygon@polygons[[1]]@Polygons[[1]]
 
-    #Clip Tile
-    clip_ext<-2*extent(itcs[[x]])
-    clipped_las<-lasclipRectangle(tile,xleft=clip_ext@xmin,xright=clip_ext@xmax,ytop=clip_ext@ymax,ybottom=clip_ext@ymin)
+  #clip to extent
+  clipped_las<-lasclip(ctg,extent_polygon)
 
-    #filename
-    plotid<-unique(itcs[[x]]$Plot_ID)
-    cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/DiscreteLidar/Cropped/2017/","cropped_",plotid,"_",i,"_",fname[i],sep="")
-    print(cname)
-    writeLAS(clipped_las,cname)
-  }
+  #filename
+  plotid<-unique(itcs[[x]]$Plot_ID)
+  cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/DiscreteLidar/Cropped/2017/",plotid,".laz",sep="")
+  print(cname)
+  writeLAS(clipped_las,cname)
 
   return(cname)
 }
