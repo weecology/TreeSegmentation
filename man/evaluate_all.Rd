@@ -5,7 +5,7 @@
 \title{Wrapper among tiles for calculating overlap among predicted and ground truth polygons for lidar-based tree segmentation methods}
 \usage{
 evaluate_all(itcs, algorithm = "silva", path_to_tiles = NULL,
-  cores = NULL, compute_consensus = F, extra = F)
+  cores = NULL, compute_consensus = F, extra = F, plot_result = F)
 }
 \arguments{
 \item{itcs}{A SpatialPolygonDataFrame of ground truth polygons}

@@ -17,7 +17,6 @@ evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL,compute_con
     stop("Select more than 1 algorithm to generate consensus")
   }
 
-
   #set file name
   fname<-get_tile_filname(ground_truth)
   inpath<-paste(path_to_tiles,fname,sep="")
