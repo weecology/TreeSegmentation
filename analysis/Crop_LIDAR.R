@@ -25,9 +25,10 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp")) %dopar% {
 
   #Get Tile
   fname<-get_tile_filname_multiple(itcs[[x]])
+  #path_to_tiles<-"/Users/ben/Dropbox/Weecology/NEON/"
+  path_to_tiles<-"/ufrc/ewhite/s.marconi/NeonData/2017_Campaign/D03/OSBS/L1/DiscreteLidar/Classified_point_cloud/"
 
-  inpath<-paste("/ufrc/ewhite/s.marconi/NeonData/2017_Campaign/D03/OSBS/L1/DiscreteLidar/Classified_point_cloud/",fname,sep="")
-
+  inpath<-paste(path_to_tiles,fname,sep="")
   #if there are multiple overlapping tiles
   for(i in 1:length(inpath)){
     if(!file_test("-f",inpath[i])){

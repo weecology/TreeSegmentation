@@ -1,5 +1,4 @@
 ---
-title: "index"
 author: "Ben Weinstein"
 date: "4/26/2018"
 output: html_document
