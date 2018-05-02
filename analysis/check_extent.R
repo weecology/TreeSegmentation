@@ -10,25 +10,36 @@ names(itcs)<-sapply(itcs,function(x){
 })
 
 for(x in 1:length(itcs)){
-  print(x)
-  fname<-get_tile_filname(itcs[[x]])
 
-  inpath<-paste("../data/2017/Lidar/cropped_",fname,sep="")
+  print(x)
+  fname<-unique(itcs[[x]]$Plot_ID)
+
+  inpath<-paste("../data/2017/Lidar/",fname,".laz",sep="")
   #Sanity check, does the file exist?
   if(!file_test("-f",inpath)){
     warning(inpath," does not exist")
     next
-    }
+  }
+
+  #add rgb
+  ortho<-stack(paste("../data/2017/RGB/cropped_",fname,".tif",sep=""))
+
+
+  png(paste("plots/",fname,".png",sep=""))
+
+  plotRGB(stretch(ortho/10000*255),ext=extent(itcs[[x]])*1.2)
 
   try(tile<-readLAS(inpath))
   tile@crs<-CRS("+init=epsg:32617")
   #plot(tile)
 
-  plot(extent(tile),col='red')
-  plot(extent(itcs[[x]]),col='blue',add=T)
+  #plot(extent(tile),col='red')
   title(unique(itcs[[x]]$Plot_ID))
 
   ground_truth<-raster::crop(itcs[[x]],extent(tile))
-  plot(ground_truth,add=T,col='green')
+  plot(ground_truth,add=T,col=rgb(255,0,0,20,maxColorValue=255))
+  dev.off()
 }
+
+
 

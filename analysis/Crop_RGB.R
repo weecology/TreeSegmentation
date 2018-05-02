@@ -47,12 +47,14 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp","raster")) %
   }
 
   #Clip matched tile
-  clip_ext<-3*extent(itcs[[x]])
+  clip_ext<-2.5*extent(itcs[[x]])
   clipped_rgb<-raster::crop(matched_tile,clip_ext)
 
   #filename
-  cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/Spectrometer/RGBtifs/2017092713/","cropped_",unique(itcs[[x]]$Plot_ID),".tif",sep="")
+  cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/Spectrometer/RGBtifs/2017092713/",unique(itcs[[x]]$Plot_ID),".tif",sep="")
   print(cname)
+
+  #rescale to
   writeRaster(clipped_rgb,cname,overwrite=T)
   return(cname)
 }
