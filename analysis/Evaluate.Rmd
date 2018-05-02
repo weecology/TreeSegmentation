@@ -114,6 +114,15 @@ plot(li$convex)
 plot(watershed_result$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
 ```
 
+## View polygons and underlying points
+```{r}
+for(i in 1:length(ground_truth)){
+  plot(ground_truth[i,])
+  plotclip<-lasclip(x=silva$tile,geometry = ground_truth[i,])
+  points(cbind(plotclip@data$X,plotclip@data$Y),col=plotclip@data$X)
+}
+```
+
 ##Compute consensus
 
 ```{r}
@@ -164,11 +173,6 @@ statdf<-calc_jaccard(assignment=assignment,ground_truth = ground_truth,predictio
 ggplot(statdf) + geom_histogram(aes(IoU)) + labs(x="Intersection over union") + theme_bw()
 mean(statdf$IoU)
 median(statdf$IoU)
-```
-
-## View polygons and underlying points
-```{r}
-
 ```
 
 

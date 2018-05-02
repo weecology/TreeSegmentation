@@ -29,12 +29,12 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp")) %dopar% {
   inpath<-paste("/ufrc/ewhite/s.marconi/NeonData/2017_Campaign/D03/OSBS/L1/DiscreteLidar/Classified_point_cloud/",fname,sep="")
 
   #if there are multiple overlapping tiles
-  for(x in 1:length(inpath)){
-    if(!file_test("-f",inpath[x])){
-      return(paste(inpath[x]," does not exist"," for itc ",x,sep=""))
+  for(i in 1:length(inpath)){
+    if(!file_test("-f",inpath[i])){
+      return(paste(inpath[i]," does not exist"," for itc ",x,sep=""))
     }
 
-    tile<-readLAS(inpath[x])
+    tile<-readLAS(inpath[i])
     tile@crs<-CRS("+init=epsg:32617")
 
     #Clip Tile
@@ -43,7 +43,7 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp")) %dopar% {
 
     #filename
     plotid<-unique(itcs[[x]]$Plot_ID)
-    cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/DiscreteLidar/Cropped/2017/","cropped_",plotid,"_",x,"_",fname,sep="")
+    cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/DiscreteLidar/Cropped/2017/","cropped_",plotid,"_",i,"_",fname,sep="")
     print(cname)
     writeLAS(clipped_las,cname)
   }
