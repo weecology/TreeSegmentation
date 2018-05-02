@@ -48,7 +48,7 @@ names(itcs)<-sapply(itcs,function(x){
 
 ## Read in Data
 ```{r,webgl=TRUE}
-ground_truth<-itcs[[2]]
+ground_truth<-itcs[[9]]
 fname<-get_tile_filname(ground_truth)
 tile<-readLAS(paste("../data/2017/Lidar/cropped_",fname,sep=""))
 tile@crs<-CRS("+init=epsg:32617")
@@ -101,19 +101,15 @@ Okay that's not great, but let's keep going for the moment.
 
 Silva v Dalponte
 ```{r}
-plot(silva$convex)
+plot(chm,ext=extent(ground_truth))
+plot(silva$convex,add=T)
 plot(dalponte$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
-```
-
-```{r}
-plot(silva$convex)
-plot(dalponte$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
-plot(li$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
 ```
 
 Li versus watershed
 
 ```{r}
+plot(chm,ext=extent(ground_truth))
 plot(li$convex)
 plot(watershed_result$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
 ```
@@ -194,6 +190,6 @@ test_statistic
 ```
 
 ```{r}
-write.csv(test_statistic,"Results/results.csv",append = T,col.names = NA)
+write.table(test_statistic,"Results/results.csv",append = T,col.names = F,sep=",")
 ```
 

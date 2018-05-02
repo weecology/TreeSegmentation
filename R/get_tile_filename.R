@@ -9,8 +9,11 @@
 #' @export
 get_tile_filname<-function(polygon,basename="NEON_D03_OSBS_DP1_",extension="_classified_point_cloud.laz"){
   extnt<-raster::extent(polygon)
-  #get extent name
-  exname<-paste(as.integer(extnt@xmin/1000)*1000,as.integer(extnt@ymax/1000)*1000, sep="_")
+
+  #check if raster fits on all sides
+  exname_min<-paste(as.integer(extnt@xmin/1000)*1000,as.integer(extnt@ymax/1000)*1000, sep="_")
+  exname_max<-paste(as.integer(extnt@xmax/1000)*1000,as.integer(extnt@ymin/1000)*1000, sep="_")
+  exname<-unique(c(exname_min,exname_max))
 
   #get plot ID
   plotid<-unique(polygon$Plot_ID)

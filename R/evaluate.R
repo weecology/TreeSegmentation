@@ -26,6 +26,7 @@ evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL,compute_con
   tile_check@crs<-sp::CRS("+init=epsg:32617")
   overlap_check<-raster::intersect(raster::extent(ground_truth),raster::extent(tile_check))
 
+
   if(is.null(overlap_check)){
     warning("Tile and ground truth do not overlap")
     return(NULL)
