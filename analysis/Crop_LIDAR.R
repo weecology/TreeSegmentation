@@ -44,9 +44,9 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp")) %dopar% {
 
     #filename
     plotid<-unique(itcs[[x]]$Plot_ID)
-    cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/DiscreteLidar/Cropped/2017/","cropped_",plotid,"_",i,"_",fname,sep="")
-    print(cname)
-    writeLAS(clipped_las,cname)
+    cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/DiscreteLidar/Cropped/2017/","cropped_",plotid,"_",i,"_",fname[i],sep="")
+    print(cname[i])
+    writeLAS(clipped_las,cname[i])
   }
 
   return(cname)
