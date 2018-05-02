@@ -23,10 +23,6 @@ registerDoSNOW(cl)
 foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp")) %dopar% {
   #plot(itcs[[x]])
 
-  #make giant mosiac
-  all_tiles<-list.files("/ufrc/ewhite/s.marconi/NeonData/2017_Campaign/D03/OSBS/L1/DiscreteLidar/Classified_point_cloud/",full.names=T)
-  all_tiles<-lapply(all_tiles,raster)
-  mosiac_tile<-do.call(all_tiles,mosiac)
   #Get Tile
   fname<-get_tile_filname_multiple(itcs[[x]])
 

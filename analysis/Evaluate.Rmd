@@ -166,6 +166,12 @@ mean(statdf$IoU)
 median(statdf$IoU)
 ```
 
+## View polygons and underlying points
+```{r}
+
+```
+
+
 # As a wrapper for one tile, multiple methods, and consensus
 ```{r,eval=F}
 results<-evaluate(ground_truth=itcs[[1]],algorithm = c("silva","dalponte","li"),path_to_tiles=path_to_tiles,compute_consensus = F,plot_results=T)
