@@ -37,7 +37,8 @@ Below is a chart of the mean accuracy for the testing set of ground truth tree c
 
 ```{r,message=FALSE,warning=F,echo=F}
 library(ggplot2)
-results<-read.csv("analysis/Results/results.csv")[,-1]
+library(dplyr)
+results<-read.csv("analysis/Results/results.csv")
 colnames(results)<-c("Algorithm","mean","median","date")
 
 #set as date

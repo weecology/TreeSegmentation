@@ -26,7 +26,7 @@ opts_chunk$set(warning=F,message=F)
 col = pastel.colors(200)
 
 #set data paths
-path_to_tiles="../data/2017/Lidar/cropped_"
+path_to_tiles="../data/2017/Lidar/"
 
 #set cores
 cores<-4
@@ -50,7 +50,7 @@ names(itcs)<-sapply(itcs,function(x){
 ```{r,webgl=TRUE}
 ground_truth<-itcs[[9]]
 fname<-get_tile_filname(ground_truth)
-tile<-readLAS(paste("../data/2017/Lidar/cropped_",fname,sep=""))
+tile<-readLAS(paste("../data/2017/Lidar/",fname,sep=""))
 tile@crs<-CRS("+init=epsg:32617")
 plot(tile)
 ```
@@ -115,7 +115,7 @@ plot(watershed_result$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
 ```
 
 ## View polygons and underlying points
-```{r}
+```{r,eval=F}
 for(i in 1:length(ground_truth)){
   plot(ground_truth[i,])
   plotclip<-lasclip(x=silva$tile,geometry = ground_truth[i,])
@@ -178,7 +178,7 @@ median(statdf$IoU)
 
 # As a wrapper for one tile, multiple methods, and consensus
 ```{r,eval=F}
-results<-evaluate(ground_truth=itcs[[1]],algorithm = c("silva","dalponte","li"),path_to_tiles=path_to_tiles,compute_consensus = F,plot_results=T)
+results<-evaluate(ground_truth=itcs[[1]],algorithm = c("silva","dalponte"),path_to_tiles=path_to_tiles,compute_consensus = F,plot_results=T)
 
 if(!is.null(results)){
   ggplot(results,aes(y=IoU,x=Method)) + geom_boxplot() + theme_bw()
@@ -189,7 +189,7 @@ results %>% group_by(Method) %>% summarize(mean=mean(IoU),median=median(IoU))
 # Parallel wrapper across all tiles
 
 ```{r,eval=T}
-system.time(results_all<-evaluate_all(itcs=itcs,algorithm = c("dalponte","li","watershed","silva"),path_to_tiles=path_to_tiles,cores=cores,extra=F,compute_consensus=F))
+system.time(results_all<-evaluate_all(itcs=itcs[1:4],algorithm = c("dalponte","li","watershed","silva"),path_to_tiles=path_to_tiles,cores=cores,extra=F,compute_consensus=F))
 
 #plot results
 ggplot(results_all,aes(y=IoU,x=Method)) + geom_boxplot() + theme_bw()

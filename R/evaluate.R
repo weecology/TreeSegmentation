@@ -93,9 +93,14 @@ evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL,compute_con
   if(plot_results){
     #which was the best performing method
     best_method<-statdf %>% group_by(Method) %>% summarize(m=mean(IoU)) %>% arrange(desc(m))
-    plot(ground_truth,col='red')
+    ortho<-stack(paste("../data/2017/RGB/cropped_",fname,".tif",sep=""))
+    png(paste("plots/",fname,".png",sep=""))
+
+    plotRGB(stretch(ortho/10000*255),ext=extent(itcs[[x]])*1.2)
+    plot(ground_truth,col=rgb(255,0,0,20,maxColorValue=255),add=TRUE)
     plot(predictions[[best_method$Method[1]]],add=T)
     title(paste(unique(ground_truth$Plot_ID),":",best_method$Method[1]))
+
   }
   if(extra){
     return(list(results=statdf,predictions=predictions,tiles=tiles))

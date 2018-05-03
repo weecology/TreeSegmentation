@@ -8,13 +8,15 @@
 #' Not usually called directly by user.
 #' @export
 get_tile_filname<-function(polygon,basename="NEON_D03_OSBS_DP1_",extension="_classified_point_cloud.laz"){
-  extnt<-raster::extent(polygon)
+  #extnt<-raster::extent(polygon)
 
   #check if raster fits on all sides
-  exname<-paste(as.integer(extnt@xmin/1000)*1000,as.integer(extnt@ymax/1000)*1000, sep="_")
+  #exname<-paste(as.integer(extnt@xmin/1000)*1000,as.integer(extnt@ymax/1000)*1000, sep="_")
 
   #get plot ID
   plotid<-unique(polygon$Plot_ID)
-  fullpath<-paste(plotid,"_","1","_",basename,exname,extension,sep="")
+  #fullpath<-paste(plotid,"_","1","_",basename,exname,extension,sep="")
+  fullpath<-paste(plotid,".laz",sep="")
+
   return(fullpath)
 }
