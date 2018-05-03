@@ -29,7 +29,7 @@ col = pastel.colors(200)
 path_to_tiles="../data/2017/Lidar/"
 
 #set cores
-cores<-4
+cores<-6
 #cores<-15
 ```
 

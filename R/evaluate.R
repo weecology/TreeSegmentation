@@ -93,10 +93,10 @@ evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL,compute_con
   if(plot_results){
     #which was the best performing method
     best_method<-statdf %>% group_by(Method) %>% summarize(m=mean(IoU)) %>% arrange(desc(m))
-    ortho<-raster::stack(paste("../data/2017/RGB/cropped_",unique(ground_truth$Plot_ID),".tif",sep=""))
+    ortho<-raster::stack(paste("../data/2017/RGB/",unique(ground_truth$Plot_ID),".tif",sep=""))
     png(paste("plots/evaluation/",unique(ground_truth$Plot_ID),".png",sep=""))
 
-    raster::plotRGB(raster::stretch(ortho/10000*255),ext=extent(ground_truth)*2)
+    raster::plotRGB(raster::stretch(ortho/10000*255),ext=extent(predictions[[best_method$Method[1]]]))
     plot(ground_truth,border="red",add=TRUE)
     plot(predictions[[best_method$Method[1]]],add=T)
     title(paste(unique(ground_truth$Plot_ID),":",best_method$Method[1]),"=",best_method$m[1])

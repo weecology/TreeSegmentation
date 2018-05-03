@@ -1,8 +1,11 @@
 library(TreeSegmentation)
 library(rgdal)
 library(raster)
+library(stringr)
+shps<-list.files("../data/ITCs/",pattern=".shp",full.names = T,recursive = T)
 
-shps<-list.files("../data/ITCs/test/",pattern=".shp",full.names = T)
+#take out missing polygon
+shps<-shps[!str_detect(shps,"009")]
 itcs<-lapply(shps,readOGR,verbose=F)
 
 names(itcs)<-sapply(itcs,function(x){
@@ -23,7 +26,7 @@ for(x in 1:length(itcs)){
   }
 
   #add rgb
-  ortho<-raster::stack(paste("../data/2017/RGB/cropped_",fname,".tif",sep=""))
+  ortho<-raster::stack(paste("../data/2017/RGB/",fname,".tif",sep=""))
 
 
   png(paste("plots/",fname,".png",sep=""))
