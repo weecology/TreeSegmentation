@@ -99,6 +99,7 @@ evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL,compute_con
     raster::plotRGB(raster::stretch(ortho/10000*255),ext=extent(predictions[[best_method$Method[1]]]))
     plot(ground_truth,border="red",add=TRUE)
     plot(predictions[[best_method$Method[1]]],add=T)
+    #TODO check this.
     title(paste(unique(ground_truth$Plot_ID),":",best_method$Method[1]),"=",best_method$m[1])
     dev.off()
   }
