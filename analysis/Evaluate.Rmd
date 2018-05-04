@@ -17,7 +17,6 @@ library(TreeSegmentation)
 library(sp)
 library(ggplot2)
 library(rgl)
-library(clue)
 library(lidR)
 knit_hooks$set(webgl = hook_webgl)
 opts_chunk$set(warning=F,message=F)
@@ -110,17 +109,8 @@ Li versus watershed
 
 ```{r}
 plot(chm,ext=extent(ground_truth))
-plot(li$convex)
+plot(li$convex,add=T)
 plot(watershed_result$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
-```
-
-## View polygons and underlying points
-```{r,eval=F}
-for(i in 1:length(ground_truth)){
-  plot(ground_truth[i,])
-  plotclip<-lasclip(x=silva$tile,geometry = ground_truth[i,])
-  points(cbind(plotclip@data$X,plotclip@data$Y),col=plotclip@data$X)
-}
 ```
 
 ##Compute consensus
