@@ -24,10 +24,6 @@ dalponte2016<-function(path=NULL,tile=NULL,output="all"){
   print("Computing Canopy Model")
   chm=canopy_model(tile)
 
-  #remove ground points, Classification == 2.
-  tile<-tile %>% lidR::lasfilter(!Classification==2)
-  tile@crs<-CRS("+init=epsg:32617")
-
   #Compute unsupervised classification method
   print("Clustering Trees")
   print(system.time(dalponte2016<-segment_trees(las=tile,algorithm = "dalponte2016",chm=chm)))

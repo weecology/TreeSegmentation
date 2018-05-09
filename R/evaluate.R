@@ -2,20 +2,14 @@
 #'
 #' \code{evaluate} computes an lidar based segmentation, assigns polygons to closest match and calculates jaccard stat
 #' @param ground_truth SpatialPolygonDataFrame of ground truth polygons
-#' @param algorithm  Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \code{\link[lidR]{lastrees}}
+#' @param algorithm  Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \link{\code[lidR]{lastrees}}
 #' @param path_to_tiles Character. Location of lidar tiles on system.
-#' @param compute_consensus Logical. Generate a consensus from selected methods, see \code{\link{consensus}}.
 #' @param plot_results Logical. Generate a plot of ground truth and predicted polygons
 #' @param extra Logical. Return a list of segmented lidar tiles, predicted convex hull polygons, and the calculated evaluation statistics.
 #' @return dataframe of the jaccard overlap among polygon pairs for each selected method. If extra=T, \code{evaluate} will return a list object of results, predicted polygons, as well as output lidR tiles. See e.g. \link{\code{silva2016}}
 #' @export
 #'
-evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL,compute_consensus=F,extra=F,plot_results=F){
-
-  #Sanity check, consensus can't be T if only 1 algorithm selection
-  if(length(algorithm)==1 & compute_consensus==T){
-    stop("Select more than 1 algorithm to generate consensus")
-  }
+evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL,extra=F,plot_results=F){
 
   #set file name
   fname<-get_tile_filname(ground_truth)
@@ -69,14 +63,6 @@ evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL,compute_con
     tiles$watershed<-watershed_result$tile
   }
 
-  if(compute_consensus){
-    print("consensus")
-    #Calculate consensus treeID
-    tiles$consensus<-consensus(ptlist=tiles)
-
-    #create consensus polygons
-    predictions$consensus<-get_convex_hulls(tiles$consensus,tiles$consensus@data$treeID)
-  }
 
   #For each method compute result statistics
   statdf<-list()

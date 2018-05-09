@@ -5,16 +5,14 @@
 \title{Wrapper for calculating overlap among predictiong and ground truth polygons for lidar-based tree segmentation methods}
 \usage{
 evaluate(ground_truth, algorithm = "silva", path_to_tiles = NULL,
-  compute_consensus = F, extra = F, plot_results = F)
+  extra = F, plot_results = F)
 }
 \arguments{
 \item{ground_truth}{SpatialPolygonDataFrame of ground truth polygons}
 
-\item{algorithm}{Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \code{\link[lidR]{lastrees}}}
+\item{algorithm}{Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \link{\code[lidR]{lastrees}}}
 
 \item{path_to_tiles}{Character. Location of lidar tiles on system.}
-
-\item{compute_consensus}{Logical. Generate a consensus from selected methods, see \code{\link{consensus}}.}
 
 \item{extra}{Logical. Return a list of segmented lidar tiles, predicted convex hull polygons, and the calculated evaluation statistics.}
 
