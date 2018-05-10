@@ -6,6 +6,7 @@ library(doSNOW)
 library(foreach)
 library(parallel)
 library(rgdal)
+library(rhdf5)
 
 #Get lists of itcs
 shps<-list.files("/orange/ewhite/b.weinstein/ITC",pattern=".shp",full.names = T)
@@ -20,13 +21,15 @@ cl<-makeCluster(15)
 #cl<-makeCluster(2)
 registerDoSNOW(cl)
 
-foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp","raster"),.errorhandling = "pass") %dopar% {
+foreach(x=1:length(itcs),.packages=c("TreeSegmentation","sp","raster"),.errorhandling = "pass") %dopar% {
   #plot(itcs[[x]])
 
   #Look for corresponding tile
   #get lists of rasters
-  fils<-list.files("/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L3/Camera/Mosaic/V01/",full.names = T,pattern=".tif")
-  filname<-list.files("/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L3/Camera/Mosaic/V01/",pattern=".tif")
+  #fils<-list.files("/orange/ewhite/NeonData/2017_Campaign/D03/OSBS/L3/Spectrometer/Reflectance/",full.names = T,pattern=".h5")
+  #filname<-list.files("/orange/ewhite/NeonData/2017_Campaign/D03/OSBS/L3/Spectrometer/Reflectance/",pattern=".h5")
+  fils<-list.files("/orange/ewhite/NeonData/2015_Campaign/D03/OSBS/L1/Spectrometer/Reflectance/",full.names = T,pattern=".h5")
+  filname<-list.files("/orange/ewhite/NeonData/2015_Campaign/D03/OSBS/L1/Spectrometer/Reflectance/",pattern=".h5")
 
   #loop through rasters and look for intersections
   for (i in 1:length(fils)){
@@ -36,8 +39,9 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp","raster"),.e
     #empty vector to hold tiles
     matched_tiles <- vector("list", 5)
 
-    #load raster and check for overlap
-    r<-stack(fils[[i]])
+    r<-h5_to_rgb(file_path = fils[[1]])
+
+     #load raster and check for overlap
     do_they_intersect<-raster::intersect(extent(r),extent(itcs[[x]]))
 
     #Do they intersect?
@@ -74,7 +78,7 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp","raster"),.e
   clipped_rgb<-raster::crop(tile_to_crop,clip_ext)
 
   #filename
-  cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/Camera/",unique(itcs[[x]]$Plot_ID),".tif",sep="")
+  cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/Spectrometer/",unique(itcs[[x]]$Plot_ID),".tif",sep="")
   print(cname)
 
   #rescale to
