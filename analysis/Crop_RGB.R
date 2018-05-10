@@ -20,13 +20,17 @@ cl<-makeCluster(15)
 #cl<-makeCluster(2)
 registerDoSNOW(cl)
 
-foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp","raster"),.errorhandling = "pass") %dopar% {
+foreach(x=1:length(itcs),.packages=c("TreeSegmentation","sp","raster"),.errorhandling = "pass") %dopar% {
   #plot(itcs[[x]])
 
   #Look for corresponding tile
   #get lists of rasters
-  fils<-list.files("/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L3/Camera/Mosaic/V01/",full.names = T,pattern=".tif")
-  filname<-list.files("/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L3/Camera/Mosaic/V01/",pattern=".tif")
+  #fils<-list.files("/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L3/Camera/Mosaic/V01/",full.names = T,pattern=".tif")
+  #filname<-list.files("/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L3/Camera/Mosaic/V01/",pattern=".tif")
+
+  inpath<-"/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L1/Camera/Images/2017092713/V01"
+  fils<-list.files(inpath,full.names = T,pattern=".tif")
+  filname<-list.files(inpath,pattern=".tif")
 
   #loop through rasters and look for intersections
   for (i in 1:length(fils)){
@@ -34,7 +38,7 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp","raster"),.e
     #set counter for multiple tiles
     j=1
     #empty vector to hold tiles
-    matched_tiles <- vector("list", 5)
+    matched_tiles <- vector("list", 10)
 
     #load raster and check for overlap
     r<-stack(fils[[i]])
