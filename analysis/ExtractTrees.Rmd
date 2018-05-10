@@ -38,20 +38,23 @@ names(itcs)<-sapply(itcs,function(x){
 
 ```
 
-
-
 # Get list of tiles
 
 ```{r}
-las<-list.files(path="../data/2017/Lidar/",full.names=T)[1:5]
+las<-list.files(path="../data/2017/Lidar/",full.names=T)[1:2]
 ```
 
 # Example segmentation
 
 ```{r}
-silva<-silva2016(path=las[2],output="all")
-plot(silva$convex)
+silva<-silva2016(path=las[3],output="all")
 silva$tile@data %>% group_by(Classification,treeID) %>% summarize(n=n()) %>% summarize(median(n))
+chm<-canopy_model(readLAS(las[3]))
+```
+
+```{r}
+plot(chm)
+plot(silva$convex,add=T)
 ```
 
 ```{r}
@@ -101,9 +104,11 @@ plot(a,color="Classification",size=3)
 
 ```{r,webgl=TRUE}
 a<-sample_tree(ind_trees[[sample(length(ind_trees),1)]][[2]])
+a
 a@data$Classification
 plot(a,color="Classification",size=3)
 ```
+
 What is the average number of points in segmented lidar clouds
 
 ```{r}
@@ -115,7 +120,6 @@ quantile(num_points)
 #biggest<-ind_trees[["../data/2017/Lidar//OSBS_001.laz"]][["silva"]][[57]]
 #plot(biggest,color="Classification",size=3)
 ```
-
 
 What is the distribution of area covered by lidar clouds
 
