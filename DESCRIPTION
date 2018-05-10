@@ -24,5 +24,6 @@ Imports:
   methods,
   clue,
   foreach,
-  doSNOW
+  doSNOW,
+  h5
 

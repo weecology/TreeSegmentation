@@ -17,8 +17,9 @@ library(TreeSegmentation)
 library(sp)
 library(ggplot2)
 library(rgl)
-library(clue)
 library(lidR)
+library(pander)
+
 knit_hooks$set(webgl = hook_webgl)
 opts_chunk$set(warning=F,message=F)
 
@@ -29,7 +30,7 @@ col = pastel.colors(200)
 path_to_tiles="../data/2017/Lidar/"
 
 #set cores
-cores<-4
+cores<-6
 #cores<-15
 ```
 
@@ -48,9 +49,10 @@ names(itcs)<-sapply(itcs,function(x){
 
 ## Read in Data
 ```{r,webgl=TRUE}
-ground_truth<-itcs[[9]]
+ground_truth<-itcs[[3]]
 fname<-get_tile_filname(ground_truth)
-tile<-readLAS(paste("../data/2017/Lidar/",fname,sep=""))
+inpath<-paste("../data/2017/Lidar/",fname,sep="")
+tile<-readLAS(inpath)
 tile@crs<-CRS("+init=epsg:32617")
 plot(tile)
 ```
@@ -65,10 +67,10 @@ plot(extent(ground_truth),col='blue',add=T)
 ## Compute Segmentation
 
 ```{r}
-silva<-silva2016(tile=tile,output="all")
-dalponte<-dalponte2016(tile=tile,output="all")
-li<-li2012(tile=tile,output="all")
-watershed_result<-watershed(tile=tile,output="all")
+silva<-silva2016(path=inpath,output="all")
+dalponte<-dalponte2016(path=inpath,output="all")
+li<-li2012(path=inpath,output="all")
+watershed_result<-watershed(path=inpath,output="all")
 ```
 
 ## View 3d segmentation
@@ -110,50 +112,16 @@ Li versus watershed
 
 ```{r}
 plot(chm,ext=extent(ground_truth))
-plot(li$convex)
+plot(li$convex,add=T)
 plot(watershed_result$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
-```
-
-## View polygons and underlying points
-```{r,eval=F}
-for(i in 1:length(ground_truth)){
-  plot(ground_truth[i,])
-  plotclip<-lasclip(x=silva$tile,geometry = ground_truth[i,])
-  points(cbind(plotclip@data$X,plotclip@data$Y),col=plotclip@data$X)
-}
-```
-
-##Compute consensus
-
-```{r}
-ptlist<-list(silva=silva$tile,li=li$tile,dalponte=dalponte$tile,watershed=watershed_result$tile)
-system.time(consensus_result<-consensus(ptlist=ptlist,method="majority"))
-consensus_polygons<-get_convex_hulls(consensus_result,consensus_result@data$treeID)
-plot(consensus_polygons,col=rgb(0,0,255,20,maxColorValue=255))
-paste(length(consensus_polygons),"consensus clusters found")
-```
-
-### View consensus segmentation
-
-```{r,webgl=TRUE}
-#plot(consensus_result,color="treeID",col=col)
-```
-
-### Compare Consensus
-
-```{r,eval=F}
-plot(silva$convex)
-plot(dalponte$convex)
-plot(li$convex)
-plot(consensus_polygons,add=T,col=rgb(0,0,255,40,maxColorValue=255))
 ```
 
 How many tree predictions?
 
 ```{r}
-library(pander)
-unique_total<-sapply(c(ptlist,consensus_result),function(x) length(unique(x@data$treeID)))
-df<-data.frame(Algorthm=c(names(ptlist),"consensus"),Total_Trees=as.numeric(unique_total))
+ptlist<-list(silva=silva$tile,dalponte=dalponte$tile,li=li$tile,watershed=watershed_result$tile)
+unique_total<-sapply(ptlist,function(x) length(unique(x@data$treeID)))
+df<-data.frame(Algorthm=c(names(ptlist)),Total_Trees=as.numeric(unique_total))
 pandoc.table(df,style="rmarkdown")
 ```
 
@@ -176,20 +144,18 @@ median(statdf$IoU)
 ```
 
 
-# As a wrapper for one tile, multiple methods, and consensus
-```{r,eval=F}
-results<-evaluate(ground_truth=itcs[[1]],algorithm = c("silva","dalponte"),path_to_tiles=path_to_tiles,compute_consensus = F,plot_results=T)
+# As a wrapper for one tile, multiple methods
+```{r,eval=T}
+results<-evaluate(ground_truth=itcs[[2]],algorithm = c("silva","dalponte"),path_to_tiles=path_to_tiles,plot_results=T)
 
-if(!is.null(results)){
-  ggplot(results,aes(y=IoU,x=Method)) + geom_boxplot() + theme_bw()
+ggplot(results,aes(y=IoU,x=Method)) + geom_boxplot() + theme_bw()
 results %>% group_by(Method) %>% summarize(mean=mean(IoU),median=median(IoU))
-}
 ```
 
 # Parallel wrapper across all tiles
 
 ```{r,eval=T}
-system.time(results_all<-evaluate_all(itcs=itcs[1:4],algorithm = c("dalponte","li","watershed","silva"),path_to_tiles=path_to_tiles,cores=cores,extra=F,compute_consensus=F))
+system.time(results_all<-evaluate_all(itcs=itcs,algorithm = c("dalponte","li","watershed","silva"),path_to_tiles=path_to_tiles,cores=cores,extra=F,plot_results = T))
 
 #plot results
 ggplot(results_all,aes(y=IoU,x=Method)) + geom_boxplot() + theme_bw()
@@ -197,9 +163,7 @@ ggplot(results_all,aes(y=IoU,x=Method)) + geom_boxplot() + theme_bw()
 #Compute test statistics
 test_statistic<-results_all %>% group_by(Method) %>% summarize(mean=mean(IoU),median=median(IoU)) %>% mutate(Date=format(Sys.time(), "%m/%d/%y %H:%M:%S"))
 test_statistic
+write.table(test_statistic,"Results/results.csv",append = T,col.names = F,sep=",",row.names = F)
 ```
 
-```{r}
-write.table(test_statistic,"Results/results.csv",append = T,col.names = F,sep=",")
-```
 

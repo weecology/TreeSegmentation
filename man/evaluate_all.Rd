@@ -5,20 +5,20 @@
 \title{Wrapper among tiles for calculating overlap among predicted and ground truth polygons for lidar-based tree segmentation methods}
 \usage{
 evaluate_all(itcs, algorithm = "silva", path_to_tiles = NULL,
-  cores = NULL, compute_consensus = F, extra = F, plot_result = F)
+  cores = NULL, extra = F, plot_results = F)
 }
 \arguments{
 \item{itcs}{A SpatialPolygonDataFrame of ground truth polygons}
 
-\item{algorithm}{Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \code{\link[lidR]{lastrees}}}
+\item{algorithm}{Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \link{\code[lidR]{lastrees}}}
 
 \item{path_to_tiles}{Character. Location of lidar tiles on system.}
 
 \item{cores}{Optional parameter to specify the number of cores to parallelize using \code{\link[foreach]{foreach}}}
 
-\item{compute_consensus}{Logical. Generate a consensus from selected methods, see \code{\link{consensus}}.}
-
 \item{extra}{Logical. Return a list of segmented lidar tiles, predicted convex hull polygons, and the calculated evaluation statistics.}
+
+\item{plot_results}{Logical. Generate a plot of ground truth and predicted polygons}
 }
 \value{
 dataframe of the jaccard overlap among polygon pairs

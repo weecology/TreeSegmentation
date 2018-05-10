@@ -4,18 +4,17 @@
 \alias{extract_trees}
 \title{Extract individual las files for segmented trees}
 \usage{
-extract_trees(path_to_tiles = NULL, algorithm = "silva",
-  compute_consensus = F, cores = NULL)
+extract_trees(las = NULL, algorithm = "silva", cores = NULL, output)
 }
 \arguments{
-\item{path_to_tiles}{Character or Vector. Location of lidar tiles on system. May be a single tile or vector of tiles.}
+\item{las}{Character or Vector. Path to lidar tiles on system to be processed. May be a single tile or vector of tiles.}
 
 \item{algorithm}{Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \code{\link[lidR]{lastrees}}}
 
-\item{compute_consensus}{Logical. Generate a consensus from selected methods, see \code{\link{consensus}}.}
+\item{output}{Character. A set of "las" objects or a dataframe "df" of the xyz data, depending on the next processing step.}
 }
 \value{
-A nested list of lidR tiles equal to the length of path_to_tiles. Each list will have a list of segmented .las for each tree.
+A list object for each las tile processed. Each list is a list of segmented trees, either in las or dataframes, based on the output argument.
 }
 \description{
 \code{extra_trees} computes an lidar-based segmentation, based on multiple available methods, and splits the results into individual las files for each predicted tree.

@@ -31,9 +31,6 @@ silva2016<-function(path=NULL,tile=NULL,output=c("all")){
   print("Clustering Trees")
   print(system.time(silva2016<-segment_trees(las=tile,algorithm = "silva2016",chm=chm)))
 
-  #remove points that are not in treeID, we can add them back later as grounds.
-  silva2016<-silva2016 %>% lidR::lasfilter(!is.na(treeID))
-
   if(output=="tile"){
     return(silva2016)
   }

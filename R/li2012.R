@@ -32,8 +32,8 @@ li2012<-function(path=NULL,tile=NULL,output="all"){
   chm=canopy_model(tile)
 
   #remove ground points, Classification == 2.
-  tile<-tile %>% lidR::lasfilter(!Classification==2)
-  tile@crs<-CRS("+init=epsg:32617")
+  #tile<-tile %>% lidR::lasfilter(!Classification==2)
+  #tile@crs<-CRS("+init=epsg:32617")
 
   #Compute unsupervised classification method
   print("Clustering Trees")
