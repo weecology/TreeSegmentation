@@ -20,7 +20,7 @@ cl<-makeCluster(15)
 #cl<-makeCluster(2)
 registerDoSNOW(cl)
 
-foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp","raster")) %dopar% {
+foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp","raster"),.errorhandling = "pass") %dopar% {
   #plot(itcs[[x]])
 
   #Look for corresponding tile

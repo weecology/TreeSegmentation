@@ -26,7 +26,7 @@ for(x in 1:length(itcs)){
   }
 
   #add rgb
-  ortho<-raster::stack(paste("../data/2017/RGB/",fname,".tif",sep=""))
+  ortho<-raster::stack(paste("../data/2017/Camera/",fname,".tif",sep=""))
 
 
   png(paste("plots/",fname,".png",sep=""))
