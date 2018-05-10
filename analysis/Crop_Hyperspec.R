@@ -60,7 +60,7 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp","raster"),.e
 
   #If no tile matches, exit.
   if(length(matched_tiles)==0){
-    return(paste("No matches ",itcs[[x]]))
+    return(paste("No matches ",unique(itcs[[x]]$Plot_ID)))
   }
 
   if(length(matched_tiles)>1){

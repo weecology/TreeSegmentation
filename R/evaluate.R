@@ -79,7 +79,7 @@ evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL,extra=F,plo
   if(plot_results){
     #which was the best performing method
     best_method<-statdf %>% group_by(Method) %>% summarize(m=mean(IoU)) %>% arrange(desc(m))
-    ortho<-raster::stack(paste("../data/2017/RGB/",unique(ground_truth$Plot_ID),".tif",sep=""))
+    ortho<-raster::stack(paste("../data/2017/Camera/",unique(ground_truth$Plot_ID),".tif",sep=""))
     png(paste("plots/evaluation/",unique(ground_truth$Plot_ID),".png",sep=""))
     par(oma=c(0,0,2,0))
     raster::plotRGB(raster::stretch(ortho/10000*255),ext=extent(predictions[[best_method$Method[1]]]),main=paste(unique(ground_truth$Plot_ID),":",best_method$Method[1],"=",round(best_method$m[1],2)),axes=T)
