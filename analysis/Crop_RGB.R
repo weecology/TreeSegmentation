@@ -70,7 +70,7 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp","raster")) %
 
   #Clip matched tile
   clip_ext<-2.5*extent(itcs[[x]])
-  clipped_rgb<-raster::crop(matched_tile,clip_ext)
+  clipped_rgb<-raster::crop(tile_to_crop,clip_ext)
 
   #filename
   cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/Camera/",unique(itcs[[x]]$Plot_ID),".tif",sep="")
