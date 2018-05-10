@@ -4,12 +4,19 @@
 \alias{generate_training}
 \title{Generate training data from lidar tiles}
 \usage{
-generate_training(las = NULL, algorithm = "silva", cores = NULL)
+generate_training(las = NULL, algorithm = "silva", cores = NULL,
+  rgb = NULL)
 }
 \arguments{
 \item{las}{Character or Vector. Path to lidar tiles on system to be processed. May be a single tile or vector of tiles.}
 
 \item{algorithm}{Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \code{\link[lidR]{lastrees}}}
+
+\item{rgb}{path of rgb image}
+
+\item{lidar}{path of lidar tile}
+
+\item{hyperspectral}{path of hyperspectral tile}
 }
 \value{
 A nested list of lidR tiles equal to the length of path_to_tiles. Each list will have a list of segmented .las for each tree.

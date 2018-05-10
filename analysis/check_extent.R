@@ -46,4 +46,5 @@ for(x in 1:length(itcs)){
 }
 
 
-
+#ORTHO
+plotRGB(stack("/Users/ben/Dropbox/Weecology/NEON/2017_OSBS_3_405000_3279000_image.tif"))

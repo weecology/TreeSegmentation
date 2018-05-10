@@ -82,11 +82,11 @@ evaluate<-function(ground_truth,algorithm="silva",path_to_tiles=NULL,extra=F,plo
     ortho<-raster::stack(paste("../data/2017/RGB/",unique(ground_truth$Plot_ID),".tif",sep=""))
     png(paste("plots/evaluation/",unique(ground_truth$Plot_ID),".png",sep=""))
     par(oma=c(0,0,2,0))
-    raster::plotRGB(raster::stretch(ortho/10000*255),ext=extent(predictions[[best_method$Method[1]]]))
+    raster::plotRGB(raster::stretch(ortho/10000*255),ext=extent(predictions[[best_method$Method[1]]]),main=paste(unique(ground_truth$Plot_ID),":",best_method$Method[1],"=",round(best_method$m[1],2)),axes=T)
     plot(ground_truth,border="red",add=TRUE)
     plot(predictions[[best_method$Method[1]]],add=T,border="gray90")
     #TODO check this.
-    title(main=paste(unique(ground_truth$Plot_ID),":",best_method$Method[1],"=",round(best_method$m[1],2)))
+    title()
     dev.off()
   }
   if(extra){

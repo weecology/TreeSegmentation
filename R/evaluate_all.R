@@ -1,12 +1,10 @@
 #' Wrapper among tiles for calculating overlap among predicted and ground truth polygons for lidar-based tree segmentation methods
-#'
 #' \code{evaluate_all} extends evaluate to multiple tiles, optionally run in parallel.
 #' @param itcs A SpatialPolygonDataFrame of ground truth polygons
 #' @param cores Optional parameter to specify the number of cores to parallelize using \code{\link[foreach]{foreach}}
 #' @inheritParams evaluate
 #' @return dataframe of the jaccard overlap among polygon pairs
 #' @export
-#'
 evaluate_all<-function(itcs,algorithm = "silva",path_to_tiles=NULL,cores=NULL,extra=F,plot_results=F){
 
   #If running in parallel

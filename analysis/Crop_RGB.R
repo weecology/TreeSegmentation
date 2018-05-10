@@ -25,19 +25,32 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp","raster")) %
 
   #Look for corresponding tile
   #get lists of rasters
-  fils<-list.files("/ufrc/ewhite/s.marconi/NeonData/2017_Campaign/D03/OSBS/L1/Spectrometer/RGBtifs/2017092713/",full.names = T)
-  filname<-list.files("/ufrc/ewhite/s.marconi/NeonData/2017_Campaign/D03/OSBS/L1/Spectrometer/RGBtifs/2017092713/")
+  fils<-list.files("/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L3/Camera/Mosaic/V01/",full.names = T)
+  filname<-list.files("/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L3/Camera/Mosaic/V01/")
 
-  rm(matched_tile)
-
+  #loop through rasters and look for intersections
   for (i in 1:length(fils)){
+
+    #set counter for multiple tiles
+    j=1
+    #empty vector to hold tiles
+    matched_tiles <- vector("list", 5)
+
+    #load raster and check for overlap
     r<-stack(fils[[i]])
     do_they_intersect<-raster::intersect(extent(r),extent(itcs[[x]]))
+
+    #Do they intersect?
     if(is.null(do_they_intersect)){
       next
     } else{
-      matched_tile<-r
-      break
+      matched_tiles[[j]]<-r
+      j<-j+1
+
+      #do they intersect completely? If so, go to next tile
+      if(extent(do_they_intersect)==extent(itcs[[x]])){
+        break
+      }
     }
   }
 
@@ -46,12 +59,21 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp","raster")) %
     return(paste("No matches ",itcs[[x]]))
   }
 
+  #bind together tiles if matching more than one tile
+  matched_tiles<-matched_tiles[!sapply(matched_tiles,is.null)]
+
+  if(length(matched_tiles)>1){
+    tile_to_crop<-do.call(mosiac,matched_tiles)
+  } else{
+    tile_to_crop<-matched_tiles[[1]]
+  }
+
   #Clip matched tile
   clip_ext<-2.5*extent(itcs[[x]])
   clipped_rgb<-raster::crop(matched_tile,clip_ext)
 
   #filename
-  cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/Spectrometer/RGBtifs/2017092713/",unique(itcs[[x]]$Plot_ID),".tif",sep="")
+  cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/Camera/",unique(itcs[[x]]$Plot_ID),".tif",sep="")
   print(cname)
 
   #rescale to

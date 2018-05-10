@@ -2,7 +2,8 @@
 % Please edit documentation in R/evaluate_all.R
 \name{evaluate_all}
 \alias{evaluate_all}
-\title{Wrapper among tiles for calculating overlap among predicted and ground truth polygons for lidar-based tree segmentation methods}
+\title{Wrapper among tiles for calculating overlap among predicted and ground truth polygons for lidar-based tree segmentation methods
+\code{evaluate_all} extends evaluate to multiple tiles, optionally run in parallel.}
 \usage{
 evaluate_all(itcs, algorithm = "silva", path_to_tiles = NULL,
   cores = NULL, extra = F, plot_results = F)
@@ -24,5 +25,6 @@ evaluate_all(itcs, algorithm = "silva", path_to_tiles = NULL,
 dataframe of the jaccard overlap among polygon pairs
 }
 \description{
+Wrapper among tiles for calculating overlap among predicted and ground truth polygons for lidar-based tree segmentation methods
 \code{evaluate_all} extends evaluate to multiple tiles, optionally run in parallel.
 }
