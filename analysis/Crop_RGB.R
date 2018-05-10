@@ -25,8 +25,8 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp","raster")) %
 
   #Look for corresponding tile
   #get lists of rasters
-  fils<-list.files("/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L3/Camera/Mosaic/V01/",full.names = T)
-  filname<-list.files("/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L3/Camera/Mosaic/V01/")
+  fils<-list.files("/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L3/Camera/Mosaic/V01/",full.names = T,pattern=".tif")
+  filname<-list.files("/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L3/Camera/Mosaic/V01/",pattern=".tif")
 
   #loop through rasters and look for intersections
   for (i in 1:length(fils)){
