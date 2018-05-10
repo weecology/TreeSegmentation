@@ -10,7 +10,7 @@ evaluate(ground_truth, algorithm = "silva", path_to_tiles = NULL,
 \arguments{
 \item{ground_truth}{SpatialPolygonDataFrame of ground truth polygons}
 
-\item{algorithm}{Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \link{\code[lidR]{lastrees}}}
+\item{algorithm}{Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \code{\link[lidR]{lastrees}}}
 
 \item{path_to_tiles}{Character. Location of lidar tiles on system.}
 
@@ -19,7 +19,7 @@ evaluate(ground_truth, algorithm = "silva", path_to_tiles = NULL,
 \item{plot_results}{Logical. Generate a plot of ground truth and predicted polygons}
 }
 \value{
-dataframe of the jaccard overlap among polygon pairs for each selected method. If extra=T, \code{evaluate} will return a list object of results, predicted polygons, as well as output lidR tiles. See e.g. \link{\code{silva2016}}
+dataframe of the jaccard overlap among polygon pairs for each selected method. If extra=T, \code{evaluate} will return a list object of results, predicted polygons, as well as output lidR tiles. See e.g. \code{\link{silva2016}}
 }
 \description{
 \code{evaluate} computes an lidar based segmentation, assigns polygons to closest match and calculates jaccard stat

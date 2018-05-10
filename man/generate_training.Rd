@@ -2,25 +2,25 @@
 % Please edit documentation in R/generate_training.R
 \name{generate_training}
 \alias{generate_training}
-\title{Generate training data from lidar tiles}
+\title{Generate training crop data from lidar tiles}
 \usage{
-generate_training(las = NULL, algorithm = "silva", cores = NULL,
-  rgb = NULL)
+generate_training(lidar = NULL, rgb = NULL, hyperspec = NULL,
+  algorithm = "silva", cores = NULL, outdir = NULL, write = T)
 }
 \arguments{
-\item{las}{Character or Vector. Path to lidar tiles on system to be processed. May be a single tile or vector of tiles.}
+\item{lidar}{Character. list of lidar paths}
 
-\item{algorithm}{Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \code{\link[lidR]{lastrees}}}
+\item{rgb}{Character. list of rgb image paths}
 
-\item{rgb}{path of rgb image}
+\item{hyperspec}{Character. list of hyperspec paths}
 
-\item{lidar}{path of lidar tile}
+\item{cores}{Numeric. Available cores to process data}
 
-\item{hyperspectral}{path of hyperspectral tile}
+\item{outdir}{Character. Location on disk to write training crops}
 }
 \value{
-A nested list of lidR tiles equal to the length of path_to_tiles. Each list will have a list of segmented .las for each tree.
+Writes training crops to file
 }
 \description{
-\code{generate_training} computes an lidar-based segmentation, based on multiple available methods, and splits the results into individual las files for each predicted tree. It then writes the resulting files in h5 format for machine learning input
+\code{training_crops} computes an lidar-based segmentation, based on multiple available methods, and splits the results into individual las files for each predicted tree. It then writes the resulting files in h5 format for machine learning input
 }

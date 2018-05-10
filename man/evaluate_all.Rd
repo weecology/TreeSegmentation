@@ -11,7 +11,7 @@ evaluate_all(itcs, algorithm = "silva", path_to_tiles = NULL,
 \arguments{
 \item{itcs}{A SpatialPolygonDataFrame of ground truth polygons}
 
-\item{algorithm}{Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \link{\code[lidR]{lastrees}}}
+\item{algorithm}{Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \code{\link[lidR]{lastrees}}}
 
 \item{path_to_tiles}{Character. Location of lidar tiles on system.}
 
