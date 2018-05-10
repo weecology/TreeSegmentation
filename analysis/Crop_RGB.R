@@ -54,13 +54,14 @@ foreach(x=1:length(itcs),.packages=c("lidR","TreeSegmentation","sp","raster")) %
     }
   }
 
-  #If no tile matches, exit.
-  if(is.null(matched_tile)){
-    return(paste("No matches ",itcs[[x]]))
-  }
 
   #bind together tiles if matching more than one tile
   matched_tiles<-matched_tiles[!sapply(matched_tiles,is.null)]
+
+  #If no tile matches, exit.
+  if(length(matched_tiles)==0){
+    return(paste("No matches ",itcs[[x]]))
+  }
 
   if(length(matched_tiles)>1){
     tile_to_crop<-do.call(mosiac,matched_tiles)
