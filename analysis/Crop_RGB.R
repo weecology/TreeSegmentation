@@ -28,7 +28,7 @@ foreach(x=1:length(itcs),.packages=c("TreeSegmentation","sp","raster"),.errorhan
   #fils<-list.files("/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L3/Camera/Mosaic/V01/",full.names = T,pattern=".tif")
   #filname<-list.files("/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L3/Camera/Mosaic/V01/",pattern=".tif")
 
-  inpath<-"/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L1/Camera/Images/2017092713/V01"
+  inpath<-"/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L1/Camera/Images/2017092713/V01/"
   fils<-list.files(inpath,full.names = T,pattern=".tif")
   filname<-list.files(inpath,pattern=".tif")
 

@@ -13,7 +13,7 @@ names(itcs)<-sapply(itcs,function(x){
   return(id)
 })
 
-for(x in 7:length(itcs)){
+for(x in 1:length(itcs)){
 
   print(x)
   fname<-unique(itcs[[x]]$Plot_ID)
@@ -26,7 +26,7 @@ for(x in 7:length(itcs)){
   }
 
   #add rgb
-  rgb_path<-paste("../data/2017/Camera/",fname,".tif",sep="")
+  rgb_path<-paste("../data/2017/Camera2/",fname,".tif",sep="")
   if(file.exists(rgb_path)){
     ortho<-raster::stack(rgb_path)
   }else{
