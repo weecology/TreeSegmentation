@@ -9,15 +9,15 @@
 #'
 h5_to_rgb<-function(file_path,write=F,outpath=NULL,bands=list(58,34,19)){
 
-  #r get spatial info and map info using the h5readAttributes function
-  spInfo <- rhdf5::h5readAttributes(file_path,"spatialInfo")
+  #r get spatial info and map info using the  h5readAttributes function
+  #spInfo <- rhdf5::h5readAttributes(file_path,"coordinate system string")
   #define coordinate reference system
-  myCrs <- spInfo$projdef
+  #myCrs <- spInfo$projdef
   #define the resolution
-  res <- spInfo$xscale
+  #res <- spInfo$xscale
 
   #Populate the raster image extent value.
-  mapInfo<-rhdf5::h5read(f,"map info")
+  mapInfo<-rhdf5::h5read(file_path,"map info")
   #the map info string contains the lower left hand coordinates of our raster
   #let's grab those next
   # split out the individual components of the mapinfo string
@@ -28,7 +28,7 @@ h5_to_rgb<-function(file_path,write=F,outpath=NULL,bands=list(58,34,19)){
   yMax<-as.numeric(mapInfo[5])
 
   #r get attributes for the Reflectance dataset
-  reflInfo <- h5readAttributes(f,"Reflectance")
+  reflInfo <- h5readAttributes(file_path,"Reflectance")
 
   #create objects represents the dimensions of the Reflectance dataset
   #note that there are several ways to access the size of the raster contained

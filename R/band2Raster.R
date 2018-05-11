@@ -8,7 +8,7 @@
 #'
 band2Raster <- function(file, band, noDataValue, xMin, yMin, res, crs){
   #first read in the raster
-  out<- h5read(f,"Reflectance",index=list(1:nCols,1:nRows,band))
+  out<- h5read(file,"Reflectance",index=list(1:nCols,1:nRows,band))
   #Convert from array to matrix
   out <- (out[,,1])
   #transpose data to fix flipped row and column order
