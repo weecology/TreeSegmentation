@@ -9,25 +9,33 @@
 #' @return If write=T, returns NULL, else returns a list of cropped objects
 #' @export
 #'
-training_crops<-function(path_las=NULL,algorithm="silva",cores=NULL,path_rgb=NULL,path_hyperspec,outdir){
+training_crops<-function(path_las=NULL,algorithm="silva",cores=NULL,path_rgb=NULL,path_hyperspec=NULL,outdir){
+
+  #holder for crops
+  results<-list()
 
   #segmented trees
-  ind_trees<-extract_trees(cores = NULL,algorithm = algorithm,las=path_las,output = "df")
+  results$lidar<-extract_trees(cores = NULL,algorithm = algorithm,las=path_las,output = "df")
 
   #create bounding boxes
   boxes<-get_bounding_boxes(df=ind_trees)
 
   #crop rgb
-  rgb<-raster::stack(path_rgb)
-  rgb_crops<-lapply(boxes,function(x){
-    raster::crop(x,rgb)
-  })
+  if(is.null(path_rgb)){
+    rgb<-raster::stack(path_rgb)
+    results$rgb<-lapply(boxes,function(x){
+      raster::crop(x,rgb)
+    })
+  }
 
   #crop hyperspectral
-  hyperspec<-raster::stack(path_hyperspec)
-  hyperspec_crops<-lapply(boxes,function(x){
-    raster::crop(x,hyperspec)
-  })
+  if(!is.null(path_hyperspec)){
+    #TODO load and process hyperspectral?
+    hyperspec<-raster::stack(path_hyperspec)
+    results$hyperspectral<-lapply(boxes,function(x){
+      raster::crop(x,hyperspec)
+    })
+  }
 
   #write
   if(write){
@@ -41,7 +49,7 @@ training_crops<-function(path_las=NULL,algorithm="silva",cores=NULL,path_rgb=NUL
     #write each object
 
   } else{
-    return(list(lidar=ind_trees,rgb=rgb_crops))
+    return(results)
 
   }
 
