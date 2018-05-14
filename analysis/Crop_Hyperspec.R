@@ -1,4 +1,4 @@
-### Clip Lidar Data Based on ITCS ###
+### Clip Hyperspec Data Based on ITCS ###
 library(maptools)
 library(raster)
 library(TreeSegmentation)
@@ -16,7 +16,6 @@ names(itcs)<-sapply(itcs,function(x){
   id<-unique(x$Plot_ID)
 })
 
-#Crop lidar by itc extent (buffered by 3x) and write to file
 cl<-makeCluster(15)
 #cl<-makeCluster(2)
 registerDoSNOW(cl)
@@ -39,7 +38,7 @@ foreach(x=1:length(itcs),.packages=c("TreeSegmentation","sp","raster"),.errorhan
     #empty vector to hold tiles
     matched_tiles <- vector("list", 5)
 
-    r<-h5_to_rgb(file_path = fils[[1]])
+    r<-h5_to_rgb(file_path = fils[[i]])
 
      #load raster and check for overlap
     do_they_intersect<-raster::intersect(extent(r),extent(itcs[[x]]))
