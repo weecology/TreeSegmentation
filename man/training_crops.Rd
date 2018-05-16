@@ -2,25 +2,21 @@
 % Please edit documentation in R/training_crops.R
 \name{training_crops}
 \alias{training_crops}
-\title{Generate training crop data from lidar tiles}
+\title{Generate bounding boxes from lidar tiles}
 \usage{
 training_crops(path_las = NULL, algorithm = "silva", cores = NULL,
-  path_rgb = NULL, path_hyperspec, outdir)
+  create_negatives = T)
 }
 \arguments{
+\item{create_negatives}{Should negative samples be generated. see details}
+
 \item{path_rgb}{Character. file path of rgb image}
-
-\item{path_hyperspec}{Character. path of hyperspectral tile}
-
-\item{outdir}{Character. Path to output directory on disk.}
-
-\item{path_lidar}{Character. path of lidar tile}
 
 \item{write}{Logical. Should results be written to file}
 }
-\value{
-If write=T, returns NULL, else returns a list of cropped objects
-}
 \description{
 \code{training_crops} computes an lidar-based segmentation, based on multiple available methods, and splits the results into individual las files for each predicted tree. It then writes the resulting files in h5 format for machine learning input
+}
+\details{
+Negative training samples are produced by randomly placing boxes along the tiles. The size of each box, and the number of total tiles, match the number of trees found in the tile.
 }

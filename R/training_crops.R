@@ -1,15 +1,13 @@
-#' Generate training crop data from lidar tiles
+#' Generate bounding boxes from lidar tiles
 #'
 #' \code{training_crops} computes an lidar-based segmentation, based on multiple available methods, and splits the results into individual las files for each predicted tree. It then writes the resulting files in h5 format for machine learning input
 #' @param path_rgb Character. file path of rgb image
-#' @param path_lidar Character. path of lidar tile
-#' @param path_hyperspec Character. path of hyperspectral tile
+#' @param create_negatives Should negative samples be generated. see details
 #' @param write Logical. Should results be written to file
-#' @param outdir Character. Path to output directory on disk.
-#' @return If write=T, returns NULL, else returns a list of cropped objects
+#' @details Negative training samples are produced by randomly placing boxes along the tiles. The size of each box, and the number of total tiles, match the number of trees found in the tile.
 #' @export
 #'
-training_crops<-function(path_las=NULL,algorithm="silva",cores=NULL,path_rgb=NULL,path_hyperspec=NULL,outdir){
+training_crops<-function(path_las=NULL,algorithm="silva",cores=NULL,create_negatives=T){
 
   #holder for crops
   results<-list()
@@ -17,41 +15,35 @@ training_crops<-function(path_las=NULL,algorithm="silva",cores=NULL,path_rgb=NUL
   #segmented trees
   results$lidar<-extract_trees(cores = NULL,algorithm = algorithm,las=path_las,output = "df")
 
-  #create bounding boxes
-  boxes<-get_bounding_boxes(df=ind_trees)
+  #create bounding boxes dataframe
+  boxes<-get_bounding_boxes(df=results$lidar)
 
-  #crop rgb
-  if(is.null(path_rgb)){
-    rgb<-raster::stack(path_rgb)
-    results$rgb<-lapply(boxes,function(x){
-      raster::crop(x,rgb)
-    })
+  #give the results a filename and label the lidar tile
+  sanitized_fn<-stringr::str_extract(string=path_las,pattern="(NEON.*)")
+  sanitized_fn<-stringr::str_replace_all(sanitized_fn,"\\.","_")
+
+  #get the corresponding orthophoto naming
+  boxes$lidar_path<-path_las
+  boxes$rgb_path<-convert_names(from="lidar",to="rgb",lidar=path_las)
+
+  #label
+  boxes$label<-"Tree"
+
+  #quick sanity check, if box is NA, give it the rowID index
+  if(sum(!is.na(boxes$box))==0){
+    boxes$box<-1:nrow(boxes)
   }
 
-  #crop hyperspectral
-  if(!is.null(path_hyperspec)){
-    #TODO load and process hyperspectral?
-    hyperspec<-raster::stack(path_hyperspec)
-    results$hyperspectral<-lapply(boxes,function(x){
-      raster::crop(x,hyperspec)
-    })
+  if(create_negatives){
+    print("Generating random negative samples")
+
+    #append negative samples
+    new_boxes<-negative_samples(boxes,path_las)
+
+    boxes<-dplyr::rbind_all(list(boxes,new_boxes))
   }
 
-  #write
-  if(write){
-    train_dir<-paste(outdir,"training",sep="/")
-
-    #If training dir doesn't exist, create
-    if(!dir.exists(train_dir)){
-      dir.create(train_dir)
-    }
-
-    #write each object
-
-  } else{
-    return(results)
-
-  }
+  write.csv(boxes,paste("Results/bounding_boxes_",sanitized_fn,".csv",sep=""))
 
 }
 

@@ -128,21 +128,3 @@ area_lidr<-unlist(lapply(ind_trees,function(x){sapply(x,function(y){sapply(y,are
 qplot(area_lidr)
 ```
 
-#Look at sample data
-
-We are trying to match this data structure from pointnet++
-
-```{r}
-s<-'/Users/ben/Documents/pointnet2/data/ply_data_train4.h5'
-sdata<-h5file(s,"r")
-smat<-sdata['data/'][]
-dim(smat)
-```
-
-# Generate data frames from las files and write them to h5
-
-```{r,eval=F}
-file<-h5file("/Users/Ben/Dropbox/Weecology/Training/test.h5","w")
-file["a/testvec"] <- ind_trees[1:9]
-```
-

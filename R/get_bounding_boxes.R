@@ -16,15 +16,18 @@ get_bounding_boxes<-function(df){
 
   #Get bounding boxes
   boxes<-lapply(as_list_allrows,get_box)
+  boxes<-reshape2::melt(boxes,id.vars=colnames(boxes[[1]])) %>% rename(box=L1)
 
-  names(boxes)<-names(as_list_allrows)
+  #sanitize the box names
+  sanitized<-stringr::str_extract(string=boxes$box,pattern="(NEON.*)")
+  boxes$box<-stringr::str_replace_all(sanitized,"\\.","_")
   return(boxes)
 }
 
 get_box<-function(x){
   s<-sp::SpatialPoints(cbind(x$X,x$Y))
   e<-raster::extent(s)
-  p <- as(e, 'SpatialPolygons')
-  return(p)
+  edf<-data.frame(xmin=e@xmin,xmax=e@xmax,ymin=e@ymin,ymax=e@ymax)
+  return(edf)
 }
 

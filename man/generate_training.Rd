@@ -4,19 +4,12 @@
 \alias{generate_training}
 \title{Generate training crop data from lidar tiles}
 \usage{
-generate_training(lidar = NULL, rgb = NULL, hyperspec = NULL,
-  algorithm = "silva", cores = NULL, outdir = NULL, write = T)
+generate_training(lidar = NULL, algorithm = "silva", cores = NULL)
 }
 \arguments{
 \item{lidar}{Character. list of lidar paths}
 
-\item{rgb}{Character. list of rgb image paths}
-
-\item{hyperspec}{Character. list of hyperspec paths}
-
 \item{cores}{Numeric. Available cores to process data}
-
-\item{outdir}{Character. Location on disk to write training crops}
 }
 \value{
 Writes training crops to file

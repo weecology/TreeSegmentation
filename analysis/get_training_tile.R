@@ -6,7 +6,7 @@ library(lidR)
 library(rgdal)
 
 # Load in ground-truth
-shps<-list.files("../data/ITCs/test/",pattern=".shp",full.names = T)
+shps<-list.files("/orange/ewhite/b.weinstein/ITC",pattern=".shp",full.names = T)
 itcs<-lapply(shps,readOGR,verbose=F)
 
 names(itcs)<-sapply(itcs,function(x){
