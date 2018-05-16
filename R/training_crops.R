@@ -31,7 +31,7 @@ training_crops<-function(path_las=NULL,algorithm="silva",cores=NULL,create_negat
 
   #quick sanity check, if box is NA, give it the rowID index
   if(sum(!is.na(boxes$box))==0){
-    boxes$box<-1:nrow(boxes)
+    boxes$box<-as.character(1:nrow(boxes))
   }
 
   if(create_negatives){
@@ -39,8 +39,7 @@ training_crops<-function(path_las=NULL,algorithm="silva",cores=NULL,create_negat
 
     #append negative samples
     new_boxes<-negative_samples(boxes,path_las)
-
-    boxes<-dplyr::rbind_all(list(boxes,new_boxes))
+    boxes<-dplyr::bind_rows(list(boxes,new_boxes))
   }
 
   write.csv(boxes,paste("Results/bounding_boxes_",sanitized_fn,".csv",sep=""))
