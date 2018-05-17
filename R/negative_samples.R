@@ -13,13 +13,13 @@ negative_samples<-function(boxes,path_las){
   #get extent
   e<-extent(tile)
 
-  negatives<-boxes %>% group_by(id=1:n()) %>% do(jitter_box(.)) %>% ungroup() %>% select(-id)
+  negatives<-boxes %>% group_by(id=1:n()) %>% do(jitter_box(.,e=e)) %>% ungroup() %>% select(-id)
 
   return(negatives)
 }
 
 #jitter box function
-jitter_box<-function(box){
+jitter_box<-function(box,e){
   #find box size
   width=box$xmax-box$xmin
   height=box$ymax-box$ymin

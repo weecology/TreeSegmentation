@@ -26,18 +26,23 @@ for(x in 1:length(itcs)){
   }
 
   #add rgb
-  rgb_path<-paste("../data/2017/Camera2/",fname,".tif",sep="")
+  rgb_path<-paste("../data/2015/Hyperspectral/",fname,".tif",sep="")
   if(file.exists(rgb_path)){
     ortho<-raster::stack(rgb_path)
+    #select bands
+    rgb<-ortho[[c(17,86,177)]]/10000
+    rgb[rgb>1]<-NA
+    #get rid of NA
+
+
   }else{
     next
   }
 
 
+  png(paste("plots/hyperspectral_2015/",fname,".png",sep=""))
 
-  png(paste("plots/",fname,".png",sep=""))
-
-  plotRGB(stretch(ortho/10000*255),ext=extent(itcs[[x]])*1.6)
+  plotRGB(stretch(rgb/255),ext=extent(itcs[[x]])*1.6)
 
   try(tile<-readLAS(inpath))
   tile@crs<-CRS("+init=epsg:32617")
@@ -50,7 +55,3 @@ for(x in 1:length(itcs)){
   plot(ground_truth,add=T,border="red")
   dev.off()
 }
-
-
-#ORTHO
-plotRGB(stack("/Users/ben/Dropbox/Weecology/NEON/2017_OSBS_3_405000_3279000_image.tif"))

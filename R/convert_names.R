@@ -18,7 +18,7 @@ convert_names<-function(from,to,lidar=NULL,rgb=NULL,hyperspectral=NULL){
   }
 
   if(from=="lidar" & to == "rgb"){
-    geo_index<-stringr::str_match(path_las,"_(\\d+_\\d+)_classified")[,2]
+    geo_index<-stringr::str_match(lidar,"_(\\d+_\\d+)_classified")[,2]
     fn<-paste("2017_OSBS_3_",geo_index,"_image.tif",sep="")
     return(fn)
   }
