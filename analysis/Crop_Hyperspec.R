@@ -26,7 +26,7 @@ foreach(x=1:length(itcs),.packages=c("TreeSegmentation","sp","raster"),.errorhan
   #Look for corresponding tile
   #get lists of rasters
 
-  inpath<-"/orange/ewhite/NeonData/2015_Campaign/D03/OSBS/L4/"
+  inpath<-"/orange/ewhite/NeonData/2015_Campaign/D03/OSBS/L4/Rasters/"
   fils<-list.files(inpath,full.names = T,pattern=".tif")
   filname<-list.files(inpath,pattern=".tif")
 

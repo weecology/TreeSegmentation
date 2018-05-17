@@ -14,12 +14,13 @@ convert_names<-function(from,to,lidar=NULL,rgb=NULL,hyperspectral=NULL){
     geo_index<-stringr::str_match(rgb,"_(\\d+_\\d+)_image")[,2]
 
     fn<-paste("NEON_D03_OSBS_DP1_",geo_index,"_classified_point_cloud.laz",sep="")
-    full_path<-paste(lidar_path,fn,sep="")
-    return(full_path)
+    return(fn)
   }
 
   if(from=="lidar" & to == "rgb"){
-    stringr::str_match(path_las,"\\/(\\w+.laz)")[,2]
+    geo_index<-stringr::str_match(path_las,"_(\\d+_\\d+)_classified")[,2]
+    fn<-paste("2017_OSBS_3_",geo_index,"_image.tif",sep="")
+    return(fn)
   }
 
 }
