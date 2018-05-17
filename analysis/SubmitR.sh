@@ -15,4 +15,4 @@
 #This is a generic R submission script
 module load R
 
-Rscript Crop_RGB.R
+Rscript Crop_Hyperspec.R

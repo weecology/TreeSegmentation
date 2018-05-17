@@ -1,4 +1,4 @@
-### Clip Hyperspec Data Based on ITCS ###
+### Clip Lidar Data Based on ITCS ###
 library(maptools)
 library(raster)
 library(TreeSegmentation)
@@ -6,7 +6,6 @@ library(doSNOW)
 library(foreach)
 library(parallel)
 library(rgdal)
-library(rhdf5)
 
 #Get lists of itcs
 shps<-list.files("/orange/ewhite/b.weinstein/ITC",pattern=".shp",full.names = T)
@@ -16,6 +15,7 @@ names(itcs)<-sapply(itcs,function(x){
   id<-unique(x$Plot_ID)
 })
 
+#Crop lidar by itc extent (buffered by 3x) and write to file
 cl<-makeCluster(15)
 #cl<-makeCluster(2)
 registerDoSNOW(cl)
@@ -25,10 +25,10 @@ foreach(x=1:length(itcs),.packages=c("TreeSegmentation","sp","raster"),.errorhan
 
   #Look for corresponding tile
   #get lists of rasters
-  #fils<-list.files("/orange/ewhite/NeonData/2017_Campaign/D03/OSBS/L3/Spectrometer/Reflectance/",full.names = T,pattern=".h5")
-  #filname<-list.files("/orange/ewhite/NeonData/2017_Campaign/D03/OSBS/L3/Spectrometer/Reflectance/",pattern=".h5")
-  fils<-list.files("/orange/ewhite/NeonData/2015_Campaign/D03/OSBS/L1/Spectrometer/Reflectance/",full.names = T,pattern=".h5")
-  filname<-list.files("/orange/ewhite/NeonData/2015_Campaign/D03/OSBS/L1/Spectrometer/Reflectance/",pattern=".h5")
+
+  inpath<-"/orange/ewhite/NeonData/2015_Campaign/D03/OSBS/L4/"
+  fils<-list.files(inpath,full.names = T,pattern=".tif")
+  filname<-list.files(inpath,pattern=".tif")
 
   #loop through rasters and look for intersections
   for (i in 1:length(fils)){
@@ -36,11 +36,10 @@ foreach(x=1:length(itcs),.packages=c("TreeSegmentation","sp","raster"),.errorhan
     #set counter for multiple tiles
     j=1
     #empty vector to hold tiles
-    matched_tiles <- vector("list", 5)
+    matched_tiles <- vector("list", 10)
 
-    r<-h5_to_rgb(file_path = fils[[i]])
-
-     #load raster and check for overlap
+    #load raster and check for overlap
+    r<-stack(fils[[i]])
     do_they_intersect<-raster::intersect(extent(r),extent(itcs[[x]]))
 
     #Do they intersect?
@@ -77,7 +76,7 @@ foreach(x=1:length(itcs),.packages=c("TreeSegmentation","sp","raster"),.errorhan
   clipped_rgb<-raster::crop(tile_to_crop,clip_ext)
 
   #filename
-  cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/Spectrometer/",unique(itcs[[x]]$Plot_ID),".tif",sep="")
+  cname<-paste("/orange/ewhite/b.weinstein/NEON/D03/OSBS/L1/HyperspectralFalseColor/",unique(itcs[[x]]$Plot_ID),".tif",sep="")
   print(cname)
 
   #rescale to

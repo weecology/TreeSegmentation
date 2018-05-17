@@ -18,4 +18,8 @@ convert_names<-function(from,to,lidar=NULL,rgb=NULL,hyperspectral=NULL){
     return(full_path)
   }
 
+  if(from=="lidar" & to == "rgb"){
+    stringr::str_match(path_las,"\\/(\\w+.laz)")[,2]
+  }
+
 }

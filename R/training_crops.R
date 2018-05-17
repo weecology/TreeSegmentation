@@ -23,7 +23,7 @@ training_crops<-function(path_las=NULL,algorithm="silva",cores=NULL,create_negat
   sanitized_fn<-stringr::str_replace_all(sanitized_fn,"\\.","_")
 
   #get the corresponding orthophoto naming
-  boxes$lidar_path<-path_las
+  boxes$lidar_path<-stringr::str_match(path_las,"\\/(\\w+.laz)")[,2]
   boxes$rgb_path<-convert_names(from="lidar",to="rgb",lidar=path_las)
 
   #label
