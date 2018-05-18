@@ -2,6 +2,7 @@ library(TreeSegmentation)
 library(rgdal)
 library(raster)
 library(stringr)
+
 shps<-list.files("../data/ITCs/",pattern=".shp",full.names = T,recursive = T)
 
 #take out missing polygon

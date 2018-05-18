@@ -13,22 +13,16 @@ negative_samples<-function(boxes,path_las){
   #get extent
   e<-extent(tile)
 
-  negatives<-boxes %>% group_by(id=1:n()) %>% do(jitter_box(.,e=e)) %>% ungroup() %>% select(-id)
+  negatives<-boxes %>% group_by(id=1:n()) %>% do(jitter_box(.,border=e)) %>% ungroup() %>% select(-id)
 
   return(negatives)
 }
 
 #jitter box function
-jitter_box<-function(box,e){
+jitter_box<-function(box,border){
   #find box size
   width=box$xmax-box$xmin
   height=box$ymax-box$ymin
-
-  #border the tile
-  border_xmin=e@xmin+width
-  border_xmax=e@xmax-width
-  border_ymin=e@ymin+height
-  border_ymax=e@ymax-height
 
   #Choose a positive or negative direction for both axis
   x_direction<-sample(c(1,-1),1)
@@ -36,17 +30,17 @@ jitter_box<-function(box,e){
 
   #Jitter X position
   if(x_direction==1){
-    x_to_select<-seq(0,box$xmax-border_xmax,length.out = 100)
+    x_to_select<-seq(0,border@xmax-box$xmax,length.out = 100)
   } else {
-    x_to_select<-seq(0,border_xmin-box$xmin,length.out = 100)
+    x_to_select<-seq(0,border@xmin-box$xmin,length.out = 100)
   }
 
   #jitter y direction
   if(y_direction==1){
-    y_to_select<-seq(0,box$ymax-border_ymax,length.out = 100)
+    y_to_select<-seq(0,border@ymax-box$ymax,length.out = 100)
 
   } else {
-    y_to_select<-seq(0,border_ymin-box$ymin,length.out = 100)
+    y_to_select<-seq(0,border@ymin-box$ymin,length.out = 100)
   }
 
   #randomly draw a x and y coordinate

@@ -42,7 +42,7 @@ training_crops<-function(path_las=NULL,algorithm="silva",cores=NULL,create_negat
     boxes<-dplyr::bind_rows(list(boxes,new_boxes))
   }
 
-  write.csv(boxes,paste("Results/bounding_boxes_",sanitized_fn,".csv",sep=""))
+  write.csv(boxes,paste("Results/bounding_boxes/bounding_boxes_",sanitized_fn,".csv",sep=""))
 
 }
 
