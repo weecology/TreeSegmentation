@@ -23,7 +23,7 @@ check_tile<-function(itcs_path,lidar_path,rgb_dir){
   tile<-lidR::readLAS(lidar_path)
 
   #Get corresponding rgb tile
-  full_path<-convert_names(from="lidar",to="rgb",lidar=tile)
+  full_path<-convert_names(from="lidar",to="rgb",lidar=lidar_path)
 
   #check if rgb tile exists
   if(!file.exists(full_path)){

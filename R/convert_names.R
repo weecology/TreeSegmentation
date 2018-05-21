@@ -3,8 +3,8 @@
 #' \code{convert_names} uses the geocode from each NEON data product to find the corresponding tile in another sensor
 #' @param from current sensor
 #' @param to destination sensor
-#' @param rgb RGB pathname
-#' @param lidar Lidar pathname
+#' @param rgb Character. RGB pathname
+#' @param lidar Character. Lidar pathname
 #' @param hyperspectral hyerspectral pathname
 #' @export
 convert_names<-function(from,to,lidar=NULL,rgb=NULL,hyperspectral=NULL){

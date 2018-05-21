@@ -24,7 +24,7 @@ if(testing){
     flag<-check_tile(itcs_path=itcs_path,lidar_path = lidar_files[[x]],rgb_dir=rgb_dir)
 
     if(flag){
-      generate_training(lidar = "../data/training/NEON_D03_OSBS_DP1_398000_3280000_classified_point_cloud.laz" ,algorithm = c("silva"),expand=2)
+      generate_training(lidar = lidar_files[[x]] ,algorithm = c("silva"),expand=2)
         } else{
           return("Failed check_tile")
         }
