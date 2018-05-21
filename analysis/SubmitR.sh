@@ -7,12 +7,11 @@
 #SBATCH --nodes=1                 # Number of MPI ranks
 #SBATCH --ntasks=1                 # Number of MPI ranks
 #SBATCH --cpus-per-task=15            # Number of cores per MPI rank
-#SBATCH --mem=10GB
+#SBATCH --mem=20GB
 #SBATCH --time=5:00:00       #Time limit hrs:min:sec
-#SBATCH --output=/home/b.weinstein/logs/CropLidar.out   # Standard output and error log
-#SBATCH --error=/home/b.weinstein/logs/CropLidar.err
+#SBATCH --output=/home/b.weinstein/logs/training.out   # Standard output and error log
+#SBATCH --error=/home/b.weinstein/logs/training.err
 
 #This is a generic R submission script
 module load R
-
-Rscript Crop_Hyperspec.R
+Rscript training.R

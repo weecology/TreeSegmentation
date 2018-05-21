@@ -26,15 +26,17 @@ check_tile<-function(itcs_path,lidar_path,rgb_dir){
   full_path<-convert_names(from="lidar",to="rgb",lidar=lidar_path)
 
   #check if rgb tile exists
-  if(!file.exists(full_path)){
+  rgb_tiles<-list.files(rgb_dir,pattern=".tif")
+  if(!full_path %in% rgb_tiles){
     print("no corresponding rgb tile")
     return(FALSE)
   }
 
   #check for intersection with ground truth
   intersect_sum<-c()
+  tile_extent<-raster::raster(raster::extent(tile))
   for(x in 1:length(itcs)){
-    does_intersect<-raster::intersect(itcs[[x]],raster(extent(tile)))
+    does_intersect<-raster::intersect(itcs[[x]],tile_extent)
     intersect_sum[x]<-is.null(does_intersect)
   }
 
