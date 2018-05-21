@@ -4,10 +4,12 @@
 \alias{get_bounding_boxes}
 \title{Generate bounding boxes for all segmented trees}
 \usage{
-get_bounding_boxes(df)
+get_bounding_boxes(df, expand = 1)
 }
 \arguments{
 \item{df}{a list of objects exported by \code{\link{extract_trees}}}
+
+\item{expand.}{Numeric. Multiply box size by a factor.}
 }
 \value{
 A list of \code{\link[sp]{SpatialPolygonsDataFrame}} objects containing a bounding box for each defined tree.

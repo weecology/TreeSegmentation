@@ -40,7 +40,6 @@ for(x in 1:length(itcs)){
     next
   }
 
-
   png(paste("plots/hyperspectral_2015/",fname,".png",sep=""))
 
   plotRGB(stretch(rgb/255),ext=extent(itcs[[x]])*1.6)

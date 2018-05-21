@@ -5,14 +5,14 @@
 \title{Generate bounding boxes from lidar tiles}
 \usage{
 training_crops(path_las = NULL, algorithm = "silva", cores = NULL,
-  create_negatives = T)
+  create_negatives = T, expand = 1)
 }
 \arguments{
 \item{create_negatives}{Should negative samples be generated. see details}
 
-\item{path_rgb}{Character. file path of rgb image}
+\item{expand}{Numeric. Factor to enlarge (or decrease) bounding box size}
 
-\item{write}{Logical. Should results be written to file}
+\item{path_rgb}{Character. file path of rgb image}
 }
 \description{
 \code{training_crops} computes an lidar-based segmentation, based on multiple available methods, and splits the results into individual las files for each predicted tree. It then writes the resulting files in h5 format for machine learning input

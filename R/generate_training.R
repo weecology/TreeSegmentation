@@ -3,10 +3,10 @@
 #' \code{training_crops} computes an lidar-based segmentation, based on multiple available methods, and splits the results into individual las files for each predicted tree. It then writes the resulting files in h5 format for machine learning input
 #' @param lidar Character. list of lidar paths
 #' @param cores Numeric. Available cores to process data
-#' @return Writes training crops to file
+#' @param expand Numeric. Factor to enlarge (or decrease) bounding box size
 #' @export
 #'
-generate_training<-function(lidar=NULL,algorithm="silva",cores=NULL){
+generate_training<-function(lidar=NULL,algorithm="silva",cores=NULL,expand=1){
 
   #If running in parallel
   `%dopar%` <- foreach::`%dopar%`
@@ -16,7 +16,7 @@ generate_training<-function(lidar=NULL,algorithm="silva",cores=NULL){
   }
 
   result<-foreach::foreach(x=1:length(lidar)) %dopar%{
-    training_crops(path_las=lidar[x])
+    training_crops(path_las=lidar[x],expand=expand)
   }
 
   if(!is.null(cores)){

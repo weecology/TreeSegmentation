@@ -4,15 +4,15 @@
 \alias{generate_training}
 \title{Generate training crop data from lidar tiles}
 \usage{
-generate_training(lidar = NULL, algorithm = "silva", cores = NULL)
+generate_training(lidar = NULL, algorithm = "silva", cores = NULL,
+  expand = 1)
 }
 \arguments{
 \item{lidar}{Character. list of lidar paths}
 
 \item{cores}{Numeric. Available cores to process data}
-}
-\value{
-Writes training crops to file
+
+\item{expand}{Numeric. Factor to enlarge (or decrease) bounding box size}
 }
 \description{
 \code{training_crops} computes an lidar-based segmentation, based on multiple available methods, and splits the results into individual las files for each predicted tree. It then writes the resulting files in h5 format for machine learning input
