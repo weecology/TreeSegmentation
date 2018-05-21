@@ -15,7 +15,7 @@ if(testing){
   itcs_path<-"/orange/ewhite/b.weinstein/ITC"
   lidar_files<-list.files(lidar_dir,full.names = T,pattern=".laz")
 
-  cl<-makeCluster(15)
+  cl<-makeCluster(5)
   registerDoSNOW(cl)
 
   results<-foreach::foreach(x=1:length(lidar_files),.packages=c("TreeSegmentation")) %dopar%{
