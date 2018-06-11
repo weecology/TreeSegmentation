@@ -11,9 +11,9 @@ convert_names(from, to, lidar = NULL, rgb = NULL, hyperspectral = NULL)
 
 \item{to}{destination sensor}
 
-\item{lidar}{Lidar pathname}
+\item{lidar}{Character. Lidar pathname}
 
-\item{rgb}{RGB pathname}
+\item{rgb}{Character. RGB pathname}
 
 \item{hyperspectral}{hyerspectral pathname}
 }

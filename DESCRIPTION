@@ -24,5 +24,6 @@ Imports:
   clue,
   foreach,
   doSNOW,
-  magrittr
+  magrittr,
+  purrr
 

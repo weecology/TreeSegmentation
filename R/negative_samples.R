@@ -10,50 +10,63 @@ negative_samples<-function(boxes,path_las){
   #load tile
   tile<-lidR::readLAS(path_las)
 
-  #get extent
-  e<-extent(tile)
+  #create raster from extent
+  r<-raster::raster(extent(tile))
+  raster::res(r)<-1
+  r[]<-1
 
-  negatives<-boxes %>% group_by(id=1:n()) %>% do(jitter_box(.,border=e)) %>% ungroup() %>% select(-id)
+  #cut out existing boxes
+  extent_boxes<-lapply(split(boxes,boxes$box),box_from_row)
+  spatial_boxes<-lapply(extent_boxes,function(x){as(x,"SpatialPolygons")})
+
+  spatial_boxes<-list(spatial_boxes, makeUniqueIDs = T) %>%
+    purrr::flatten() %>%
+    do.call(rbind, .)
+
+  system.time(r<-raster::mask(r,spatial_boxes,inverse=T))
+
+  #Kill boxes of 0 area.
+  boxes<-boxes %>% filter(!xmin==xmax)
+  negatives<-boxes %>% group_by(id=1:n()) %>% do(sample_box(.,r)) %>% ungroup() %>% select(-id)
 
   return(negatives)
 }
 
-#jitter box function
-jitter_box<-function(box,border){
-  #find box size
-  width=box$xmax-box$xmin
-  height=box$ymax-box$ymin
+#check box proposal - negative boxes shouldn't overlap more than 20% with existing boxes.
 
-  #Choose a positive or negative direction for both axis
-  x_direction<-sample(c(1,-1),1)
-  y_direction<-sample(c(1,-1),1)
+sample_box<-function(row,sampling_tile){
 
-  #Jitter X position
-  if(x_direction==1){
-    x_to_select<-seq(0,border@xmax-box$xmax,length.out = 100)
-  } else {
-    x_to_select<-seq(0,border@xmin-box$xmin,length.out = 100)
+  while(TRUE){
+    #define box size
+    width=row$xmax-row$xmin
+    height=row$ymax-row$ymin
+
+    #Sample a random location on the tile
+    p<-raster::sampleRandom(sampling_tile,size=1,xy=TRUE)[,1:2]
+
+    #create box from point
+    xmin<-p[["x"]]
+    ymax<-p[["y"]]
+    xmax<-xmin + width
+    ymin<-ymax-height
+
+    #create an extent box
+    new_box<-raster::extent(xmin,xmax,ymin,ymax)
+
+    #check if box overlaps with border.
+    if(!is.null(raster::intersect(new_box,r))){
+      row$label<-"Background"
+      row$box<-paste(row$box,"_background",sep="")
+      row$xmin<-xmin
+      row$xmax<-xmax
+      row$ymin<-ymin
+      row$ymax<-ymax
+      return(row)
+    }
+
   }
-
-  #jitter y direction
-  if(y_direction==1){
-    y_to_select<-seq(0,border@ymax-box$ymax,length.out = 100)
-
-  } else {
-    y_to_select<-seq(0,border@ymin-box$ymin,length.out = 100)
-  }
-
-  #randomly draw a x and y coordinate
-  x_jitter<-sample(x_to_select,1)
-  y_jitter<-sample(y_to_select,1)
-
-  #reform box
-  box$xmin<- box$xmin + x_jitter
-  box$xmax<- box$xmax + x_jitter
-  box$ymin<- box$ymin + y_jitter
-  box$ymax<- box$ymax + y_jitter
-  box$label<-"Background"
-  box$box<-paste(box$box,"_background",sep="")
-  return(box)
 }
 
+box_from_row<-function(row){
+  raster::extent(row$xmin,row$xmax,row$ymin,row$ymax)
+}
