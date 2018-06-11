@@ -3,7 +3,7 @@ library(foreach)
 library(TreeSegmentation)
 
 #Testing flag
-testing<-TRUE
+testing<-FALSE
 
 if(testing){
   #generate_training(lidar = "../data/training/NEON_D03_OSBS_DP1_398000_3280000_classified_point_cloud.laz" ,algorithm = c("silva"),expand=2)
