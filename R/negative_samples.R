@@ -32,8 +32,7 @@ negative_samples<-function(boxes,path_las){
   return(negatives)
 }
 
-#check box proposal - negative boxes shouldn't overlap more than 20% with existing boxes.
-
+#check box proposal - negative boxes shouldn't overlap
 sample_box<-function(row,sampling_tile){
 
   while(TRUE){
@@ -54,7 +53,7 @@ sample_box<-function(row,sampling_tile){
     new_box<-raster::extent(xmin,xmax,ymin,ymax)
 
     #check if box overlaps with border.
-    if(!is.null(raster::intersect(new_box,r))){
+    if(!is.null(raster::intersect(new_box,sampling_tile))){
       row$label<-"Background"
       row$box<-paste(row$box,"_background",sep="")
       row$xmin<-xmin
