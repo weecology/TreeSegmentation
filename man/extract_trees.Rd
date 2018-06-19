@@ -4,7 +4,8 @@
 \alias{extract_trees}
 \title{Extract individual las files for segmented trees}
 \usage{
-extract_trees(las = NULL, algorithm = "silva", cores = NULL, output)
+extract_trees(las = NULL, tile = NULL, algorithm = "silva",
+  cores = NULL, output = "df")
 }
 \arguments{
 \item{las}{Character or Vector. Path to lidar tiles on system to be processed. May be a single tile or vector of tiles.}
@@ -12,6 +13,8 @@ extract_trees(las = NULL, algorithm = "silva", cores = NULL, output)
 \item{algorithm}{Character. A vector of lidar unsupervised classification algorithm(s). Currently "silva","dalponte","li" and "watershed" are implemented. See \code{\link[lidR]{lastrees}}}
 
 \item{output}{Character. A set of "las" objects or a dataframe "df" of the xyz data, depending on the next processing step.}
+
+\item{tile.}{Optional. A lidr object read in by lidR::readLAS. This will supercede the las argument.}
 }
 \value{
 A list object for each las tile processed. Each list is a list of segmented trees, either in las or dataframes, based on the output argument.

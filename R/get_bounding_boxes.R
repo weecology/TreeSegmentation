@@ -27,7 +27,7 @@ get_bounding_boxes<-function(df,expand=1){
 
 get_box<-function(x,expand){
   s<-sp::SpatialPoints(cbind(x$X,x$Y))
-  e<-raster::extent(s)
+  e<-raster::extent(s)*expand
   edf<-data.frame(xmin=e@xmin,xmax=e@xmax,ymin=e@ymin,ymax=e@ymax)
   return(edf)
 }

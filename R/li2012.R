@@ -3,6 +3,7 @@
 #' \code{li2012} assigns each point in a lidR cloud to a treeID.
 #' @param path Character. A filename of a .las or .laz file to be read in by the lidR package, see \code{\link[lidR]{readLAS}}
 #' @param tile Character. Optionally a lidR object in memory
+#' @param output Character. 'Tile', "convex_hull","all"
 #' @return
 #' \preformatted{
 #' 'tile' : .las tile with segmented trees in the treeID column

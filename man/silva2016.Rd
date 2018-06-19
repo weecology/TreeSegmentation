@@ -10,6 +10,8 @@ silva2016(path = NULL, tile = NULL, output = c("all"))
 \item{path}{Character. A filename of a .las or .laz file to be read in by the lidR package, see \code{\link[lidR]{readLAS}}}
 
 \item{tile}{Character. Optionally a lidR object in memory}
+
+\item{output}{Character. 'Tile', "convex_hull","all"}
 }
 \description{
 \code{silva2016} assigns each point in a lidR cloud to a treeID.

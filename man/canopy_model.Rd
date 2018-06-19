@@ -4,7 +4,7 @@
 \alias{canopy_model}
 \title{Canopy model generation from normalized las}
 \usage{
-canopy_model(las)
+canopy_model(las, res = 0.5)
 }
 \arguments{
 \item{las}{A lidar cloud read in by lidR package}
