@@ -2,12 +2,14 @@ library(doSNOW)
 library(foreach)
 library(TreeSegmentation)
 
+## Classification training
+
 #Testing flag
-testing<-FALSE
+testing<-T
 
 if(testing){
   #generate_training(lidar = "../data/training/NEON_D03_OSBS_DP1_398000_3280000_classified_point_cloud.laz" ,algorithm = c("silva"),expand=2)
-  generate_training(lidar = "../data/2017/Lidar/OSBS_006.laz" ,algorithm = c("silva"),expand=1.2)
+  generate_training(lidar = "../data/2017/Lidar/OSBS_003.laz" ,algorithm = c("silva"),expand=1.1)
 } else{
 
   #lidar data dir

@@ -4,66 +4,30 @@ library(raster)
 library(lidR)
 library(dplyr)
 
-path<-"../data/2017/Lidar/OSBS_003.laz"
-#path<-"../data/training/NEON_D03_OSBS_DP1_398000_3280000_classified_point_cloud.laz"
-tile<-readLAS(path)
-algorithm<-"silva"
+testing=F
 
-#Find tree clusters from canopy height model
-tclusters<-treeClusters(path=path,threshold=15,res=2,expand=2)
+if(testing){
+  path<-"../data/2017/Lidar/OSBS_006.laz"
+ } else{
 
-#make sure boxes aren't off edges
-e<-extent(tile)
+  #lidar data dir
+  lidar_dir<-"/orange/ewhite/NeonData/2017_Campaign/D03/OSBS/L1/DiscreteLidar/Classified_point_cloud/"
+  rgb_dir<-"/orange/ewhite/b.weinstein/NEON/D03/OSBS/DP1.30010.001/2017/FullSite/D03/2017_OSBS_3/L3/Camera/Mosaic/V01/"
+  itcs_path<-"/orange/ewhite/b.weinstein/ITC"
+  lidar_files<-list.files(lidar_dir,full.names = T,pattern=".laz")
 
-tclusters[tclusters$xmin < e@xmin,]<-e@xmin
-tclusters[tclusters$ymin < e@ymin,]<-e@ymin
-tclusters[tclusters$xmin > e@xmax,]<-e@xmax
-tclusters[tclusters$xmin > e@ymax,]<-e@ymax
+  cl<-makeCluster(10)
+  registerDoSNOW(cl)
 
-#Crop out lidar cloud
-crops<-list()
-for(x in 1:nrow(tclusters)){
-  row<-tclusters[x,]
-  crops[[x]]<-lasclipRectangle(tile,xleft=row$xmin,xright=row$xmax,ybottom=row$ymin,ytop=row$ymax)
-}
+  results<-foreach::foreach(x=1:length(lidar_files),.packages=c("TreeSegmentation")) %dopar%{
 
-#For each crop compute silva segmentation
-result<-list()
-for(x in 1:length(crops)){
-  result[[x]]<-silva2016(tile=crops[[x]],output = "tile")
-}
+    #check if tile can be processed
+    flag<-check_tile(itcs_path=itcs_path,lidar_path = lidar_files[[x]],rgb_dir=rgb_dir)
 
-plot(result[[1]],color="treeID",size=3)
-
-#get list of tree points
-las_trees<-lapply(result,function(x){
-  trees<-split(x@data, x@data$treeID)
-  trees<-bind_rows(trees) %>% select(X,Y,Z,treeID)
-})
-
-
-#Label clusters and bind together
-for(x in 1:length(las_trees)){
-  las_trees[[x]]$Cluster<-x
-}
-
-las_trees<-bind_rows(las_trees)
-
-#Get bounding box around each tree id
-las_trees<-las_trees %>% group_by(Cluster,treeID) %>% do(get_box(.,expand=1))
-
-#Append cluster bounding box, rename to make it clearer the different in extents
-tclusters<-tclusters %>% select(Cluster=Index,cluster_xmin=xmin,cluster_xmax=xmax,cluster_ymin=ymin,cluster_ymax=ymax)
-boxes<-las_trees %>% inner_join(tclusters) %>% select(box=treeID)
-
-#get the corresponding orthophoto naming
-boxes$lidar_path<-stringr::str_match(path,"\\/(\\w+.laz)")[,2]
-boxes$rgb_path<-convert_names(from="lidar",to="rgb",lidar=path)
-
-#label
-boxes$label<-"Tree"
-
-fname<-paste("detection_boxes/",".csv",sep="")
-
-write.csv(boxes,fname)
-
+    if(flag){
+      detection_training(path)
+    } else{
+      return("Failed check_tile")
+    }
+  }
+ }
