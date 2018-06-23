@@ -5,7 +5,7 @@ library(TreeSegmentation)
 ## Classification training
 
 #Testing flag
-testing<-T
+testing<-F
 
 if(testing){
   #generate_training(lidar = "../data/training/NEON_D03_OSBS_DP1_398000_3280000_classified_point_cloud.laz" ,algorithm = c("silva"),expand=2)
