@@ -34,7 +34,7 @@ detection_training<-function(path){
     result[[x]]<-silva2016(tile=crops[[x]],output = "tile")
   }
 
-  plot(result[[1]],color="treeID",size=3)
+  #plot(result[[1]],color="treeID",size=3)
 
   #get list of tree points
   las_trees<-lapply(result,function(x){

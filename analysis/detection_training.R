@@ -4,10 +4,11 @@ library(raster)
 library(lidR)
 library(dplyr)
 
-testing=F
+testing=T
 
 if(testing){
   path<-"../data/2017/Lidar/OSBS_006.laz"
+  detection_training(path)
  } else{
 
   #lidar data dir
@@ -22,10 +23,10 @@ if(testing){
   results<-foreach::foreach(x=1:length(lidar_files),.packages=c("TreeSegmentation")) %dopar%{
 
     #check if tile can be processed
-    flag<-check_tile(itcs_path=itcs_path,lidar_path = lidar_files[[x]],rgb_dir=rgb_dir)
+    flag<-check_tile(itcs_path=itcs_path,lidar_path = lidar_files[x],rgb_dir=rgb_dir)
 
     if(flag){
-      detection_training(path)
+      detection_training(path=lidar_files[x])
     } else{
       return("Failed check_tile")
     }
