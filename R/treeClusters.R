@@ -23,7 +23,7 @@ treeClusters<-function(path,threshold=15,res=3,expand=0){
   islands<-chm > threshold
 
   ## Find Blobs
-  connected<-clump(islands)
+  connected<-raster::clump(islands)
 
   ## Get bounding boxes for each blob
   connected_sp<-raster::rasterToPoints(connected,spatial = T)
@@ -45,7 +45,7 @@ treeClusters<-function(path,threshold=15,res=3,expand=0){
 point_box<-function(connected_sp,index,expand){
 
   #select cluster, get bounding box and pad.
-  b<-bbox(connected_sp[connected_sp$clumps==index,])
+  b<-sp::bbox(connected_sp[connected_sp$clumps==index,])
 
   bounding_box<-as.numeric(expand_box(b,expand))
 
