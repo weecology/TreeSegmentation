@@ -1,12 +1,9 @@
 ## Detection network training
 library(TreeSegmentation)
-library(raster)
-library(lidR)
-library(dplyr)
 library(doSNOW)
 library(foreach)
 
-testing=F
+testing=T
 
 if(testing){
   path<-"../data/2017/Lidar/OSBS_006.laz"
