@@ -14,7 +14,7 @@ detection_training<-function(path){
   tclusters<-treeClusters(path=path,threshold=15,res=2,expand=2)
 
   #make sure boxes aren't off edges
-  e<-extent(tile)
+  e<-raster::extent(tile)
 
   tclusters[tclusters$xmin < e@xmin,]<-e@xmin
   tclusters[tclusters$ymin < e@ymin,]<-e@ymin
