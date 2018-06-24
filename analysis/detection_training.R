@@ -3,7 +3,7 @@ library(TreeSegmentation)
 library(doSNOW)
 library(foreach)
 
-testing=T
+testing=F
 
 if(testing){
   path<-"../data/2017/Lidar/OSBS_006.laz"
