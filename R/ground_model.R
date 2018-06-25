@@ -4,11 +4,12 @@
 #' @param las A lidar cloud read in by lidR package
 #' @param ground Logical. Should a ground model be computed? Some tiles come pre-processed.
 #' @return NA. By default operation is done in place to reduce memory.
+#' @export
 #' @examples
 #' LASfile <- system.file("extdata", "MixedConifer.laz", package="lidR")
 #' tile = readLAS(LASfile, select = "xyz", filter = "-drop_z_below 0"
 #' ground_model(tile)
-#' @export
+
 ground_model<-function(las,ground=T){
 
   if(ground){

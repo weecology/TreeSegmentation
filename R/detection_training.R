@@ -2,16 +2,21 @@
 #'
 #' \code{detection training} is the pipeline for generating training data for a detection based nueral net (RCNN).
 #' @param path Character Location of the lidar tile to process.
+#' @param expand Numeric.
+#' @inheritParams treeClusters
 #' @return A .csv file is written to disk containing detections
 #' @export
 #'
 #'
-detection_training<-function(path){
+detection_training<-function(path,threshold=15,res=2,expand=1){
   tile<-lidR::readLAS(path)
   algorithm<-"silva"
 
+  #normalize
+  ground_model(tile,ground=F)
+
   #Find tree clusters from canopy height model
-  tclusters<-treeClusters(path=path,threshold=15,res=2,expand=2)
+  tclusters<-treeClusters(path=path,threshold=threshold,res=res,expand=expand)
 
   #make sure boxes aren't off edges
   e<-raster::extent(tile)
@@ -20,6 +25,8 @@ detection_training<-function(path){
   tclusters[tclusters$ymin < e@ymin,]<-e@ymin
   tclusters[tclusters$xmin > e@xmax,]<-e@xmax
   tclusters[tclusters$xmin > e@ymax,]<-e@ymax
+
+  print(paste(nrow(tclusters),"clusters found in",path))
 
   #Crop out lidar cloud
   crops<-list()
@@ -31,9 +38,11 @@ detection_training<-function(path){
   #For each crop compute silva segmentation
   result<-list()
   for(x in 1:length(crops)){
-    result[[x]]<-silva2016(tile=crops[[x]],output = "tile")
+    print(paste("Cluster",x))
+    result[[x]]<-silva2016(tile=crops[[x]],output = "tile",ground=F)
   }
 
+  print("Tree Segmentation Complete")
   #plot(result[[1]],color="treeID",size=3)
 
   #get list of tree points
@@ -42,6 +51,7 @@ detection_training<-function(path){
     trees<-bind_rows(trees) %>% select(X,Y,Z,treeID)
   })
 
+  print(paste(length(las_trees),"trees predicted"))
 
   #Label clusters and bind together
   for(x in 1:length(las_trees)){
@@ -56,6 +66,8 @@ detection_training<-function(path){
   #Append cluster bounding box, rename to make it clearer the different in extents
   tclusters<-tclusters %>% select(Cluster=Index,cluster_xmin=xmin,cluster_xmax=xmax,cluster_ymin=ymin,cluster_ymax=ymax)
   boxes<-las_trees %>% inner_join(tclusters) %>% rename(box=treeID)
+
+  print("Bounding boxes complete")
 
   #get the corresponding orthophoto naming
   boxes$lidar_path<-stringr::str_match(path,"\\/(\\w+.laz)")[,2]

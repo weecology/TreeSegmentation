@@ -74,7 +74,7 @@ segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F){
     tree = lidR::lasfilter(las, !is.na(treeID))
 
     # More stuff
-    contour = raster::rasterToPolygons(crowns, dissolve = TRUE)
+    contour = lidR::tree_hulls(las)
 
     if(plots){
       plot(tree, color = "treeID", colorPalette = pastel.colors(100), size = 1,backend="rgl")

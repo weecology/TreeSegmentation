@@ -4,7 +4,7 @@
 \alias{silva2016}
 \title{Find tree crown polygons using the Silva 2016 algorithm}
 \usage{
-silva2016(path = NULL, tile = NULL, output = c("all"))
+silva2016(path = NULL, tile = NULL, output = c("all"), ground = T)
 }
 \arguments{
 \item{path}{Character. A filename of a .las or .laz file to be read in by the lidR package, see \code{\link[lidR]{readLAS}}}

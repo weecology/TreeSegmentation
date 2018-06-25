@@ -7,7 +7,7 @@
 #' convex_hulls <- silva2016(path=LASfile)
 #' @export
 
-silva2016<-function(path=NULL,tile=NULL,output=c("all")){
+silva2016<-function(path=NULL,tile=NULL,output=c("all"),ground=T){
 
   if(is.null(tile)){
     tile = lidR::readLAS(path, filter = "-drop_z_below 0")
@@ -15,12 +15,12 @@ silva2016<-function(path=NULL,tile=NULL,output=c("all")){
   }
 
   #Read in tile
-  print("Computing Ground Model")
   #Compute ground model
-  ground_model(tile,ground=F)
+  if(ground){
+    ground_model(tile,ground=F)
+  }
 
   #3. canopy model
-  print("Computing Canopy Model")
   chm=canopy_model(tile)
 
   #remove ground points, Classification == 2.
@@ -28,15 +28,13 @@ silva2016<-function(path=NULL,tile=NULL,output=c("all")){
   #tile@crs<-sp::CRS("+init=epsg:32617")
 
   #Compute unsupervised classification method
-  print("Clustering Trees")
-  print(system.time(silva2016<-segment_trees(las=tile,algorithm = "silva2016",chm=chm)))
+  silva2016<-segment_trees(las=tile,algorithm = "silva2016",chm=chm)
 
   if(output=="tile"){
     return(silva2016)
   }
-
+  print("hi")
   #create polygons
-  print("Creating tree polygons")
   silva_convex<-get_convex_hulls(tile = silva2016,ID = silva2016@data$treeID)
 
   #set outputs
