@@ -8,7 +8,7 @@
 #' @return A data.frame of bounding boxes for each tree object.
 #' @export
 #'
-treeClusters<-function(path,threshold=15,res=3,expand=0){
+treeClusters<-function(path,threshold=5,res=1,expand=0){
 
   ## Load lidR
   tile<-lidR::readLAS(path)

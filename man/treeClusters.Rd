@@ -4,7 +4,7 @@
 \alias{treeClusters}
 \title{Find clusters of elevation on the canopy height model}
 \usage{
-treeClusters(path, threshold = 15, res = 3, expand = 0)
+treeClusters(path, threshold = 5, res = 1, expand = 0)
 }
 \arguments{
 \item{path}{Character. file path to lidar image}
