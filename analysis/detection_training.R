@@ -4,11 +4,11 @@ library(doSNOW)
 library(foreach)
 library(dplyr)
 
-testing=F
+testing=T
 
 if(testing){
-  #path<-"../data/2017/Lidar/OSBS_006.laz"
-  path<-"../data/training/NEON_D03_OSBS_DP1_407000_3291000_classified_point_cloud.laz"
+  path<-"../data/2017/Lidar/OSBS_006.laz"
+  #path<-"../data/training/NEON_D03_OSBS_DP1_407000_3291000_classified_point_cloud.laz"
   detection_training(path)
  } else{
 
