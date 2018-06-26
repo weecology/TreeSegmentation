@@ -12,5 +12,5 @@
 #SBATCH --error=/home/b.weinstein/logs/detection.err
 
 #This is a generic R submission script
-module load R
+module load gcc/6.3.0 R/3.4.3 gdal/2.2.1
 Rscript detection_training.R

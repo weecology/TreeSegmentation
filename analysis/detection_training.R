@@ -4,7 +4,7 @@ library(doSNOW)
 library(foreach)
 library(dplyr)
 
-testing=T
+testing=F
 
 if(testing){
   #path<-"../data/2017/Lidar/OSBS_006.laz"
