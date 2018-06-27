@@ -17,7 +17,7 @@ detection_training<-function(path,threshold=15,res=1,expand=1){
   ground_model(tile,ground=F)
 
   #Find tree clusters from canopy height model
-  tclusters<-treeClusters(path=path,threshold=threshold,res=res,expand=10)
+  tclusters<-treeClusters(path=path,threshold=threshold,res=res,expand=expand)
 
   #make sure boxes aren't off edges
   e<-raster::extent(tile)
