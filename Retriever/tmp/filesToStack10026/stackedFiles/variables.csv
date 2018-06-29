@@ -1,0 +1,273 @@
+table,fieldName,description,dataType,units,downloadPkg
+cfc_lignin,uid,"Unique ID within NEON database; an identifier for the record",string,NA,basic
+cfc_lignin,namedLocation,"Name of the measurement location in the NEON database",string,NA,basic
+cfc_lignin,domainID,"Unique identifier of the NEON domain",string,NA,basic
+cfc_lignin,siteID,"NEON site code",string,NA,basic
+cfc_lignin,plotID,"Plot identifier (NEON site code_XXX)",string,NA,basic
+cfc_lignin,plotType,"NEON plot type in which sampling occurred: tower, distributed or gradient",string,NA,basic
+cfc_lignin,sampleID,"Identifier for sample",string,NA,basic
+cfc_lignin,ligninSampleID,"Identifier for a lignin sample",string,NA,basic
+cfc_lignin,collectDate,"Date of the collection event",dateTime,NA,basic
+cfc_lignin,analysisDate,"Date that the sample was analyzed",dateTime,NA,basic
+cfc_lignin,analyticalRepNumber,"Number of the analytical replicate",unsigned integer,number,basic
+cfc_lignin,dryMass,"Oven-dried mass of sample or subsample",real,gram,basic
+cfc_lignin,ligninPercent,"Percent lignin on a dry mass basis",real,percent,basic
+cfc_lignin,cellulosePercent,"Percent cellulose on a dry mass basis",real,percent,basic
+cfc_lignin,measurementQF,"Quality flag for sample measurement",string,NA,basic
+cfc_lignin,accuracyQF,"Quality flag for quality assurance materials associated with the run",string,NA,basic
+cfc_lignin,remarks,"Technician notes; free text comments accompanying the record",string,NA,basic
+cfc_lignin,laboratoryName,"Name of the laboratory or facility that is processing the sample",string,NA,basic
+cfc_lignin,testMethod,"Method used to conduct test",string,NA,basic
+cfc_lignin,analyzedBy,"Name of lab personnel analyzing sample",string,NA,basic
+cfc_lignin,reviewedBy,"Name of lab personnel who reviewed the data prior to submission",string,NA,basic
+cfc_lignin,dataQF,"Data quality flag",string,NA,basic
+cfc_elements,uid,"Unique ID within NEON database; an identifier for the record",string,NA,basic
+cfc_elements,namedLocation,"Name of the measurement location in the NEON database",string,NA,basic
+cfc_elements,domainID,"Unique identifier of the NEON domain",string,NA,basic
+cfc_elements,siteID,"NEON site code",string,NA,basic
+cfc_elements,plotID,"Plot identifier (NEON site code_XXX)",string,NA,basic
+cfc_elements,plotType,"NEON plot type in which sampling occurred: tower, distributed or gradient",string,NA,basic
+cfc_elements,sampleID,"Identifier for sample",string,NA,basic
+cfc_elements,ligninSampleID,"Identifier for a lignin sample",string,NA,basic
+cfc_elements,collectDate,"Date of the collection event",dateTime,NA,basic
+cfc_elements,analysisDate,"Date that the sample was analyzed",dateTime,NA,basic
+cfc_elements,analyticalRepNumber,"Number of the analytical replicate",unsigned integer,number,basic
+cfc_elements,dryMass,"Oven-dried mass of sample or subsample",real,gram,basic
+cfc_elements,digestVolume,"Volume of digest solution used",real,milliliter,basic
+cfc_elements,digestPhosphorusConc,"Concentration of phophorus in sample digest",real,milligramsPerLiter,expanded
+cfc_elements,digestPotassiumConc,"Concentration of potassium in sample digest",real,milligramsPerLiter,expanded
+cfc_elements,digestCalciumConc,"Concentration of calcium in sample digest",real,milligramsPerLiter,expanded
+cfc_elements,digestMagnesiumConc,"Concentration of magnesium in sample digest",real,milligramsPerLiter,expanded
+cfc_elements,digestSulfurConc,"Concentration of sulfur in sample digest",real,milligramsPerLiter,expanded
+cfc_elements,digestManganeseConc,"Concentration of manganese in sample digest",real,milligramsPerLiter,expanded
+cfc_elements,digestIronConc,"Concentration of iron in sample digest",real,milligramsPerLiter,expanded
+cfc_elements,digestCopperConc,"Concentration of copper in sample digest",real,milligramsPerLiter,expanded
+cfc_elements,digestBoronConc,"Concentration of boron in sample digest",real,milligramsPerLiter,expanded
+cfc_elements,digestZincConc,"Concentration of zinc in sample digest",real,milligramsPerLiter,expanded
+cfc_elements,foliarPhosphorusConc,"Concentration of phophorus in plant foliage sample on a dry mass basis",real,percent,basic
+cfc_elements,foliarPotassiumConc,"Concentration of potassium in plant foliage sample on a dry mass basis",real,percent,basic
+cfc_elements,foliarCalciumConc,"Concentration of calcium in plant foliage sample on a dry mass basis",real,percent,basic
+cfc_elements,foliarMagnesiumConc,"Concentration of magnesium in plant foliage sample on a dry mass basis",real,percent,basic
+cfc_elements,foliarSulfurConc,"Concentration of sulfur in plant foliage sample on a dry mass basis",real,percent,basic
+cfc_elements,foliarManganeseConc,"Concentration of manganese in plant foliage sample on a dry mass basis",real,milligramsPerKilogram,basic
+cfc_elements,foliarIronConc,"Concentration of iron in plant foliage sample on a dry mass basis",real,milligramsPerKilogram,basic
+cfc_elements,foliarCopperConc,"Concentration of copper in plant foliage sample on a dry mass basis",real,milligramsPerKilogram,basic
+cfc_elements,foliarBoronConc,"Concentration of boron in plant foliage sample on a dry mass basis",real,milligramsPerKilogram,basic
+cfc_elements,foliarZincConc,"Concentration of zinc in plant foliage sample on a dry mass basis",real,milligramsPerKilogram,basic
+cfc_elements,measurementQF,"Quality flag for sample measurement",string,NA,basic
+cfc_elements,accuracyQF,"Quality flag for quality assurance materials associated with the run",string,NA,basic
+cfc_elements,remarks,"Technician notes; free text comments accompanying the record",string,NA,basic
+cfc_elements,laboratoryName,"Name of the laboratory or facility that is processing the sample",string,NA,basic
+cfc_elements,testMethod,"Method used to conduct test",string,NA,basic
+cfc_elements,analyzedBy,"Name of lab personnel analyzing sample",string,NA,basic
+cfc_elements,reviewedBy,"Name of lab personnel who reviewed the data prior to submission",string,NA,basic
+cfc_elements,dataQF,"Data quality flag",string,NA,basic
+cfc_carbonNitrogen,uid,"Unique ID within NEON database; an identifier for the record",string,NA,basic
+cfc_carbonNitrogen,namedLocation,"Name of the measurement location in the NEON database",string,NA,basic
+cfc_carbonNitrogen,domainID,"Unique identifier of the NEON domain",string,NA,basic
+cfc_carbonNitrogen,siteID,"NEON site code",string,NA,basic
+cfc_carbonNitrogen,plotID,"Plot identifier (NEON site code_XXX)",string,NA,basic
+cfc_carbonNitrogen,plotType,"NEON plot type in which sampling occurred: tower, distributed or gradient",string,NA,basic
+cfc_carbonNitrogen,sampleID,"Identifier for sample",string,NA,basic
+cfc_carbonNitrogen,cnSampleID,"Identifier for a carbon-nitrogen sample",string,NA,basic
+cfc_carbonNitrogen,collectDate,"Date of the collection event",dateTime,NA,basic
+cfc_carbonNitrogen,analysisDate,"Date that the sample was analyzed",dateTime,NA,basic
+cfc_carbonNitrogen,sampleType,"Type of sample",string,NA,basic
+cfc_carbonNitrogen,nitrogenPercent,"Percent nitrogen in a sample on a dry weight basis",real,percent,basic
+cfc_carbonNitrogen,carbonPercent,"Percent carbon in a sample on a dry weight basis",real,percent,basic
+cfc_carbonNitrogen,CNratio,"Ratio of carbon to nitrogen concentration in a sample on a dry weight basis",real,NA,basic
+cfc_carbonNitrogen,cnPercentQF,"Quality flag for concentration values outside the calibration range",string,NA,basic
+cfc_carbonNitrogen,percentAccuracyQF,"Quality flag for accuracy of percent concentration values of QA materials associated with the run",string,NA,basic
+cfc_carbonNitrogen,analyticalRepNumber,"Number of the analytical replicate",unsigned integer,number,basic
+cfc_carbonNitrogen,remarks,"Technician notes; free text comments accompanying the record",string,NA,basic
+cfc_carbonNitrogen,laboratoryName,"Name of the laboratory or facility that is processing the sample",string,NA,basic
+cfc_carbonNitrogen,testMethod,"Method used to conduct test",string,NA,basic
+cfc_carbonNitrogen,instrument,"Type of instrument used for the analysis",string,NA,basic
+cfc_carbonNitrogen,analyzedBy,"Name of lab personnel analyzing sample",string,NA,basic
+cfc_carbonNitrogen,reviewedBy,"Name of lab personnel who reviewed the data prior to submission",string,NA,basic
+cfc_carbonNitrogen,dataQF,"Data quality flag",string,NA,basic
+cfc_chlorophyll,uid,"Unique ID within NEON database; an identifier for the record",string,NA,basic
+cfc_chlorophyll,namedLocation,"Name of the measurement location in the NEON database",string,NA,basic
+cfc_chlorophyll,domainID,"Unique identifier of the NEON domain",string,NA,basic
+cfc_chlorophyll,siteID,"NEON site code",string,NA,basic
+cfc_chlorophyll,plotID,"Plot identifier (NEON site code_XXX)",string,NA,basic
+cfc_chlorophyll,plotType,"NEON plot type in which sampling occurred: tower, distributed or gradient",string,NA,basic
+cfc_chlorophyll,sampleID,"Identifier for sample",string,NA,basic
+cfc_chlorophyll,chlorophyllSampleID,"Identifier for a chlorophyll sample",string,NA,basic
+cfc_chlorophyll,collectDate,"Date of the collection event",dateTime,NA,basic
+cfc_chlorophyll,sampleCondition,"Condition of a sample",string,NA,basic
+cfc_chlorophyll,extractionStartDate,"The start date-time for an extraction event",dateTime,NA,basic
+cfc_chlorophyll,extractionLength,"The duration of an extraction event",real,hour,basic
+cfc_chlorophyll,freshMass,"Total fresh mass of a sample",real,gram,basic
+cfc_chlorophyll,solventVolume,"Volume of solvent used in the extraction",real,milliliter,basic
+cfc_chlorophyll,dilutionFactor,"The factor by which the sample was diluted prior to analysis",real,NA,expanded
+cfc_chlorophyll,analyticalRepNumber,"Number of the analytical replicate",unsigned integer,number,basic
+cfc_chlorophyll,chlCarotWavelength1,"The first wavelength used to measure chlorophyll and carotenoid content",real,nanometer,expanded
+cfc_chlorophyll,chlCarotWavelength2,"The second wavelength used to measure chlorophyll and carotenoid content",real,nanometer,expanded
+cfc_chlorophyll,chlCarotWavelength3,"The third wavelength used to measure chlorophyll and carotenoid content",real,nanometer,expanded
+cfc_chlorophyll,chlCarotWavelength4,"The fourth wavelength used to measure chlorophyll and carotenoid content",real,nanometer,expanded
+cfc_chlorophyll,chlCarotWavelength1Abs,"Absorbance values for the first wavelength used to measure chlorophyll and carotenoid content",real,NA,expanded
+cfc_chlorophyll,chlCarotWavelength2Abs,"Absorbance values for the second wavelength used to measure chlorophyll and carotenoid content",real,NA,expanded
+cfc_chlorophyll,chlCarotWavelength3Abs,"Absorbance values for the third wavelength used to measure chlorophyll and carotenoid content",real,NA,expanded
+cfc_chlorophyll,chlCarotWavelength4Abs,"Absorbance values for the fourth wavelength used to measure chlorophyll and carotenoid content",real,NA,expanded
+cfc_chlorophyll,extractChlAConc,"Calculated chlorophyll A concentration of the extract solution, dilution-corrected as needed",real,microgramsPerMilliliter,basic
+cfc_chlorophyll,extractChlBConc,"Calculated chlorophyll B concentration of the extract solution, dilution-corrected as needed",real,microgramsPerMilliliter,basic
+cfc_chlorophyll,extractCarotConc,"Calculated total carotenoid concentration of the extract solution, dilution-corrected as needed",real,microgramsPerMilliliter,basic
+cfc_chlorophyll,relativeAccuracyScale,"Indicator for the mean relative accuracy of standards analyzed as unknowns with a run of samples",string,NA,basic
+cfc_chlorophyll,handlingQF,"Quality flag for sample handling",string,NA,basic
+cfc_chlorophyll,measurementQF,"Quality flag for sample measurement",string,NA,basic
+cfc_chlorophyll,remarks,"Technician notes; free text comments accompanying the record",string,NA,basic
+cfc_chlorophyll,laboratoryName,"Name of the laboratory or facility that is processing the sample",string,NA,basic
+cfc_chlorophyll,testMethod,"Method used to conduct test",string,NA,basic
+cfc_chlorophyll,analyzedBy,"Name of lab personnel analyzing sample",string,NA,basic
+cfc_chlorophyll,reviewedBy,"Name of lab personnel who reviewed the data prior to submission",string,NA,basic
+cfc_chlorophyll,dataQF,"Data quality flag",string,NA,basic
+cfc_chemistrySubsampling,uid,"Unique ID within NEON database; an identifier for the record",string,NA,basic
+cfc_chemistrySubsampling,namedLocation,"Name of the measurement location in the NEON database",string,NA,basic
+cfc_chemistrySubsampling,domainID,"Unique identifier of the NEON domain",string,NA,basic
+cfc_chemistrySubsampling,siteID,"NEON site code",string,NA,basic
+cfc_chemistrySubsampling,plotID,"Plot identifier (NEON site code_XXX)",string,NA,basic
+cfc_chemistrySubsampling,plotType,"NEON plot type in which sampling occurred: tower, distributed or gradient",string,NA,basic
+cfc_chemistrySubsampling,sampleID,"Identifier for sample",string,NA,basic
+cfc_chemistrySubsampling,collectDate,"Date of the collection event",dateTime,NA,basic
+cfc_chemistrySubsampling,ovenStartDate,"The date and time a sample was placed in the drying oven",dateTime,NA,basic
+cfc_chemistrySubsampling,ovenEndDate,"The date and time a sample was removed from the drying oven",dateTime,NA,basic
+cfc_chemistrySubsampling,sampleCondition,"Condition of a sample",string,NA,basic
+cfc_chemistrySubsampling,cnSampleID,"Identifier for a carbon-nitrogen sample",string,NA,basic
+cfc_chemistrySubsampling,ligninSampleID,"Identifier for a lignin sample",string,NA,basic
+cfc_chemistrySubsampling,archiveSampleID,"Identifier for an archive sample",string,NA,basic
+cfc_chemistrySubsampling,processedBy,"An identifier for the technician who processed the sample(s)",string,NA,basic
+cfc_chemistrySubsampling,remarks,"Technician notes; free text comments accompanying the record",string,NA,basic
+cfc_chemistrySubsampling,dataQF,"Data quality flag",string,NA,basic
+cfc_LMA,uid,"Unique ID within NEON database; an identifier for the record",string,NA,basic
+cfc_LMA,namedLocation,"Name of the measurement location in the NEON database",string,NA,basic
+cfc_LMA,domainID,"Unique identifier of the NEON domain",string,NA,basic
+cfc_LMA,siteID,"NEON site code",string,NA,basic
+cfc_LMA,plotType,"NEON plot type in which sampling occurred: tower, distributed or gradient",string,NA,basic
+cfc_LMA,sampleID,"Identifier for sample",string,NA,basic
+cfc_LMA,collectDate,"Date of the collection event",dateTime,NA,basic
+cfc_LMA,lmaSampleID,"Identifier for a leaf mass per area sample",string,NA,basic
+cfc_LMA,lmaSampleCondition,"Condition of a leaf mass per area sample",string,NA,basic
+cfc_LMA,scanDate,"The date and time a sample is scanned",dateTime,NA,basic
+cfc_LMA,scannedBy,"An identifier for the technician who scanned the sample(s)",string,NA,basic
+cfc_LMA,freshMass,"Total fresh mass of a sample",real,gram,basic
+cfc_LMA,ovenStartDate,"The date and time a sample was placed in the drying oven",dateTime,NA,basic
+cfc_LMA,ovenEndDate,"The date and time a sample was removed from the drying oven",dateTime,NA,basic
+cfc_LMA,dryMass,"Oven-dried mass of sample or subsample",real,gram,basic
+cfc_LMA,weighedBy,"An identifier for the technician who weighed the sample",string,NA,basic
+cfc_LMA,scannedLeafNumber,"Number of leaves or needles scanned",unsigned integer,number,basic
+cfc_LMA,leafArea,"Area of all leaves or needles scanned",real,squareMillimeter,basic
+cfc_LMA,percentGreen,"Visual estimate of percent scanned foliar material that was live and green",unsigned integer,percent,basic
+cfc_LMA,leafMassPerArea,"Dry mass per unit area of leaf or needle foliage",real,gramsPerSquareMeter,basic
+cfc_LMA,dryMassFraction,"Dry mass divided by fresh mass of a sample",real,NA,basic
+cfc_LMA,measuredBy,"An identifier for the technician who measured or collected the data",string,NA,basic
+cfc_LMA,remarks,"Technician notes; free text comments accompanying the record",string,NA,basic
+cfc_LMA,dataQF,"Data quality flag",string,NA,basic
+cfc_fieldData,uid,"Unique ID within NEON database; an identifier for the record",string,NA,basic
+cfc_fieldData,namedLocation,"Name of the measurement location in the NEON database",string,NA,basic
+cfc_fieldData,domainID,"Unique identifier of the NEON domain",string,NA,basic
+cfc_fieldData,siteID,"NEON site code",string,NA,basic
+cfc_fieldData,plotID,"Plot identifier (NEON site code_XXX)",string,NA,basic
+cfc_fieldData,plotType,"NEON plot type in which sampling occurred: tower, distributed or gradient",string,NA,basic
+cfc_fieldData,nlcdClass,"National Land Cover Database Vegetation Type Name",string,NA,basic
+cfc_fieldData,geodeticDatum,"Model used to measure horizontal position on the earth",string,NA,basic
+cfc_fieldData,decimalLatitude,"The geographic latitude (in decimal degrees, WGS84) of the geographic center of the reference area",real,decimalDegree,basic
+cfc_fieldData,decimalLongitude,"The geographic longitude (in decimal degrees, WGS84) of the geographic center of the reference area",real,decimalDegree,basic
+cfc_fieldData,coordinateUncertainty,"The horizontal distance (in meters) from the given decimalLatitude and decimalLongitude describing the smallest circle containing the whole of the Location. Zero is not a valid value for this term",real,meter,basic
+cfc_fieldData,elevation,"Elevation (in meters) above sea level",real,meter,basic
+cfc_fieldData,elevationUncertainty,"Uncertainty in elevation values (in meters)",real,meter,basic
+cfc_fieldData,samplingProtocolVersion,"The NEON document number and version where detailed information regarding the sampling method used is available; format NEON.DOC.######vX",string,NA,basic
+cfc_fieldData,collectDate,"Date of the collection event",dateTime,NA,basic
+cfc_fieldData,subplotID,"Identifier for the NEON subplot",string,NA,basic
+cfc_fieldData,sampleType,"Type of sample",string,NA,basic
+cfc_fieldData,samplingMethod,"Name or code for the method used to collect or test a sample",string,NA,basic
+cfc_fieldData,vstTag,"Indicator for whether a tagID is associated with vegetation structure measurements",string,NA,basic
+cfc_fieldData,tagID,"Domain-level unique identifier of tag used to mark the individual",string,NA,basic
+cfc_fieldData,individualID,"Domain-level unique identifier for an individual: NEON.MOD.D##.######",string,NA,basic
+cfc_fieldData,taxonID,"Species code, based on one or more sources",string,NA,basic
+cfc_fieldData,scientificName,"Scientific name, associated with the taxonID. This is the name of the lowest level taxonomic rank that can be determined",string,NA,basic
+cfc_fieldData,plantStatus,"Physical status of individual: live, dead, lost",string,NA,basic
+cfc_fieldData,clipCellNumber,"A numeric identifier for the clip-harvest cell in which herbaceous biomass was sampled",unsigned integer,NA,basic
+cfc_fieldData,clipID,"Unique identifier for the clip-harvest location within the plot",string,NA,basic
+cfc_fieldData,clipLength,"The length of the clip-harvest area in meters",real,meter,basic
+cfc_fieldData,clipWidth,"The width of the clip-harvest area in meters",real,meter,basic
+cfc_fieldData,percentCoverClip,"Ocular estimate of percent cover of all vegetation in the clip strip",real,percent,basic
+cfc_fieldData,sampleID,"Identifier for sample",string,NA,basic
+cfc_fieldData,subsample1Height,"Vertical distance from ground to height of first canopy subsample",real,meter,basic
+cfc_fieldData,subsample2Height,"Vertical distance from ground to height of second canopy subsample",real,meter,basic
+cfc_fieldData,subsample3Height,"Vertical distance from ground to height of third canopy subsample",real,meter,basic
+cfc_fieldData,chlorophyllSampleID,"Identifier for a chlorophyll sample",string,NA,basic
+cfc_fieldData,collectedBy,"An identifier for the technician who collected the sample or specimen",string,NA,basic
+cfc_fieldData,recordedBy,"An identifier for the technician who recorded the data",string,NA,basic
+cfc_fieldData,remarks,"Technician notes; free text comments accompanying the record",string,NA,basic
+cfc_fieldData,dataQF,"Data quality flag",string,NA,basic
+lig_externalSummary,uid,"Unique ID within NEON database; an identifier for the record",string,NA,expanded
+lig_externalSummary,analyte,"Analyte or parameter measured",string,NA,expanded
+lig_externalSummary,analyteUnits,"Associated units of measure for analyte",string,NA,expanded
+lig_externalSummary,sampleType,"Type of sample",string,NA,expanded
+lig_externalSummary,instrument,"Type of instrument used for the analysis",string,NA,expanded
+lig_externalSummary,testMethod,"Method used to conduct test",string,NA,expanded
+lig_externalSummary,method,"Published method used for analysis",string,NA,expanded
+lig_externalSummary,qaReferenceID,"Identifier for quality assurance reference material or standard",string,NA,expanded
+lig_externalSummary,analyteKnownValue,"The known value of a given analyte for a quality assurance reference material or standard, with units tied to the analyte",real,NA,expanded
+lig_externalSummary,analyteStandardDeviation,"Long-term average standard deviation values of the analyte, based on analysis of quality assurance reference materials or standards treated as unknowns",real,NA,expanded
+lig_externalSummary,analytePercentRecovery,"Percent recovery of the analyte, based on analysis of quality assurance reference materials or standards treated as unknowns",real,percent,expanded
+lig_externalSummary,laboratoryName,"Name of the laboratory or facility that is processing the sample",string,NA,expanded
+lig_externalSummary,labSpecificStartDate,"Date a specific analyte, instrument, and associated method detection limit combination started",dateTime,NA,expanded
+lig_externalSummary,labSpecificEndDate,"Date a specific analyte, instrument, and associated method detection limit combination ended",dateTime,NA,expanded
+lig_externalSummary,dataQF,"Data quality flag",string,NA,expanded
+cfc_elementsSummary,uid,"Unique ID within NEON database; an identifier for the record",string,NA,expanded
+cfc_elementsSummary,analyte,"Analyte or parameter measured",string,NA,expanded
+cfc_elementsSummary,analyteUnits,"Associated units of measure for analyte",string,NA,expanded
+cfc_elementsSummary,sampleType,"Type of sample",string,NA,expanded
+cfc_elementsSummary,instrument,"Type of instrument used for the analysis",string,NA,expanded
+cfc_elementsSummary,testMethod,"Method used to conduct test",string,NA,expanded
+cfc_elementsSummary,method,"Published method used for analysis",string,NA,expanded
+cfc_elementsSummary,qaReferenceID,"Identifier for quality assurance reference material or standard",string,NA,expanded
+cfc_elementsSummary,analyteKnownValue,"The known value of a given analyte for a quality assurance reference material or standard, with units tied to the analyte",real,NA,expanded
+cfc_elementsSummary,analyteStandardDeviation,"Long-term average standard deviation values of the analyte, based on analysis of quality assurance reference materials or standards treated as unknowns",real,NA,expanded
+cfc_elementsSummary,analytePercentRecovery,"Percent recovery of the analyte, based on analysis of quality assurance reference materials or standards treated as unknowns",real,percent,expanded
+cfc_elementsSummary,laboratoryName,"Name of the laboratory or facility that is processing the sample",string,NA,expanded
+cfc_elementsSummary,labSpecificStartDate,"Date a specific analyte, instrument, and associated method detection limit combination started",dateTime,NA,expanded
+cfc_elementsSummary,labSpecificEndDate,"Date a specific analyte, instrument, and associated method detection limit combination ended",dateTime,NA,expanded
+cfc_elementsSummary,dataQF,"Data quality flag",string,NA,expanded
+bgc_CNiso_externalSummary,uid,"Unique ID within NEON database; an identifier for the record",string,NA,expanded
+bgc_CNiso_externalSummary,analyte,"Analyte or parameter measured",string,NA,expanded
+bgc_CNiso_externalSummary,analyteUnits,"Associated units of measure for analyte",string,NA,expanded
+bgc_CNiso_externalSummary,sampleType,"Type of sample",string,NA,expanded
+bgc_CNiso_externalSummary,instrument,"Type of instrument used for the analysis",string,NA,expanded
+bgc_CNiso_externalSummary,testMethod,"Method used to conduct test",string,NA,expanded
+bgc_CNiso_externalSummary,method,"Published method used for analysis",string,NA,expanded
+bgc_CNiso_externalSummary,qaReferenceID,"Identifier for quality assurance reference material or standard",string,NA,expanded
+bgc_CNiso_externalSummary,analyteKnownValue,"The known value of a given analyte for a quality assurance reference material or standard, with units tied to the analyte",real,NA,expanded
+bgc_CNiso_externalSummary,analyteStandardDeviation,"Long-term average standard deviation values of the analyte, based on analysis of quality assurance reference materials or standards treated as unknowns",real,NA,expanded
+bgc_CNiso_externalSummary,analyteAccuracy,"Long-term average accuracy, e.g. the absolute difference between observed and known values of the analyte, based on analysis of quality assurance reference materials or standards treated as unknowns",real,NA,expanded
+bgc_CNiso_externalSummary,laboratoryName,"Name of the laboratory or facility that is processing the sample",string,NA,expanded
+bgc_CNiso_externalSummary,labSpecificStartDate,"Date a specific analyte, instrument, and associated method detection limit combination started",dateTime,NA,expanded
+bgc_CNiso_externalSummary,labSpecificEndDate,"Date a specific analyte, instrument, and associated method detection limit combination ended",dateTime,NA,expanded
+bgc_CNiso_externalSummary,dataQF,"Data quality flag",string,NA,expanded
+cfc_chlorophyllSummary,uid,"Unique ID within NEON database; an identifier for the record",string,NA,expanded
+cfc_chlorophyllSummary,analyte,"Analyte or parameter measured",string,NA,expanded
+cfc_chlorophyllSummary,analyteUnits,"Associated units of measure for analyte",string,NA,expanded
+cfc_chlorophyllSummary,sampleType,"Type of sample",string,NA,expanded
+cfc_chlorophyllSummary,instrument,"Type of instrument used for the analysis",string,NA,expanded
+cfc_chlorophyllSummary,testMethod,"Method used to conduct test",string,NA,expanded
+cfc_chlorophyllSummary,method,"Published method used for analysis",string,NA,expanded
+cfc_chlorophyllSummary,qaReferenceID,"Identifier for quality assurance reference material or standard",string,NA,expanded
+cfc_chlorophyllSummary,analyteKnownValue,"The known value of a given analyte for a quality assurance reference material or standard, with units tied to the analyte",real,NA,expanded
+cfc_chlorophyllSummary,analyteStandardDeviation,"Long-term average standard deviation values of the analyte, based on analysis of quality assurance reference materials or standards treated as unknowns",real,NA,expanded
+cfc_chlorophyllSummary,analyteAccuracy,"Long-term average accuracy, e.g. the absolute difference between observed and known values of the analyte, based on analysis of quality assurance reference materials or standards treated as unknowns",real,NA,expanded
+cfc_chlorophyllSummary,laboratoryName,"Name of the laboratory or facility that is processing the sample",string,NA,expanded
+cfc_chlorophyllSummary,labSpecificStartDate,"Date a specific analyte, instrument, and associated method detection limit combination started",dateTime,NA,expanded
+cfc_chlorophyllSummary,labSpecificEndDate,"Date a specific analyte, instrument, and associated method detection limit combination ended",dateTime,NA,expanded
+cfc_chlorophyllSummary,dataQF,"Data quality flag",string,NA,expanded
+cfc_chlorophyllParameters,uid,"Unique ID within NEON database; an identifier for the record",string,NA,expanded
+cfc_chlorophyllParameters,analyte,"Analyte or parameter measured",string,NA,expanded
+cfc_chlorophyllParameters,chlCarotEquationInput,"Equation input for calculating chlorophyll or carotenoid content",string,NA,expanded
+cfc_chlorophyllParameters,chlCarotExtinctionCoefficient,"Parameter used for calculating chlorophyll or carotenoid content",real,NA,expanded
+cfc_chlorophyllParameters,ecReference,"A list of sources (concatenated and semicolon separated) for the extinction coefficients",string,NA,expanded
+cfc_chlorophyllParameters,laboratoryName,"Name of the laboratory or facility that is processing the sample",string,NA,expanded
+cfc_chlorophyllParameters,testMethod,"Method used to conduct test",string,NA,expanded
+cfc_chlorophyllParameters,labSpecificStartDate,"Date a specific analyte, instrument, and associated method detection limit combination started",dateTime,NA,expanded
+cfc_chlorophyllParameters,labSpecificEndDate,"Date a specific analyte, instrument, and associated method detection limit combination ended",dateTime,NA,expanded
+cfc_chlorophyllParameters,dataQF,"Data quality flag",string,NA,expanded
