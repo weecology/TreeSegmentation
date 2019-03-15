@@ -6,7 +6,7 @@ library(dplyr)
 library(stringr)
 library(raster)
 
-testing=T
+testing=F
 site="SJER"
 year="2018"
 
@@ -46,7 +46,7 @@ if(testing){
     }
 
     #check if its black
-    if(sum(getValues(r)==0)/length(r) > 0.2){
+    if(sum(getValues(r)==0)/length(r) > 0.4){
       print(paste(lidar_files[x],"Failed Tile Check, mostly a blank black edge"))
       return("Failed Tile Check, mostly a blank black edge")
     }
