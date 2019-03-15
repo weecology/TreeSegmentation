@@ -1,0 +1,20 @@
+---
+title: "Download NEON objects through s3"
+author: "Ben Weinstein"
+date: "3/13/2019"
+output: html_document
+---
+
+```{r}
+#Ec2
+library("aws.s3")
+library(yaml)
+config<-read_yaml("/Users/Ben/Documents/TreeSegmentation/.config.yaml")
+print(config)
+# specify keys as environment variables
+Sys.setenv("AWS_ACCESS_KEY_ID" = config$ID,
+           "AWS_SECRET_ACCESS_KEY" = config$key,
+           "AWS_S3_ENDPOINT" = config$endpoint,
+           "AWS_DEFAULT_REGION"= "us-west-2")
+try(get_bucket("neon-aop-product"))
+```

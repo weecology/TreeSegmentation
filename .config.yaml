@@ -1,0 +1,5 @@
+# aws .config, make sure if in the .gitignore
+ID: external-weecology
+key: K4eUU4U6WflnAJbYigr8dR6QIdKMAldOCirrWusK
+endpoint: "s3.data.neonscience.org"
+bucket: neon-aop-product

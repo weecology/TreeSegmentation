@@ -1,0 +1,169 @@
+---
+title: "Evaluate lidar-based tree crown segmentation algorithms"
+author: "Ben Weinstein"
+date: "4/20/2018"
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r,warning=F,message=F}
+library(dplyr)
+library(knitr)
+library(maptools)
+library(rgdal)
+library(TreeSegmentation)
+library(sp)
+library(ggplot2)
+library(rgl)
+library(lidR)
+library(kableExtra)
+
+knit_hooks$set(webgl = hook_webgl)
+opts_chunk$set(warning=F,message=F)
+
+#set color ramp for treeID
+col = pastel.colors(200)
+
+#set data paths
+path_to_tiles="../data/2017/Lidar/"
+
+#set cores
+cores<-3
+#cores<-15
+```
+
+# Load in ground-truth
+```{r,results='hide'}
+shps<-list.files("../data/ITCs/",pattern=".shp",full.names = T,recursive = T)
+itcs<-lapply(shps,readOGR,verbose=F)
+
+names(itcs)<-sapply(itcs,function(x){
+  id<-unique(x$Plot_ID)
+  return(id)
+  })
+```
+
+# Example Pipeline
+
+## Read in Data
+```{r,webgl=TRUE}
+ground_truth<-itcs[[3]]
+fname<-get_tile_filname(ground_truth)
+inpath<-paste("../data/2017/Lidar/",fname,sep="")
+tile<-readLAS(inpath)
+plot(tile)
+```
+
+## Confirm overlap
+
+```{r}
+plot(extent(tile),col='red')
+plot(extent(ground_truth),col='blue',add=T)
+```
+
+## Compute Segmentation
+
+```{r}
+silva<-silva2016(path=inpath,output="all")
+dalponte<-dalponte2016(path=inpath,output="all")
+li<-li2012(path=inpath,output="all")
+watershed_result<-watershed(path=inpath,output="all")
+```
+
+## View 3d segmentation
+
+```{r,webgl=TRUE}
+plot(silva$tile,color="treeID",col=col)
+```
+
+### Overlay ground truth and predictions
+
+```{r}
+plot(silva$convex)
+plot(ground_truth,col='red')
+plot(silva$convex,add=T)
+#plot(dalponte$convex,add=T)
+```
+
+### CHM versus predicted polygons
+
+```{r}
+chm=canopy_model(silva$tile)
+plot(chm,ext=extent(ground_truth))
+plot(ground_truth,add=T,col='red')
+plot(silva$convex,add=T)
+```
+
+Okay that's not great, but let's keep going for the moment.
+
+### Compare Methods
+
+Silva v Dalponte
+```{r}
+plot(chm,ext=extent(ground_truth))
+plot(silva$convex,add=T)
+plot(dalponte$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
+```
+
+Li versus watershed
+
+```{r}
+plot(chm,ext=extent(ground_truth))
+plot(li$convex,add=T)
+plot(watershed_result$convex,add=T,col=rgb(0,0,255,20,maxColorValue=255))
+```
+
+How many tree predictions?
+
+```{r}
+ptlist<-list(silva=silva$tile,dalponte=dalponte$tile,li=li$tile,watershed=watershed_result$tile)
+unique_total<-sapply(ptlist,function(x) length(unique(x@data$treeID)))
+df<-data.frame(Algorthm=c(names(ptlist)),Total_Trees=as.numeric(unique_total))
+df %>% kable() %>% kable_styling()
+```
+
+## Assign Trees
+
+Each tree is assigned based on the maximum overlap. Pairwise membership is done using a Hungarian Algorithm. See clue::solve_LSAP.
+
+```{r}
+assignment<-assign_trees(ground_truth,prediction=silva$convex)
+```
+
+## Calculate Intersection over union
+
+```{r}
+#loop through assignments and get jaccard statistic for each assignment pair
+statdf<-calc_jaccard(assignment=assignment,ground_truth = ground_truth,prediction=silva$convex)
+ggplot(statdf) + geom_histogram(aes(IoU)) + labs(x="Intersection over union") + theme_bw()
+mean(statdf$IoU)
+median(statdf$IoU)
+```
+
+# As a wrapper for one tile, multiple methods
+```{r,eval=F}
+results<-evaluate(ground_truth=itcs[[2]],algorithm = c("li"),path_to_tiles=path_to_tiles,plot_results=T,basemap="../data/2015/Camera/")
+
+ggplot(results,aes(y=IoU,x=Method)) + geom_boxplot() + theme_bw()
+results %>% group_by(Method) %>% summarize(mean=mean(IoU),median=median(IoU))
+```
+
+# Parallel wrapper across all tiles
+
+```{r,eval=T}
+system.time(results_all<-evaluate_all(itcs=itcs,algorithm = c("silva"),path_to_tiles=path_to_tiles,cores=1,extra=F,plot_results = T,basemap="../data/2017/Camera/L3/"))
+
+#plot results
+ggplot(results_all,aes(y=IoU,x=Method)) + geom_boxplot() + theme_bw()
+
+#Compute test statistics
+test_statistic<-results_all %>% group_by(Method) %>% summarize(mean=mean(IoU),median=median(IoU)) %>% mutate(Date=format(Sys.time(), "%m/%d/%y %H:%M:%S"))
+test_statistic
+write.table(test_statistic,"Results/results.csv",append = T,col.names = F,sep=",",row.names = F)
+```
+
+

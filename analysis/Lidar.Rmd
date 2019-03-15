@@ -1,0 +1,151 @@
+---
+title: "Unsupervised Classification Methods for lidar-based tree crown deliniation"
+author: "Ben Weinstein"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(rgl)
+library(knitr)
+library(TreeSegmentation)
+library(lidR)
+opts_chunk$set(warning=F,message=F)
+knit_hooks$set(webgl = hook_webgl)
+
+#load("ITCs.RData")
+```
+
+```{r,webgl=TRUE,eval=T}
+#Toy file for testing
+LASfile <- system.file("extdata", "MixedConifer.laz", package="lidR")
+tile = readLAS(LASfile, select = "xyz", filter = "-drop_z_below 0")
+col = pastel.colors(200)
+
+#add a point index
+tile@data$PointID<-1:nrow(tile@data)
+
+#Lastrees updates the cloud inplace, save data in seperate object
+ptlist<-list()
+
+ground_model(tile)
+
+chm=canopy_model(tile)
+
+plot(tile,color="Classification")
+```
+
+
+```{r,eval=F,webgl=TRUE}
+tile=readLAS("../tests/data/NEON_D03_OSBS_DP1_405000_3276000_classified_point_cloud.laz")
+
+tile<-tile %>% lasfilter(Z < 100)
+tile<-tile %>% lasfilter(Z > 0)
+
+plot(tile, color="Z", colorPalette = heat.colors(50), trim=0.95)
+
+#remove 
+summary(tile)
+#table(tile@data$Classification)
+#ggplot(tile@data,aes(x=as.factor(Classification),y=Z)) + geom_boxplot()
+
+#add a point index
+tile@data$PointID<-1:nrow(tile@data)
+
+#Lastrees updates the cloud inplace, save data in seperate object
+ptlist<-list()
+
+#ground model
+ground_model(las)
+
+plot(li2012,color="treeID",colorPalette = sample(pastel.colors(500)), size = 1)
+
+#canopy model
+chm=canopy_model(las)
+```
+
+# Watershed
+
+```{r}
+system.time(watershed<-segment_trees(tile,algorithm = "watershed",chm=chm))
+ptlist[["watershed"]]<-watershed %>% lasfilter(!is.na(treeID)) %>% .@data
+plot(watershed,color="treeID",colorPalette = sample(pastel.colors(500)), size = 1)
+```
+
+# Li 2012
+
+```{r}
+system.time(li2012<-segment_trees(tile,algorithm = "li2012",chm=chm))
+ptlist[["li2012"]]<-li2012 %>% lasfilter(!is.na(treeID)) %>% .@data
+plot(li2012,color="treeID",colorPalette = sample(pastel.colors(500)), size = 1)
+```
+# Dalponte 2016
+
+```{r}
+system.time(dalponte2016<-segment_trees(tile,algorithm = "dalponte2016",chm=chm))
+ptlist[["dalponte2016"]]<-dalponte2016 %>% lasfilter(!is.na(treeID)) %>% .@data
+
+```
+
+# Silva 2016
+
+```{r}
+system.time(silva2016<-segment_trees(tile,algorithm = "silva2016",chm=chm))
+ptlist[["silva2016"]]<-silva2016 %>% lasfilter(!is.na(treeID)) %>% .@data 
+```
+
+#Comparison
+
+## How many tree objects
+```{r}
+library(pander)
+df<-data.frame(Algorthm=c("watershed","li2012","Dalponte2016","Silva2016"),Total_Trees=c( max(ptlist[["watershed"]]$treeID,na.rm=T),max(ptlist[["li2012"]]$treeID,na.rm=T), max(ptlist[["dalponte2016"]]$treeID,na.rm=T), max(ptlist[["silva2016"]]$treeID,na.rm=T)))
+pandoc.table(df,style="rmarkdown")
+```
+
+# Consensus
+
+```{r}
+tile<-consensus(ptlist=ptlist[!names(ptlist) %in% "li2012"])
+paste("Consensus trees: ",length(unique(tile@data$treeID[!is.na(tile@data$treeID)])))
+plot(tile,color="consensus",colorPalette = sample(pastel.colors(500)), size = 1)
+```
+
+# Next steps
+
+* Bounding Box Extractor 
+
+but let's just look at some individual trees. The question is, can we classify them based on the lidar cloud? Do we need to drape on the RGB data.
+
+```{r}
+ind_trees= split(tile@data, tile@data$treeID)
+ind_trees = lapply(ind_trees, LAS, header = tile@header)
+
+```
+
+```{r,webgl=TRUE}
+plot(ind_trees[[20]],color="treeID",bg="grey90")
+```
+
+```{r,webgl=TRUE}
+plot(ind_trees[[30]],color="treeID",bg="grey90")
+```
+
+```{r,webgl=TRUE}
+plot(ind_trees[[3]],color="treeID",bg="grey90")
+```
+
+Clearly, more work to be done. Especially in reference to the ground model. 
+
+# Create bounding boxes for each tree.
+
+```{r}
+ind_trees[[3]]
+
+get_bounding_box<-function(las){
+  las@data
+}
+```
+
+```{r}
+#save.image("ITCs.RData")
+```

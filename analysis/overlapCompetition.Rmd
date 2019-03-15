@@ -1,0 +1,49 @@
+---
+title: "Untitled"
+author: "Ben Weinstein"
+date: "7/23/2018"
+output: 
+  html_document:
+    keep_md: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(raster)
+library(maptools)
+library(rgdal)
+
+itc<-readOGR("../data/ITCs/test/ITC_OSBS_018.shp")
+crs(itc)<-CRS('+init=EPSG:32617')
+  
+y2017<-stack("../data/2017/Camera/OSBS_018.tif")
+y2015<-stack("../data/2015/Camera/OSBS_018.tif")
+crs(y2015)<-CRS('+init=EPSG:32617')
+crs(y2017)<-CRS('+init=EPSG:32617')
+
+plotRGB(y2015)
+plot(itc,add=T)
+
+plotRGB(y2017)
+plot(itc,add=T)
+
+competition<-stack("/Users/ben/Dropbox/Weecology/ECODSEdataset/RSdata/camera/OSBS_018_camera.tif")
+plotRGB(competition)
+plot(itc,add=T)
+crs(competition)<-CRS('+init=EPSG:32617')
+
+chm<-raster("/Users/ben/Dropbox/Weecology/ECODSEdataset/RSdata/chm/OSBS_018_chm.tif")
+plot(chm)
+plot(itc,add=T)
+
+plotRGB(competition)
+plot(chm,add=T,alpha=0.5)
+plot(itc,add=T)
+png("y2018.png")
+plotRGB(y2017)
+plot(chm,add=T,alpha=0.5)
+plot(itc,add=T)
+dev.off()
+
+```

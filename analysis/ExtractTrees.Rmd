@@ -1,0 +1,130 @@
+---
+title: "Extract Trees"
+author: "Ben Weinstein"
+date: "4/20/2018"
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+---
+
+# Aim
+
+* Generate predicted tree crowns based on lidar-based unsupervised segmentations
+* Write training data in h5 format containing data and label
+
+```{r setup, include=FALSE,warning=FALSE,message=F}
+library(TreeSegmentation)
+library(rgl)
+library(knitr)
+library(h5)
+library(ggplot2)
+library(dplyr)
+library(rgdal)
+library(lidR)
+knit_hooks$set(webgl = hook_webgl)
+opts_chunk$set(echo = TRUE)
+```
+
+# Load in ground-truth
+```{r,results='hide'}
+shps<-list.files("../data/ITCs/test/",pattern=".shp",full.names = T)
+itcs<-lapply(shps,readOGR,verbose=F)
+
+names(itcs)<-sapply(itcs,function(x){
+  id<-unique(x$Plot_ID)
+  return(id)
+  })
+
+```
+
+# Get list of tiles
+
+```{r}
+las<-list.files(path="../data/2017/Lidar/",full.names=T)[1:2]
+```
+
+# Example segmentation
+
+```{r}
+silva<-silva2016(path=las[3],output="all")
+silva$tile@data %>% group_by(Classification,treeID) %>% summarize(n=n()) %>% summarize(median(n))
+chm<-canopy_model(readLAS(las[3]))
+```
+
+```{r}
+plot(chm)
+plot(silva$convex,add=T)
+```
+
+```{r}
+ind_trees<-extract_trees(cores = 2,algorithm = c("silva","li"),las=las,output="las")
+```
+
+Let's look at couple outputs from each tile
+
+```{r}
+sample_tree<-function(x){
+  s<-x[[sample(length(x),1)]]
+}
+```
+
+## Silva Method
+
+```{r,webgl=TRUE}
+a<-sample_tree(ind_trees[[sample(length(ind_trees),1)]][[1]])
+a@data$Classification
+plot(a,color="Classification",size=3)
+```
+
+```{r,webgl=TRUE}
+a<-sample_tree(ind_trees[[sample(length(ind_trees),1)]][[1]])
+a@data$Classification
+plot(a,color="Classification",size=3)
+```
+
+```{r,webgl=TRUE}
+a<-sample_tree(ind_trees[[sample(length(ind_trees),1)]][[1]])
+a@data$Classification
+plot(a,color="Classification",size=3)
+```
+
+## Li Method
+```{r,webgl=TRUE}
+a<-sample_tree(ind_trees[[sample(length(ind_trees),1)]][[2]])
+a@data$Classification
+plot(a,color="Classification",size=3)
+```
+
+```{r,webgl=TRUE}
+a<-sample_tree(ind_trees[[sample(length(ind_trees),1)]][[2]])
+a@data$Classification
+plot(a,color="Classification",size=3)
+```
+
+```{r,webgl=TRUE}
+a<-sample_tree(ind_trees[[sample(length(ind_trees),1)]][[2]])
+a
+a@data$Classification
+plot(a,color="Classification",size=3)
+```
+
+What is the average number of points in segmented lidar clouds
+
+```{r}
+num_points<-unlist(lapply(ind_trees,function(x){sapply(x,function(y){sapply(y,function(z) nrow(z@data))})}))
+qplot(num_points)
+quantile(num_points)
+
+#which.max(num_points)
+#biggest<-ind_trees[["../data/2017/Lidar//OSBS_001.laz"]][["silva"]][[57]]
+#plot(biggest,color="Classification",size=3)
+```
+
+What is the distribution of area covered by lidar clouds
+
+```{r}
+area_lidr<-unlist(lapply(ind_trees,function(x){sapply(x,function(y){sapply(y,area)})}))
+qplot(area_lidr)
+```
+
