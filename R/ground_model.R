@@ -17,9 +17,9 @@ ground_model<-function(las,ground=T){
     th = seq(0.1, 1.5, length.out = length(ws))
     las<-lidR::lasground(las, pmf( ws, th))
     # normalization
-    las<-lidR::lasnormalize(las, knnidw(k = 2 , p = 2))
+    las<-lidR::lasnormalize(las, knnidw(k = 10 , p = 2))
   } else{
-    dtm <- lasfilterground(las)
+    system.time(dtm <- grid_terrain(las, algorithm = kriging(k = 10L)))
     las <- lasnormalize(las, dtm)
   }
 
