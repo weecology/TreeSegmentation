@@ -12,6 +12,6 @@
 #' chm=canopy_model(tile)
 #' @export
 canopy_model<-function(las,res=0.5){
-  chm <- grid_canopy(las, res = res, pitfree(c(0,2,5,10,15), c(0, 1.5)))
+  chm <- lidR::grid_canopy(las, res = res, lidR::pitfree(c(0,2,5,10,15), c(0, 1.5)))
   return(chm)
 }

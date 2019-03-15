@@ -16,7 +16,7 @@
 segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F){
 
   #Compute tree tops
-  ttops <- tree_detection(las, lmf(ws = 5))
+  ttops <- lidR::tree_detection(las, lmf(ws = 5))
 
   if(algorithm=="watershed"){
     # tree segmentation
@@ -39,7 +39,7 @@ segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F){
 
     # Dalponte 2016
     crowns <- lidR::lastrees(las, dalponte2016(chm, ttops,max_cr = 7))
-    contour = tree_hulls(crowns)
+    contour = lidR::tree_hulls(crowns)
 
     if(plots){
       plot(crowns, color = "treeID", colorPalette = col)

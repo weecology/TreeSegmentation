@@ -11,8 +11,8 @@ site="SJER"
 year="2018"
 
 if(testing){
-  path<-"../data/NeonTreeEvaluation/SJER/training/NEON_D17_SJER_DP1_258000_4106000_classified_point_cloud_colorized.laz"
-  system.time(detection_training(path,site,year))
+  path<-"../data/NeonTreeEvaluation/SJER/plots/SJER_005.laz"
+  system.time(results<-detection_training(path,site,year))
  } else{
 
   #Lidar dir

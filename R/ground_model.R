@@ -19,8 +19,8 @@ ground_model<-function(las,ground=T){
     # normalization
     las<-lidR::lasnormalize(las, knnidw(k = 10 , p = 2))
   } else{
-    system.time(dtm <- grid_terrain(las, algorithm = kriging(k = 10L)))
-    las <- lasnormalize(las, dtm)
+    dtm <- lidR::grid_terrain(las, algorithm = lidR::kriging(k = 10L))
+    las <- lidR::lasnormalize(las, dtm)
   }
 
   return(las)
