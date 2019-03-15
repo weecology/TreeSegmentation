@@ -38,7 +38,7 @@ segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F){
   if (algorithm=="dalponte2016"){
 
     # Dalponte 2016
-    crowns <- lidR::lastrees(las, dalponte2016(chm, ttops,max_cr = 7))
+    crowns <- lidR::lastrees(las, lidR::dalponte2016(chm, ttops,max_cr = 7))
     contour = lidR::tree_hulls(crowns)
 
     if(plots){
@@ -51,7 +51,7 @@ segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F){
   if(algorithm=="li2012"){
 
     # tree segmentation
-    crowns<-lidR::lastrees(las, li2012(dt1 = 1,dt2=2,hmin=2,speed_up = 10))
+    crowns<-lidR::lastrees(las, lidR::li2012(dt1 = 1,dt2=2,hmin=2,speed_up = 10))
 
     # display
     tree = lidR::lasfilter(crowns, !is.na(treeID))
@@ -64,7 +64,7 @@ segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F){
 
   if(algorithm=="silva2016"){
 
-    crowns<-lidR::lastrees(las, silva2016(chm, ttops, max_cr_factor = 0.8, exclusion = 0.2))
+    crowns<-lidR::lastrees(las, lidR::silva2016(chm, ttops, max_cr_factor = 0.8, exclusion = 0.2))
 
     # display
     tree = lidR::lasfilter(crowns, !is.na(treeID))
