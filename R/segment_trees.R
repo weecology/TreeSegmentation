@@ -16,7 +16,7 @@
 segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F){
 
   #Compute tree tops
-  ttops <- lidR::tree_detection(las, lmf(ws = 5))
+  ttops <- lidR::tree_detection(las, lidR::lmf(ws = 5))
 
   if(algorithm=="watershed"){
     # tree segmentation
