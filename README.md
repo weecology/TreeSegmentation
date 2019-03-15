@@ -1,7 +1,9 @@
 # TreeSegmentation
 
-An R package to replicate the submitted work [insert link on submission] using tree segmentation methods in R. This is a companion R package to the python-based
-https://github.com/weecology/DeepForest.
+An R package to replicate the submitted work using tree segmentation methods in R. This is a companion R package to the python-based
+https://github.com/weecology/DeepLidar.
+
+https://www.biorxiv.org/content/10.1101/532952v1
 
 This package follows the "Research Compendium" [philosophy](https://github.com/ropensci/rrrpkg/blob/master/README.md) advocated by ROpenSci. It is not meant as a stand alone package, but rather a clear way to document our work.
 
@@ -26,7 +28,7 @@ install_github("Weecology/TreeSegmentation")
 
 ## Example
 
-The main role of the package is to generate training bounding boxes for the deep learning analysis performed in the python. See /analysis/detection_training.
+The main role of the package is to generate training bounding boxes for the deep learning analysis performed in the python. 
 
-The exploratory analysis document is Evaluate.Rmd. The knitted html can be viewed [here](https://github.com/weecology/TreeSegmentation/blob/master/analysis/Evaluate.html).
+**See /analysis/detection_training**
 
