@@ -23,7 +23,7 @@ if(testing){
   rgb_dir<-paste("/ufrc/ewhite/b.weinstein/NeonData/",site,"/DP3.30010.001/2018/FullSite/D17/2018_",site,"_3/L3/Camera/Mosaic/V01/",sep="")
   rgb_files<-list.files(rgb_dir,pattern=".tif")
 
-  cl<-makeCluster(20,outfile="")
+  cl<-makeCluster(10,outfile="")
   registerDoSNOW(cl)
 
   results<-foreach::foreach(x=1:length(lidar_files),.packages=c("TreeSegmentation","raster"),.errorhandling="pass") %dopar%{
