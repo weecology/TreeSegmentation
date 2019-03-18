@@ -19,7 +19,7 @@ ground_model<-function(las,ground=T){
     # normalization
     las<-lidR::lasnormalize(las, knnidw(k = 10 , p = 2))
   } else{
-    dtm <- lidR::grid_terrain(las,res=1, algorithm = knnidw(k = 10 , p = 2))
+    dtm <- lidR::grid_terrain(las,res=1, algorithm = lidR::knnidw(k = 10 , p = 2))
     las <- lidR::lasnormalize(las, dtm)
   }
 
