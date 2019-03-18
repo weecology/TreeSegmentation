@@ -6,12 +6,12 @@ library(dplyr)
 library(stringr)
 library(raster)
 
-testing=F
-site="SJER"
+testing=T
+site="TEAK"
 year="2018"
 
 if(testing){
-  path<-"../data/NeonTreeEvaluation/SJER/plots/SJER_005.laz"
+  path<-"../data/NeonTreeEvaluation/TEAK/training/NEON_D17_TEAK_DP1_315000_4091000_classified_point_cloud_colorized.laz"
   system.time(results<-detection_training(path,site,year))
  } else{
 
