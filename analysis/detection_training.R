@@ -64,7 +64,8 @@ if(testing){
 
     #Passed checks
     print(paste(lidar_files[x],"Running"))
-    detection_training(path=lidar_files[x],site=site,year)
+    time_ran<-system.time(detection_training(path=lidar_files[x],site=site,year))
+    return(paste(lidar_files[x],"compelted in",time_ran["elapsed"]/60,"minutes"))
   }
  }
 
