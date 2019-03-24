@@ -6,8 +6,8 @@ library(dplyr)
 library(stringr)
 library(raster)
 
-testing=T
-site="TEAK"
+testing=F
+site="SJER"
 year="2018"
 
 if(testing){
@@ -23,7 +23,7 @@ if(testing){
   rgb_dir<-paste("/ufrc/ewhite/b.weinstein/NeonData/",site,"/DP3.30010.001/2018/FullSite/D17/2018_",site,"_3/L3/Camera/Mosaic/V01/",sep="")
   rgb_files<-list.files(rgb_dir,pattern=".tif")
 
-  cl<-makeCluster(10,outfile="")
+  cl<-makeCluster(12)
   registerDoSNOW(cl)
 
   results<-foreach::foreach(x=1:length(lidar_files),.packages=c("TreeSegmentation","raster"),.errorhandling="pass") %dopar%{
@@ -42,7 +42,7 @@ if(testing){
 
     if(!exists("r")){
       print(paste(lidar_files[x],"Failed Tile Check, can't be read"))
-      return("Failed Tile Check, can't be read")
+      return("Failed RGB Tile Check, can't be read")
     }
 
     #check if its black
@@ -52,7 +52,7 @@ if(testing){
     }
 
     #Check if in output already
-    sanitized_fn<-stringr::str_match(string=lidar_files[x],pattern="(\\w+).laz")[,2]
+    sanitized_fn<-paste(stringr::str_match(string=lidar_files[x],pattern="(\\w+).laz")[,2],".csv",sep="")
 
     #check if exists
     filepath<-paste("Results/detection_boxes/",site,"/",year,"/",sep="")
@@ -65,7 +65,7 @@ if(testing){
     #Passed checks
     print(paste(lidar_files[x],"Running"))
     time_ran<-system.time(detection_training(path=lidar_files[x],site=site,year))
-    return(paste(lidar_files[x],"compelted in",time_ran["elapsed"]/60,"minutes"))
+    return(paste(lidar_files[x],"completed in",time_ran["elapsed"]/60,"minutes"))
   }
  }
 
