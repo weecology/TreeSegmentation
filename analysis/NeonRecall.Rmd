@@ -30,7 +30,7 @@ opts_chunk$set(warning=F,message=F)
 #set color ramp for treeID
 col = pastel.colors(200)
 
-site="TEAK"
+site="SJER"
 
 #set data paths
 path_to_tiles=paste("../data/NeonTreeEvaluation/",site,"/plots/",sep="")
@@ -218,7 +218,7 @@ For each algorithm
 run_all<-function(plots,dat){
   df<-list()
 
-  algorithms<-c("Silva")
+  algorithms<-c("Silva","Dalponte","Li")
 
   for(x in 1:length(algorithms)){
     maP_list<-lapply(plots,computeMAP,algorithm=algorithms[x],threshold=0.5)

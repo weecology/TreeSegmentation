@@ -64,7 +64,7 @@ segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F){
 
   if(algorithm=="silva2016"){
 
-    crowns<-lidR::lastrees(las, lidR::silva2016(chm, ttops, max_cr_factor = 0.8, exclusion = 0.2))
+    crowns<-lidR::lastrees(las, lidR::silva2016(chm, ttops, max_cr_factor = 0.6, exclusion = 0.3))
 
     # display
     tree = lidR::lasfilter(crowns, !is.na(treeID))

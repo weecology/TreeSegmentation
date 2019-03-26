@@ -7,7 +7,7 @@
 #' convex_hulls <- run_silva2016(path=LASfile)
 #' @export
 
-run_silva2016<-function(path=NULL,tile=NULL,output=c("all"),ground=T,epsg_numeric){
+run_silva2016<-function(path=NULL,tile=NULL,output=c("all"),epsg_numeric){
 
   if(is.null(tile)){
     tile = lidR::readLAS(path)
@@ -16,9 +16,8 @@ run_silva2016<-function(path=NULL,tile=NULL,output=c("all"),ground=T,epsg_numeri
 
   #Read in tile
   #Compute ground model
-  if(ground){
-    tile<-ground_model(tile,ground=F)
-  }
+  tile<-ground_model(tile,ground=F)
+
 
   #3. canopy model
   chm=canopy_model(tile,res=0.5)

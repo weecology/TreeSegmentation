@@ -26,7 +26,7 @@ run_li2012<-function(path=NULL,tile=NULL,output="all",epsg_numeric){
   print("Computing Ground Model")
 
   #Compute ground model
-  tile=ground_model(tile,ground=T)
+  tile=ground_model(tile,ground=F)
 
   #3. canopy model
   print("Computing Canopy Model")

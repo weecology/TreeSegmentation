@@ -15,7 +15,7 @@ run_dalponte2016<-function(path=NULL,tile=NULL,output="all",epsg_numeric){
   }
 
   #Read in tile
-  print("Computing Ground Model")
+  print("Normalizing Ground Model")
 
   #Compute ground model
   tile=ground_model(tile,ground=F)
