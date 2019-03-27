@@ -155,7 +155,7 @@ opts_chunk$set(warning=F,message=F)
 #set color ramp for treeID
 col = pastel.colors(200)
 
-site=&quot;SJER&quot;
+site=&quot;TEAK&quot;
 
 #set data paths
 path_to_tiles=paste(&quot;../data/NeonTreeEvaluation/&quot;,site,&quot;/plots/&quot;,sep=&quot;&quot;)
@@ -200,19 +200,6 @@ epsg_numeric&lt;-epsg_df[epsg_df$site %in% site,&quot;epsg&quot;]</code></pre>
 <pre><code>## [1] &quot;Silva&quot;</code></pre>
 <pre><code>## [1] &quot;Silva&quot;</code></pre>
 <pre><code>## [1] &quot;Silva&quot;</code></pre>
-<pre><code>## [1] &quot;No points in plot&quot;
-## [1] &quot;Silva&quot;</code></pre>
-<pre><code>## [1] &quot;Silva&quot;</code></pre>
-<pre><code>## [1] &quot;Silva&quot;</code></pre>
-<pre><code>## [1] &quot;Silva&quot;</code></pre>
-<pre><code>## [1] &quot;Silva&quot;</code></pre>
-<pre><code>## [1] &quot;Silva&quot;</code></pre>
-<pre><code>## [1] &quot;No points in plot&quot;
-## [1] &quot;No points in plot&quot;
-## [1] &quot;Silva&quot;</code></pre>
-<pre><code>## [1] &quot;Silva&quot;</code></pre>
-<pre><code>## [1] &quot;No points in plot&quot;
-## [1] &quot;Silva&quot;</code></pre>
 <pre><code>## [1] &quot;Silva&quot;</code></pre>
 <pre><code>## [1] &quot;Silva&quot;</code></pre>
 <pre><code>## [1] &quot;Silva&quot;</code></pre>
@@ -227,12 +214,10 @@ epsg_numeric&lt;-epsg_df[epsg_df$site %in% site,&quot;epsg&quot;]</code></pre>
 <pre><code>## [1] &quot;Silva&quot;</code></pre>
 <pre><code>## [1] &quot;Silva&quot;</code></pre>
 <pre><code>## [1] &quot;Silva&quot;</code></pre>
-<pre><code>## [1] &quot;No points in plot&quot;
-## [1] &quot;Silva&quot;</code></pre>
 <pre><code>## [1] &quot;Silva&quot;</code></pre>
 <pre class="r"><code>#remove empty rows
 print(sum(unlist(recalls))/length(unlist(recalls)))</code></pre>
-<pre><code>## [1] 0.7927928</code></pre>
+<pre><code>## [1] 0.7902265</code></pre>
 <div id="neon-precision" class="section level2">
 <h2><span class="header-section-number">1.1</span> NEON Precision</h2>
 </div>
@@ -376,403 +361,223 @@ result_table&lt;-run_all(plots,dat)</code></pre>
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.026   0.000   0.023 
+##   0.037   0.001   0.030 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Normalizing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.037   0.000   0.031 
+##   0.052   0.000   0.048 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Normalizing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.019   0.000   0.017 
+##   0.071   0.001   0.064 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Normalizing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.036   0.000   0.030 
+##   0.055   0.000   0.048 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Normalizing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.020   0.000   0.018 
+##   0.046   0.001   0.039 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Normalizing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.064   0.000   0.055 
+##   0.040   0.001   0.034 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Normalizing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.030   0.000   0.025 
+##   0.072   0.000   0.070 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Normalizing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.036   0.000   0.028 
+##   0.060   0.001   0.056 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Normalizing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.018   0.000   0.019 
+##   0.048   0.000   0.040 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Normalizing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.024   0.000   0.021 
+##   0.047   0.000   0.048 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Normalizing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.025   0.000   0.021 
+##   0.048   0.001   0.041 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Normalizing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.021   0.000   0.022 
+##   0.048   0.001   0.045 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Normalizing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.030   0.001   0.025 
+##   0.070   0.001   0.067 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Normalizing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.042   0.000   0.035 
+##   0.043   0.000   0.035 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Normalizing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.020   0.000   0.018 
+##   0.079   0.001   0.084 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Normalizing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.039   0.000   0.033 
+##   0.051   0.001   0.042 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Normalizing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.049   0.000   0.039 
+##   0.048   0.000   0.041 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Normalizing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.037   0.000   0.032 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Normalizing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.029   0.000   0.027 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Normalizing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.053   0.000   0.045 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Normalizing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.032   0.000   0.025 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Normalizing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.041   0.000   0.036 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Normalizing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.030   0.000   0.025 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Normalizing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.029   0.000   0.023 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Normalizing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.054   0.000   0.045 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Normalizing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.027   0.000   0.024 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Normalizing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.043   0.000   0.037 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Normalizing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.040   0.000   0.033 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Normalizing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.041   0.000   0.032 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Normalizing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.024   0.000   0.020 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Normalizing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.029   0.001   0.024 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Normalizing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.039   0.000   0.032 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Normalizing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.037   0.000   0.030 
+##   0.055   0.000   0.045 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.087   0.001   0.087 
+##   0.146   0.002   0.172 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.146   0.001   0.148 
+##   0.123   0.001   0.127 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.025   0.000   0.025 
+##   0.164   0.001   0.167 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.153   0.001   0.154 
+##   0.122   0.002   0.128 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.025   0.001   0.025 
+##   0.113   0.001   0.122 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.524   0.003   0.533 
+##   0.058   0.000   0.059 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.134   0.001   0.138 
+##   0.195   0.002   0.231 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.085   0.000   0.086 
+##   0.126   0.002   0.131 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##    0.02    0.00    0.02 
+##   0.103   0.002   0.108 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.142   0.000   0.143 
+##   0.076   0.001   0.078 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.077   0.000   0.078 
+##   0.081   0.000   0.084 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##    0.04    0.00    0.04 
+##   0.071   0.001   0.073 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.129   0.000   0.130 
+##   0.068   0.001   0.069 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.201   0.001   0.203 
+##   0.114   0.001   0.115 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.032   0.001   0.034 
+##   0.151   0.001   0.155 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.251   0.001   0.253 
+##   0.078   0.001   0.082 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.134   0.001   0.135 
+##   0.074   0.001   0.077 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre><code>## [1] &quot;Computing Ground Model&quot;
 ## [1] &quot;Computing Canopy Model&quot;
 ## [1] &quot;Clustering Trees&quot;
 ##    user  system elapsed 
-##   0.208   0.001   0.214 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Computing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.126   0.000   0.127 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Computing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.227   0.002   0.231 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Computing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.061   0.001   0.061 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Computing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.204   0.001   0.209 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Computing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.068   0.000   0.069 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Computing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.094   0.000   0.095 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Computing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.290   0.001   0.297 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Computing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.163   0.000   0.165 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Computing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.441   0.002   0.451 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Computing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.210   0.001   0.214 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Computing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.181   0.001   0.183 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Computing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.079   0.000   0.080 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Computing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.109   0.001   0.110 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Computing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.222   0.001   0.224 
-## [1] &quot;Creating tree polygons&quot;</code></pre>
-<pre><code>## [1] &quot;Computing Ground Model&quot;
-## [1] &quot;Computing Canopy Model&quot;
-## [1] &quot;Clustering Trees&quot;
-##    user  system elapsed 
-##   0.280   0.001   0.286 
+##   0.092   0.001   0.157 
 ## [1] &quot;Creating tree polygons&quot;</code></pre>
 <pre class="r"><code>result_table %&gt;% tidyr::spread(variable,value) %&gt;% arrange(recall)</code></pre>
 <pre><code>##   Algorithm L1    recall  precision
-## 1        Li  3 0.1070111 0.01134585
-## 2  Dalponte  2 0.1365314 0.08525346
-## 3     Silva  1 0.2546125 0.12945591</code></pre>
+## 1     Silva  1 0.1176471 0.03524229
+## 2        Li  3 0.1176471 0.04678363
+## 3  Dalponte  2 0.1871658 0.04497270</code></pre>
 </div>
 
 
