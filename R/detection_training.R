@@ -15,7 +15,7 @@ detection_training<-function(path,site,year){
   print("Normalized")
 
   #Compute silva segmentation
-  result<-run_silva2016(tile=tile,output = "tile",ground=F)
+  result<-run_silva2016(tile=tile,output = "tile")
 
   print("Tree Segmentation Complete")
 
