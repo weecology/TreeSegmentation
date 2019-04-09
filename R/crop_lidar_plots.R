@@ -6,7 +6,7 @@
 #' @importFrom magrittr "%>%"
 #' @export
 #'
-crop_lidar_plots<-function(siteID="TEAK"){
+crop_lidar_plots<-function(siteID="SJER"){
 
   plots<-sf::st_read("../data/NEONFieldSites/All_NEON_TOS_Plots_V5/All_Neon_TOS_Polygons_V5.shp")
   dat<-read.csv("../data/Terrestrial/field_data.csv")
@@ -23,7 +23,7 @@ crop_lidar_plots<-function(siteID="TEAK"){
   }
 
   #get lists of rasters
-  inpath<-paste("/orange/ewhite/NeonData/",siteID,"/DP1.30003.001/",sep="")
+  inpath<-paste("/orange/ewhite/NeonData/",siteID,"/DP1.30003.001/2018/FullSite/D17/2018_SJER_3/L1/DiscreteLidar/ClassifiedPointCloud/",sep="")
   fils<-list.files(inpath,full.names = T,pattern=".laz",recursive = T)
   filname<-list.files(inpath,pattern=".tif",recursive = T)
 
@@ -38,7 +38,7 @@ crop_lidar_plots<-function(siteID="TEAK"){
   path_to_tiles<-dirname(fils[1])
 
   #grab the first cloud for crs
-  r<-lidR::readLAS(fils[1])
+    r<-lidR::readLAS(fils[1])
 
   #Project
   site_plots<-sf::st_transform(site_plots,crs=raster::projection(r))
@@ -70,7 +70,7 @@ crop_lidar_plots<-function(siteID="TEAK"){
     clipped_las<-lidR::lasclip(ctg,plotextent)
 
     #if null, return NA
-    if(is.null(clipped_las)){
+    if(nrow(clipped_las@data)==0){
       next
       }
 

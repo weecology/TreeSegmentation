@@ -7,6 +7,8 @@ library(rgdal)
 inpath<-"/orange/ewhite/NeonData/SJER/DP1.30010.001/2017/FullSite/D17/2017_SJER_2/L3/Camera/Mosaic/V02/"
 fils<-list.files(inpath,full.names = T,pattern="2017_")
 
+#TODO add lidar path? Where did that go?
+
 for (x in 1:50){
   #pick random tile
   tile<-sample(fils,1)
@@ -34,6 +36,7 @@ for (x in 1:50){
   print(cname)
 
   #rescale to
+  #TODO make sure this keeps extent, I feel like there was another version of this code! Check git.
   writeRaster(clipped_rgb,cname,overwrite=T,datatype='INT1U')
 }
 

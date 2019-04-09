@@ -11,4 +11,4 @@ get_bucket(config$bucket)
 
 #compare to
 #PATH=/Users/ben/.local/lib/aws/bin/:$PATH
-#aws s3 ls neon-aop-product --endpoint-url "https://s3.data.neonscience.org"
+#aws s3 ls neon-aop-products --endpoint-url "https://s3.data.neonscience.org"

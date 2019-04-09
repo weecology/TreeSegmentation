@@ -30,11 +30,11 @@ opts_chunk$set(warning=F,message=F)
 #set color ramp for treeID
 col = pastel.colors(200)
 
-site="TEAK"
+site="SJER"
 
 #set data paths
-path_to_tiles=paste("../data/NeonTreeEvaluation/",site,"/samples/",sep="")
-basemap=paste("../data/NeonTreeEvaluation/",site,"/samples/",sep="")
+path_to_tiles=paste("../data/NeonTreeEvaluation/",site,"/plots/",sep="")
+basemap=paste("../data/NeonTreeEvaluation/",site,"/plots/",sep="")
 
 #set cores
 cores<-2
@@ -62,7 +62,7 @@ sites<-sites %>% filter(!is.na(as.numeric(str_sub(individualID,-1))))
 trees<-sites  %>% filter(!is.na(UTM_E))
 
 #get tiles to evaluate, match with deep learning 
-rgb_tiles<-list.files(paste("/Users/Ben/Documents/DeepLidar/data/",site,"/samples/",sep=""))
+rgb_tiles<-list.files(paste("/Users/Ben/Documents/DeepLidar/data/",site,"/plots/",sep=""))
 plotIDs<-str_match(rgb_tiles,"(\\w+_\\d+).tif")[,2]
 plotIDs<-plotIDs[!is.na(plotIDs)]
 
@@ -70,6 +70,7 @@ epsg_df<-data.frame(site=c("SJER","TEAK"),epsg=c("32611","32611"))
 
 #set epsg
 epsg_numeric<-epsg_df[epsg_df$site %in% site,"epsg"]
+
 ```
 
 ```{r}
@@ -88,7 +89,7 @@ print(sum(unlist(recalls))/length(unlist(recalls)))
 
 ```{r}
 
-f<-list.files(paste("../data/NeonTreeEvaluation/",site,"/annotations/",sep=""),pattern="image",full.names = T)
+f<-list.files(paste("../data/NeonTreeEvaluation/",site,"/annotations/",sep=""),pattern=paste(site,"_0",sep=""),full.names = T)
 
 parser<-function(fil){
 pg <- read_xml(fil)
@@ -137,7 +138,7 @@ Find lidar crops
 plots<-unique(dat$filename)
 
 computeMAP<-function(plot_name,algorithm="Li",threshold=0.5){
-lidar_file<-paste("/Users/ben/Documents/TreeSegmentation/data/NeonTreeEvaluation/",site,"/samples/",str_match(plot_name,"(\\w+).tif")[,2],".laz",sep="")
+lidar_file<-paste("/Users/ben/Documents/TreeSegmentation/data/NeonTreeEvaluation/",site,"/plots/",str_match(plot_name,"(\\w+).tif")[,2],".laz",sep="")
 
 #check if exists
 if(!file.exists(lidar_file)){
@@ -187,7 +188,7 @@ predictions<-tree_hulls(results$tile)
 #match names
 predictions$ID<-1:nrow(predictions)
 
-r<-stack(paste("../data/NeonTreeEvaluation/",site,"/samples/",plot_name,sep=""))
+r<-stack(paste("../data/NeonTreeEvaluation/",site,"/plots/",plot_name,sep=""))
 tiff(paste("plots/",algorithm,"/",plot_name,sep=""))
 plotRGB(r)
 #plot(ground_truth,add=T,border="green",bg="transparent")
