@@ -8,5 +8,7 @@ library(neonUtilities)
 library(foreach)
 
 fold<-paste("/orange/ewhite/NeonData/",site="SJER",sep="")
+#RGB
 #ParallelFileAOP(dpID = "DP3.30010.001",site = "SJER",year="2018",check.size=F, savepath=fold,cores=5)
+#LIDAR
 ParallelFileAOP(dpID = "DP1.30003.001",site = "SJER",year="2018",check.size=F, savepath=fold,cores=10)

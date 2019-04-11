@@ -6,7 +6,7 @@
 #' @importFrom magrittr "%>%"
 #' @export
 #'
-crop_lidar_plots<-function(siteID="SJER"){
+crop_lidar_plots<-function(siteID="TEAK"){
 
   plots<-sf::st_read("../data/NEONFieldSites/All_NEON_TOS_Plots_V5/All_Neon_TOS_Polygons_V5.shp")
   dat<-read.csv("../data/Terrestrial/field_data.csv")
@@ -23,7 +23,7 @@ crop_lidar_plots<-function(siteID="SJER"){
   }
 
   #get lists of rasters
-  inpath<-paste("/orange/ewhite/NeonData/",siteID,"/DP1.30003.001/2018/FullSite/D17/2018_SJER_3/L1/DiscreteLidar/ClassifiedPointCloud/",sep="")
+  inpath<-paste("/orange/ewhite/NeonData/",siteID,"/DP1.30003.001/2018/FullSite/D17/2018_",siteID, "_3/L1/DiscreteLidar/ClassifiedPointCloud/",sep="")
   fils<-list.files(inpath,full.names = T,pattern=".laz",recursive = T)
   filname<-list.files(inpath,pattern=".tif",recursive = T)
 
