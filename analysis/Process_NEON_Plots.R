@@ -6,12 +6,10 @@ library(foreach)
 library(doSNOW)
 
 ###Download RGB and LIDAR, HyperSpec tiles
-#sites<-c("ARIK","BARR","BART","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
-#"GUIL","HARV","HEAL","HOPB","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP","OAES","OSBS","PRIN","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF")
+sites<-c("ARIK","BARR","BART","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
+"GUIL","HARV","HEAL","HOPB","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP","OAES","OSBS","PRIN","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF")
 
-sites<-c("SJER","TEAK")
-
-cl<-makeCluster(2,outfile="")
+cl<-makeCluster(20,outfile="")
 registerDoSNOW(cl)
 
 foreach(x=1:length(sites),.packages=c("neonUtilities","TreeSegmentation","dplyr"),.errorhandling = "pass") %do% {
