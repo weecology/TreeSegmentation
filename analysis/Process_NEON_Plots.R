@@ -11,8 +11,8 @@ library(doSNOW)
 
 sites<-c("SJER","TEAK")
 
-cl<-makeCluster(2,outfile="")
-registerDoSNOW(cl)
+#cl<-makeCluster(2,outfile="")
+#registerDoSNOW(cl)
 
 foreach(x=1:length(sites),.packages=c("neonUtilities","TreeSegmentation","dplyr"),.errorhandling = "pass") %do% {
   fold<-paste("/orange/ewhite/NeonData/",sites[x],sep="")
