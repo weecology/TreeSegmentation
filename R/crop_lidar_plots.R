@@ -6,7 +6,7 @@
 #' @importFrom magrittr "%>%"
 #' @export
 #'
-crop_lidar_plots<-function(siteID="TEAK"){
+crop_lidar_plots<-function(siteID="TEAK",year="2018"){
 
   plots<-sf::st_read("../data/NEONFieldSites/All_NEON_TOS_Plots_V5/All_Neon_TOS_Polygons_V5.shp")
   dat<-read.csv("../data/Terrestrial/field_data.csv")
@@ -47,7 +47,7 @@ crop_lidar_plots<-function(siteID="TEAK"){
   ctg<-lidR::catalog(path_to_tiles)
 
   #Create directory if needed
-  fold<-paste("/orange/ewhite/b.weinstein/NEON/",siteID,"/NEONPlots/Lidar/",sep="")
+  fold<-paste("/orange/ewhite/b.weinstein/NEON/",siteID,year,"/NEONPlots/Lidar/",sep="")
   if(!dir.exists(fold)){
     dir.create(fold,recursive = T)
   }
