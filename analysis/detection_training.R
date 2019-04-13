@@ -16,11 +16,11 @@ if(testing){
  } else{
 
   #Lidar dir
-  lidar_dir<-paste("/ufrc/ewhite/b.weinstein/NeonData/",site,"/DP1.30003.001/2018/FullSite/D13/2018_",site,"_2/L1/DiscreteLidar/ClassifiedPointCloud",sep="")
+  lidar_dir<-paste("/orange/ewhite/NeonData/",site,"/DP1.30003.001/2018/FullSite/D13/2018_",site,"_2/L1/DiscreteLidar/ClassifiedPointCloud",sep="")
   lidar_files<-list.files(lidar_dir,full.names = T,pattern=".laz")
   #lidar_files<-lidar_files[!str_detect(lidar_files,"colorized")]
 
-  rgb_dir<-paste("/ufrc/ewhite/b.weinstein/NeonData/",site,"/DP3.30010.001/2018/FullSite/D13/2018_",site,"_2/L3/Camera/Mosaic/V01/",sep="")
+  rgb_dir<-paste("/orange/ewhite/NeonData/",site,"/DP3.30010.001/2018/FullSite/D13/2018_",site,"_2/L3/Camera/Mosaic/V01/",sep="")
   rgb_files<-list.files(rgb_dir,pattern=".tif")
 
   cl<-makeCluster(10)
