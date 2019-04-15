@@ -30,7 +30,7 @@ opts_chunk$set(warning=F,message=F)
 #set color ramp for treeID
 col = pastel.colors(200)
 
-site="SJER"
+site="NIWO"
 
 #set data paths
 path_to_tiles=paste("../data/NeonTreeEvaluation/",site,"/plots/",sep="")
@@ -66,7 +66,7 @@ rgb_tiles<-list.files(paste("/Users/Ben/Documents/DeepLidar/data/",site,"/plots/
 plotIDs<-str_match(rgb_tiles,"(\\w+_\\d+).tif")[,2]
 plotIDs<-plotIDs[!is.na(plotIDs)]
 
-epsg_df<-data.frame(site=c("SJER","TEAK"),epsg=c("32611","32611"))
+epsg_df<-data.frame(site=c("SJER","TEAK","NIWO"),epsg=c("32611","32611","32613"))
 
 #set epsg
 epsg_numeric<-epsg_df[epsg_df$site %in% site,"epsg"]
