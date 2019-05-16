@@ -30,7 +30,7 @@ opts_chunk$set(warning=F,message=F)
 #set color ramp for treeID
 col = pastel.colors(200)
 
-site="NIWO"
+site="SJER"
 
 #set data paths
 path_to_tiles=paste("../data/NeonTreeEvaluation/",site,"/plots/",sep="")
@@ -66,14 +66,14 @@ rgb_tiles<-list.files(paste("/Users/Ben/Documents/DeepLidar/data/",site,"/plots/
 plotIDs<-str_match(rgb_tiles,"(\\w+_\\d+).tif")[,2]
 plotIDs<-plotIDs[!is.na(plotIDs)]
 
-epsg_df<-data.frame(site=c("SJER","TEAK","NIWO"),epsg=c("32611","32611","32613"))
+epsg_df<-data.frame(site=c("SJER","TEAK","NIWO","MLBS"),epsg=c("32611","32611","32613","32618"))
 
 #set epsg
 epsg_numeric<-epsg_df[epsg_df$site %in% site,"epsg"]
 
 ```
 
-```{r}
+```{r,eval=FALSE}
 recalls=list()
   for(x in 1:length(plotIDs)){
     recalls[[x]]<-evaluateNeon(trees=trees,plotID=plotIDs[x],path_to_tiles=path_to_tiles,algorithm = "silva",basemap = basemap,epsg_numeric = epsg_numeric,plot_results=T)
@@ -134,10 +134,9 @@ dat<-bind_rows(lapply(f,parser))
 Find lidar crops
 
 ```{r}
-
 plots<-unique(dat$filename)
 
-computeMAP<-function(plot_name,algorithm="Li",threshold=0.5){
+computeMAP<-function(plot_name,algorithm="Silva",threshold=0.5){
 lidar_file<-paste("/Users/ben/Documents/TreeSegmentation/data/NeonTreeEvaluation/",site,"/plots/",str_match(plot_name,"(\\w+).tif")[,2],".laz",sep="")
 
 #check if exists
@@ -155,7 +154,7 @@ if(algorithm=="Li"){
 }
 
 if(algorithm=="Silva"){
-    results<-run_silva2016(path=lidar_file,epsg_numeric=epsg_numeric)
+    results<-run_silva2016(path=lidar_file,epsg_numeric=epsg_numeric, max_cr_factor=0.9, exclusion=0.3)
 
 }
 #hand annotations as spdf
@@ -218,7 +217,7 @@ For each algorithm
 run_all<-function(plots,dat){
   df<-list()
 
-  algorithms<-c("Silva","Dalponte","Li")
+  algorithms<-c("Silva")
 
   for(x in 1:length(algorithms)){
     maP_list<-lapply(plots,computeMAP,algorithm=algorithms[x],threshold=0.5)

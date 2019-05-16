@@ -6,6 +6,8 @@ output:
   html_document:
     toc: true
     number_sections: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 # Aim
@@ -17,7 +19,6 @@ output:
 library(TreeSegmentation)
 library(rgl)
 library(knitr)
-library(h5)
 library(ggplot2)
 library(dplyr)
 library(rgdal)
@@ -26,30 +27,27 @@ knit_hooks$set(webgl = hook_webgl)
 opts_chunk$set(echo = TRUE)
 ```
 
-# Load in ground-truth
-```{r,results='hide'}
-shps<-list.files("../data/ITCs/test/",pattern=".shp",full.names = T)
-itcs<-lapply(shps,readOGR,verbose=F)
-
-names(itcs)<-sapply(itcs,function(x){
-  id<-unique(x$Plot_ID)
-  return(id)
-  })
-
-```
 
 # Get list of tiles
 
 ```{r}
-las<-list.files(path="../data/2017/Lidar/",full.names=T)[1:2]
+site="NIWO"
+las<-list.files(path="../data/NeonTreeEvaluation/NIWO/plots/",full.names=T,pattern =".laz")
+epsg_df<-data.frame(site=c("SJER","TEAK","NIWO","MLBS"),epsg=c("32611","32611","32613","32618"))
+
+#set epsg
+epsg_numeric<-epsg_df[epsg_df$site %in% site,"epsg"]
+
 ```
 
 # Example segmentation
 
 ```{r}
-silva<-silva2016(path=las[3],output="all")
+silva<-run_silva2016(path=las[10],epsg_numeric = epsg_numeric)
 silva$tile@data %>% group_by(Classification,treeID) %>% summarize(n=n()) %>% summarize(median(n))
-chm<-canopy_model(readLAS(las[3]))
+tile<-readLAS(las[10])
+tile <- ground_model(tile)
+chm<-canopy_model(tile)
 ```
 
 ```{r}
@@ -58,7 +56,7 @@ plot(silva$convex,add=T)
 ```
 
 ```{r}
-ind_trees<-extract_trees(cores = 2,algorithm = c("silva","li"),las=las,output="las")
+ind_trees<-extract_trees(algorithm = c("silva"),las=las,output="las", epsg_numeric = epsg_numeric)
 ```
 
 Let's look at couple outputs from each tile

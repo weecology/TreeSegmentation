@@ -6,7 +6,7 @@
 #' @export
 #'
 #'
-detection_training<-function(path,site,year){
+detection_training<-function(path,site,year, silva_cr_factor, silva_exclusion){
   tile<-lidR::readLAS(path)
 
   #normalize
@@ -15,7 +15,7 @@ detection_training<-function(path,site,year){
   print("Normalized")
 
   #Compute silva segmentation
-  result<-run_silva2016(tile=tile,output = "tile")
+  result<-run_silva2016(tile=tile,output = "tile",max_cr_factor = silva_cr_factor, exclusion=silva_exclusion)
 
   print("Tree Segmentation Complete")
 

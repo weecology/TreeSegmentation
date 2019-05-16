@@ -7,7 +7,7 @@
 #' convex_hulls <- run_silva2016(path=LASfile)
 #' @export
 
-run_silva2016<-function(path=NULL,tile=NULL,output=c("all"),epsg_numeric){
+run_silva2016<-function(path=NULL,tile=NULL,output=c("all"),epsg_numeric, max_cr_factor=0.7, exclusion=0.3){
 
   if(is.null(tile)){
     tile = lidR::readLAS(path)
@@ -23,7 +23,7 @@ run_silva2016<-function(path=NULL,tile=NULL,output=c("all"),epsg_numeric){
   chm=canopy_model(tile,res=0.5)
 
   #Compute unsupervised classification method
-  result<-segment_trees(las=tile,algorithm = "silva2016",chm=chm)
+  result<-segment_trees(las=tile,algorithm = "silva2016",chm=chm, max_cr_factor=max_cr_factor, exclusion=exclusion)
 
   if(output=="tile"){
     return(result)

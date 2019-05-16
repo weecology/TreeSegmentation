@@ -4,7 +4,8 @@
 \alias{segment_trees}
 \title{Find individual tree crowns using normalized las and a canopy height model}
 \usage{
-segment_trees(las, algorithm = "watershed", chm = chm, plots = F)
+segment_trees(las, algorithm = "watershed", chm = chm, plots = F,
+  max_cr_factor = 0.5, exclusion = 0.3)
 }
 \arguments{
 \item{las}{A lidar cloud read in by lidR package}
@@ -14,6 +15,10 @@ segment_trees(las, algorithm = "watershed", chm = chm, plots = F)
 \item{chm}{a canopy height model see \code{\link{canopy_model}}}
 
 \item{plots}{generate useful plots for visualization. This can be time-consuming for very large tiles}
+
+\item{max_cr_factor}{see ?lastrees silva max critical factor}
+
+\item{exclusion}{see ?lastrees silva exclusion height in meters}
 }
 \value{
 A las object with treeID field updated based on individual tree segmentation.

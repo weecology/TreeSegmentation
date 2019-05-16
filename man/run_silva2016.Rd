@@ -4,7 +4,8 @@
 \alias{run_silva2016}
 \title{Find tree crown polygons using the Silva 2016 algorithm}
 \usage{
-run_silva2016(path = NULL, tile = NULL, output = c("all"), epsg_numeric)
+run_silva2016(path = NULL, tile = NULL, output = c("all"), epsg_numeric,
+  max_cr_factor = 0.7, exclusion = 0.3)
 }
 \description{
 \code{run_silva2016} assigns each point in a lidR cloud to a treeID.

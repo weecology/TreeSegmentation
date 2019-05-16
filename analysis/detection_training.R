@@ -10,9 +10,12 @@ testing=F
 site="TEAK"
 year="2018"
 
+#Define optimal parameters
+silva_params<-data.frame(Site=c("SJER","TEAK","NIWO"),max_cr_factor=c(0.9,0.2,0.2),exclusion=c(0.3,0.5,0.5))
+site_params<-silva_params[silva_params$Site == site,]
 if(testing){
   path<-"/Users/ben/Documents/TreeSegmentation/data/NeonTreeEvaluation/TEAK/training/NEON_D17_TEAK_DP1_315000_4094000_classified_point_cloud_colorized_crop.laz"
-  system.time(results<-detection_training(path,site,year))
+  system.time(results<-detection_training(path,site,year,site_params$max_cr_factor,site_params$exclusion))
  } else{
 
   #Lidar dir
@@ -64,7 +67,7 @@ if(testing){
 
     #Passed checks
     print(paste(lidar_files[x],"Running"))
-    time_ran<-system.time(detection_training(path=lidar_files[x],site=site,year))
+    time_ran<-system.time(detection_training(path=lidar_files[x],site=site,year,max_cr_factor=site_params$max_cr_factor,exclusion=site_params$exclusion))
     return(paste(lidar_files[x],"completed in",time_ran["elapsed"]/60,"minutes"))
   }
  }

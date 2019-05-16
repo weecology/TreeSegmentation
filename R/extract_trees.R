@@ -35,17 +35,17 @@ extract_trees<-function(las=NULL,tile=NULL,algorithm="silva",cores=NULL,output="
 
     if("silva" %in% algorithm){
       print("silva")
-      tiles$silva<-silva2016(path=inpath,tile=tile,output="tile")
+      tiles$silva<-run_silva2016(path=inpath,tile=tile,output="tile")
     }
 
     if("dalponte" %in% algorithm){
       print("Dalpone")
-      tiles$dalponte<-dalponte2016(path=inpath,tile=tile,output="tile")
+      tiles$dalponte<-run_dalponte2016(path=inpath,tile=tile,output="tile")
     }
 
     if("li" %in% algorithm){
       print("li")
-      tiles$li<-li2012(path=inpath,tile=tile,output="tile")
+      tiles$li<-run_li2012(path=inpath,tile=tile,output="tile")
     }
 
     if("watershed" %in% algorithm){

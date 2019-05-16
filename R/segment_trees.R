@@ -5,6 +5,8 @@
 #' @param algorithm a segmentation method, see \code{\link[lidR]{lastrees}}
 #' @param chm a canopy height model see \code{\link{canopy_model}}
 #' @param plots generate useful plots for visualization. This can be time-consuming for very large tiles
+#' @param max_cr_factor see ?lastrees silva max critical factor
+#' @param exclusion see ?lastrees silva exclusion height in meters
 #' @return A las object with treeID field updated based on individual tree segmentation.
 #' @examples
 #' library(lidR)
@@ -13,7 +15,7 @@
 #' chm=canopy_model(tile)
 #' treelas=segment_trees(tile,algorithm="watershed",chm=chm)
 #' @export
-segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F){
+segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F, max_cr_factor = 0.5, exclusion = 0.3) {
 
   #Compute tree tops
   ttops <- lidR::tree_detection(las, lidR::lmf(ws = 5))
@@ -64,7 +66,7 @@ segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F){
 
   if(algorithm=="silva2016"){
 
-    crowns<-lidR::lastrees(las, lidR::silva2016(chm, ttops, max_cr_factor = 0.4, exclusion = 0.3))
+    crowns<-lidR::lastrees(las, lidR::silva2016(chm, ttops, max_cr_factor = max_cr_factor, exclusion = exclusion))
 
     # display
     tree = lidR::lasfilter(crowns, !is.na(treeID))
