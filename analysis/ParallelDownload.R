@@ -7,7 +7,7 @@ library(neonUtilities)
 #TO DO, make %dopar% available without load
 library(foreach)
 
-site="BART"
+site="NIWO"
 
 fold<-paste("/orange/ewhite/NeonData/",site=site,sep="")
 #RGB
