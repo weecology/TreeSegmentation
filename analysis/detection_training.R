@@ -15,6 +15,8 @@ basedir = "/orange/ewhite/NeonData/"
 
 #Batchtools tmp registry
 reg = makeRegistry(file.dir = NA, seed = 1)
+print(reg)
+print("registry created")
 
 #Define optimal parameters
 silva_params<-data.frame(Site=c("SJER","TEAK","NIWO"),max_cr_factor=c(0.9,0.2,0.2),exclusion=c(0.3,0.5,0.5))
@@ -78,7 +80,7 @@ if(testing){
   rgb_files<-list.files(rgb_dir,pattern=".tif")
 
   #batchtools submission
-  makeClusterFunctionsSlurm(template = "detection_template", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 1, fs.latency = 65)
+  reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 1, fs.latency = 65)
 
   #map each file to a new job
   batchMap(fun = run_detection,lidar_file=lidar_files,site=rep(site,length(lidar_files)))
