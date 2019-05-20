@@ -65,7 +65,7 @@ run_detection<-function(lidar_file, site){
 
 #Quick debug option
 if(testing){
-  path<-"/Users/ben/Documents/TreeSegmentation/data/NeonTreeEvaluation/TEAK/plots/TEAK_044.laz"
+  path<-"../data/NeonTreeEvaluation/TEAK/plots/TEAK_044.laz"
   system.time(results<-detection_training(path,site,year,site_params$max_cr_factor,site_params$exclusion))
  } else {
 
