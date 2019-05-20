@@ -87,6 +87,6 @@ if(testing){
   lidar_files = lidar_files[1:5]
   batchMap(fun = run_detection,lidar_file=lidar_files,site=rep(site,length(lidar_files)))
   print(reg)
-  submitJobs(resources = list(walltime = 432000, memory = 10240))
-  print(getJobTable())
+  #submitJobs(resources = list(walltime = 432000, memory = 10240))
+  #print(getJobTable())
  }
