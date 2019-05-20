@@ -8,7 +8,7 @@ library(raster)
 library(batchtools)
 
 #metadata
-testing=T
+testing=F
 site="TEAK"
 year="2018"
 basedir = "/orange/ewhite/NeonData/"
