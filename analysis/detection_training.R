@@ -10,7 +10,7 @@ library(raster)
 testing=T
 site="TEAK"
 year="2018"
-basedir = basedir
+basedir = "/orange/ewhite/NeonData/"
 
 #Batchtools tmp registry
 reg = makeRegistry(file.dir = NA, seed = 1)
