@@ -80,7 +80,7 @@ if(testing){
   rgb_files<-list.files(rgb_dir,pattern=".tif")
 
   #batchtools submission
-  reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 10, fs.latency = 65)
+  reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
 
   #map each file to a new job
   #debugging
