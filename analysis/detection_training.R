@@ -5,6 +5,7 @@ library(foreach)
 library(dplyr)
 library(stringr)
 library(raster)
+library(batchtools)
 
 #metadata
 testing=T
