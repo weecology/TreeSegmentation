@@ -25,5 +25,6 @@ Imports:
   foreach,
   doSNOW,
   magrittr,
-  purrr
+  purrr,
+  batchtools
 

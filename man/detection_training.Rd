@@ -4,7 +4,7 @@
 \alias{detection_training}
 \title{Generate detection network training files}
 \usage{
-detection_training(path, site, year)
+detection_training(path, site, year, silva_cr_factor, silva_exclusion)
 }
 \arguments{
 \item{path}{Character Location of the lidar tile to process.}
