@@ -90,5 +90,5 @@ if(testing){
   submitJobs(resources = list(walltime = 432000, memory = 10240), reg = reg)
   waitForJobs(ids, reg = tmp)
   getStatus(reg = tmp)
-  print(getJobTable())
+  #print(getJobTable())
  }
