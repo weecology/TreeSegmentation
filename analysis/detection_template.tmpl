@@ -55,7 +55,7 @@ export DEBUGME=<%= Sys.getenv("DEBUGME") %>
 ## Run R:
 ## we merge R output with stdout from SLURM, which gets then logged via --output option
 echo "submitting job"
-module load gcc/6.3.0 R gdal/2.2.1
+module load gcc/6.3.0 R/3.4.3 gdal/2.2.1
 
 #add to path
 Rscript -e 'batchtools::doJobCollection("<%= uri %>")'
