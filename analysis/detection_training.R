@@ -80,7 +80,7 @@ if(testing){
   rgb_files<-list.files(rgb_dir,pattern=".tif")
 
   #batchtools submission
-  reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 1, fs.latency = 65)
+  reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl.R", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 1, fs.latency = 65)
 
   #map each file to a new job
   batchMap(fun = run_detection,lidar_file=lidar_files,site=rep(site,length(lidar_files)))
