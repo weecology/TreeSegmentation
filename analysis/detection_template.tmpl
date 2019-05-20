@@ -1,5 +1,7 @@
 #!/bin/bash
 
+## Modified from  https://github.com/mllg/batchtools/blob/master/inst/templates/
+
 ## Job Resource Interface Definition
 ##
 ## ntasks [integer(1)]:       Number of required tasks,
@@ -22,14 +24,18 @@
 log.file = fs::path_expand(log.file)
 -%>
 
+  # Job name and who to send updates to
+  #SBATCH --mail-user=benweinstein2010@gmail.com
+  #SBATCH --mail-type=FAIL,END
+  #SBATCH --account=ewhite
+  #SBATCH --partition=hpg2-compute
+  #SBATCH --qos=ewhite-b   # Remove the `-b` if the script will take more than 4 days; see "bursting" below
 
   #SBATCH --job-name=<%= job.name %>
   #SBATCH --output=<%= log.file %>
   #SBATCH --error=<%= log.file %>
   #SBATCH --time=<%= ceiling(resources$walltime / 60) %>
   #SBATCH --ntasks=1
-  #SBATCH --account=ewhite
-  #SBATCH --qos=ewhite-b
   #SBATCH --cpus-per-task=<%= resources$ncpus %>
   #SBATCH --mem-per-cpu=<%= resources$memory %>
   <%= if (!is.null(resources$partition)) sprintf(paste0("#SBATCH --partition='", resources$partition, "'")) %>

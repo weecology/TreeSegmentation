@@ -83,7 +83,10 @@ if(testing){
   reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 1, fs.latency = 65)
 
   #map each file to a new job
+  #debugging
+  lidar_files = lidar_files[1:5]
   batchMap(fun = run_detection,lidar_file=lidar_files,site=rep(site,length(lidar_files)))
+  print(reg)
   submitJobs(resources = list(walltime = 432000, memory = 10240))
   print(getJobTable())
  }
