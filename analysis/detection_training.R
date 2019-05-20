@@ -85,10 +85,25 @@ if(testing){
   #map each file to a new job
   #debugging
   lidar_files = lidar_files[1:5]
-  batchMap(fun = run_detection,lidar_file=lidar_files,site=rep(site,length(lidar_files)))
+  #batchMap(fun = run_detection,lidar_file=lidar_files,site=rep(site,length(lidar_files)))
   print(reg)
-  submitJobs(resources = list(walltime = 432000, memory = 10240), reg = reg)
-  waitForJobs(ids, reg = tmp)
-  getStatus(reg = tmp)
+  # Toy function which creates a large matrix and returns the column sums
+  fun = function(n, p) colMeans(matrix(runif(n*p), n, p))
+
+  # Arguments to fun:
+  args = CJ(n = c(1e4, 1e5), p = c(10, 50)) # like expand.grid()
+  print(args)
+
+  ids = batchMap(fun, args = args, reg = reg)
+
+  # Set resources: enable memory measurement
+  res = list(measure.memory = TRUE)
+
+  # Submit jobs using the currently configured cluster functions
+  submitJobs(ids, resources = res, reg = reg)
+
+  #submitJobs(resources = list(walltime = 432000, memory = 10240), reg = reg)
+  #waitForJobs(ids, reg = tmp)
+  #getStatus(reg = tmp)
   #print(getJobTable())
  }
