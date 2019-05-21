@@ -29,6 +29,10 @@ if (!"ncpus" %in% names(resources)) {
 if (!"walltime" %in% names(resources)) {
   resources$walltime<-"1:00:00"
 }
+if (!"memory" %in% names(resources)) {
+  resources$memory <- "5GB"
+}
+
 -%>
 
 
