@@ -3,13 +3,15 @@
 #' \code{run_detection} is a wrapper for detection_training for checking a file exists and optionally overwriting
 #' @param site Four letter NEON abbreviation
 #' @param lidar_file Character. path to lidar file
+#' @param rgb_dir Character. Directory of rgb files to check
 #' @return NULL; CSV files written to file
 #' @export
 
 #Define testing function
-run_detection<-function(lidar_file, site){
+run_detection<-function(lidar_file, site, rgb_dir){
 
   #check if tile can be processed
+  rgb_files<-list.files(rgb_dir,pattern=".tif")
   rgb_path<-convert_names(from="lidar",to="rgb",lidar=lidar_file,site=site)
 
   flag<-rgb_path %in% rgb_files

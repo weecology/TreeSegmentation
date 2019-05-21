@@ -28,7 +28,6 @@ if(testing){
   #lidar_files<-lidar_files[!str_detect(lidar_files,"colorized")]
 
   rgb_dir<-paste(basedir,site,"/DP3.30010.001/2018/FullSite/D17/2018_",site,"_3/L3/Camera/Mosaic/V01/",sep="")
-  rgb_files<-list.files(rgb_dir,pattern=".tif")
 
   #batchtools submission
   reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
