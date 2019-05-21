@@ -23,5 +23,5 @@ res = list(measure.memory = TRUE,walltime = "1:00:00", memory = "2GB")
 # Submit jobs using the currently configured cluster functions
 submitJobs(ids, resources = res, reg = reg)
 waitForJobs(ids, reg = reg)
-getStatus(reg = tmp)
+getStatus(reg = reg)
 print(getJobTable())
