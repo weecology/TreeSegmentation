@@ -1,5 +1,6 @@
 library(batchtools)
 
+sys
 #Batchtools tmp registry
 reg = makeRegistry(file.dir = NA, seed = 1)
 print(reg)
