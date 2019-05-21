@@ -95,8 +95,8 @@ if(testing){
   submitJobs(ids, resources = res, reg = reg)
 
   submitJobs(resources = list(walltime = "12:00:00", memory = "10GB"), reg = reg)
-  waitForJobs(ids, reg = tmp)
-  getStatus(reg = tmp)
-  getErrorMessages(ids, missing.as.error = TRUE, reg = tmp)
+  waitForJobs(ids, reg = reg)
+  getStatus(reg = reg)
+  getErrorMessages(ids, missing.as.error = TRUE, reg = reg)
   print(getJobTable())
  }
