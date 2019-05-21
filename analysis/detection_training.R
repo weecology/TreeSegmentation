@@ -13,9 +13,8 @@ site="TEAK"
 year="2018"
 basedir = "/orange/ewhite/NeonData/"
 
-#Batchtools tmp registry
-reg = makeRegistry(file.dir = NA, seed = 1)
-print(reg)
+reg = loadRegistry(file.dir = "/home/b.weinstein/logs/batchtools/",writeable=TRUE)
+clearRegistry()
 print("registry created")
 
 #Define optimal parameters
