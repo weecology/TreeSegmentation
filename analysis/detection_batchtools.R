@@ -6,6 +6,7 @@ library(batchtools)
 testing=F
 site="TEAK"
 basedir = "/orange/ewhite/NeonData/"
+year = "2018"
 
 reg = loadRegistry(file.dir = "/home/b.weinstein/logs/batchtools/",writeable=TRUE)
 clearRegistry()
