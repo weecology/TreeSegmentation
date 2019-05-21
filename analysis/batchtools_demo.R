@@ -7,7 +7,7 @@ print("registry created")
 
 print(reg)
 # Toy function which creates a large matrix and returns the column sums
-fun = function(n, p) {
+fun = function() {
   Sys.sleep(10)
   t<-Sys.time()
   print(t)
@@ -15,8 +15,8 @@ fun = function(n, p) {
 }
 
 #batchtools submission
-reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
-ids = batchMap(fun, args = args, reg = reg)
+reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 1, fs.latency = 65)
+ids = batchMap(fun, reg = reg)
 
 # Set resources: enable memory measurement
 res = list(walltime = "2:00:00", memory = "4GB")
