@@ -34,7 +34,7 @@ if(testing){
 
   #map each file to a new job
   #debugging
-  lidar_files = lidar_files[1:50]
+  lidar_files = lidar_files
   silva_cr_factor<- site_params$max_cr_factor
   silva_exclusion<- site_params$exclusion
 
