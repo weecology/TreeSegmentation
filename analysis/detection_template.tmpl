@@ -26,6 +26,9 @@ log.file = fs::path_expand(log.file)
 if (!"ncpus" %in% names(resources)) {
   resources$ncpus = 1
 }
+if (!"walltime" %in% names(resources)) {
+  resources$walltime<-1:00:00
+}
 -%>
 
 
@@ -40,7 +43,7 @@ if (!"ncpus" %in% names(resources)) {
   #SBATCH --job-name=<%= job.name %>
   #SBATCH --output=<%= log.file %>
   #SBATCH --error=<%= log.file %>
-  #SBATCH --time=<%= ceiling(resources$walltime / 60) %>
+  #SBATCH --time=<%= resources$walltime %>
   #SBATCH --ntasks=1
   #SBATCH --cpus-per-task=<%= resources$ncpus %>
   #SBATCH --mem-per-cpu=<%= resources$memory %>
