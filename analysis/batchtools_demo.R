@@ -1,7 +1,7 @@
 library(batchtools)
 
 #Batchtools tmp registry
-reg = makeRegistry(file.dir = NA, seed = 1,  work.dir="/home/b.weinstein/logs/")
+reg = makeRegistry(file.dir = NA, seed = 1)
 print(reg)
 print("registry created")
 
@@ -18,7 +18,7 @@ reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.t
 ids = batchMap(fun, args = args, reg = reg)
 
 # Set resources: enable memory measurement
-res = list(measure.memory = TRUE,walltime = "1:00:00", memory = "2GB")
+res = list(measure.memory = TRUE,walltime = "2:00:00", memory = "4GB")
 
 # Submit jobs using the currently configured cluster functions
 submitJobs(ids, resources = res, reg = reg)
