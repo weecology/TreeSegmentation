@@ -34,8 +34,12 @@ if(testing){
 
   #map each file to a new job
   #debugging
-  lidar_files = lidar_files[1:5]
+  lidar_files = lidar_files[1:50]
   ids = batchMap(fun = run_detection,lidar_file=lidar_files,site=rep(site,length(lidar_files)),rgb_dir=rgb_dir)
+
+  #Run in chunks of 10
+  ids[, chunk := chunk(job.id, chunk.size = 10)]
+
   print(reg)
 
   # Set resources: enable memory measurement
