@@ -4,11 +4,13 @@
 #' @param site Four letter NEON abbreviation
 #' @param lidar_file Character. path to lidar file
 #' @param rgb_dir Character. Directory of rgb files to check
+#' @param silva_cr_factor see ?run_silva
+#' @param silva_exclusion see ?run_silva
 #' @return NULL; CSV files written to file
 #' @export
 
 #Define testing function
-run_detection<-function(lidar_file, site, rgb_dir, year, site_params){
+run_detection<-function(lidar_file, site, rgb_dir, year, silva_cr_factor,silva_exclusion){
 
   #check if tile can be processed
   rgb_files<-list.files(rgb_dir,pattern=".tif")
@@ -47,6 +49,6 @@ run_detection<-function(lidar_file, site, rgb_dir, year, site_params){
 
   #Passed checks
   print(paste(lidar_file,"Running"))
-  time_ran<-system.time(detection_training(path=lidar_file,site=site,year,silva_cr_factor=site_params$max_cr_factor,silva_exclusion=site_params$exclusion))
+  time_ran<-system.time(detection_training(path=lidar_file,site=site,year,silva_cr_factor=silva_cr_factor,silva_exclusion=silva_exclusion))
   return(paste(lidar_file,"completed in",time_ran["elapsed"]/60,"minutes"))
 }

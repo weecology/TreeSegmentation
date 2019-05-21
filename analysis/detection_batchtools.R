@@ -34,7 +34,7 @@ if(testing){
   #map each file to a new job
   #debugging
   lidar_files = lidar_files[1:50]
-  ids = batchMap(fun = run_detection,lidar_file=lidar_files,site,rgb_dir=rgb_dir, year=year,site_params=site_params)
+  ids = batchMap(fun = run_detection,lidar_file=lidar_files,site,rgb_dir=rgb_dir, year=year,silva_cr_factor=site_params$max_cr_factor, silva_exclusion=site_params$exclusion)
 
   #Run in chunks of 10
   ids[, chunk := chunk(job.id, chunk.size = 10)]
