@@ -18,7 +18,10 @@ reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.t
 ids = batchMap(fun, args = args, reg = reg)
 
 # Set resources: enable memory measurement
-res = list(measure.memory = TRUE)
+res = list(measure.memory = TRUE,walltime = "1:00:00", memory = "2GB")
 
 # Submit jobs using the currently configured cluster functions
 submitJobs(ids, resources = res, reg = reg)
+waitForJobs(ids, reg = reg)
+getStatus(reg = tmp)
+print(getJobTable())
