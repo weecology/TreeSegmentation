@@ -6,7 +6,7 @@
 #' @export
 #'
 #'
-detection_training<-function(path,site,year, silva_cr_factor, silva_exclusion){
+detection_training<-function(path,site,year,silva_cr_factor,silva_exclusion){
   tile<-lidR::readLAS(path)
 
   #normalize

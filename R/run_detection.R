@@ -8,7 +8,7 @@
 #' @export
 
 #Define testing function
-run_detection<-function(lidar_file, site, rgb_dir){
+run_detection<-function(lidar_file, site, rgb_dir, year, site_params){
 
   #check if tile can be processed
   rgb_files<-list.files(rgb_dir,pattern=".tif")
@@ -47,6 +47,6 @@ run_detection<-function(lidar_file, site, rgb_dir){
 
   #Passed checks
   print(paste(lidar_file,"Running"))
-  time_ran<-system.time(detection_training(path=lidar_file,site=site,year,max_cr_factor=site_params$max_cr_factor,exclusion=site_params$exclusion))
+  time_ran<-system.time(detection_training(path=lidar_file,site=site,year,silva_cr_factor=site_params$max_cr_factor,silva_exclusion=site_params$exclusion))
   return(paste(lidar_file,"completed in",time_ran["elapsed"]/60,"minutes"))
 }

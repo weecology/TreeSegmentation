@@ -5,7 +5,6 @@ library(batchtools)
 #metadata
 testing=F
 site="TEAK"
-year="2018"
 basedir = "/orange/ewhite/NeonData/"
 
 reg = loadRegistry(file.dir = "/home/b.weinstein/logs/batchtools/",writeable=TRUE)
@@ -35,7 +34,7 @@ if(testing){
   #map each file to a new job
   #debugging
   lidar_files = lidar_files[1:50]
-  ids = batchMap(fun = run_detection,lidar_file=lidar_files,site=rep(site,length(lidar_files)),rgb_dir=rgb_dir)
+  ids = batchMap(fun = run_detection,lidar_file=lidar_files,site,rgb_dir=rgb_dir, year=year,site_params=site_params)
 
   #Run in chunks of 10
   ids[, chunk := chunk(job.id, chunk.size = 10)]
