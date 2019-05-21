@@ -92,10 +92,11 @@ if(testing){
   res = list(measure.memory = TRUE)
 
   # Submit jobs using the currently configured cluster functions
-  #submitJobs(ids, resources = res, reg = reg)
+  submitJobs(ids, resources = res, reg = reg)
 
-  submitJobs(resources = list(walltime = 432000, memory = 10240), reg = reg)
+  submitJobs(resources = list(walltime = "12:00:00", memory = "10GB"), reg = reg)
   waitForJobs(ids, reg = tmp)
   getStatus(reg = tmp)
+  getErrorMessages(ids, missing.as.error = TRUE, reg = tmp)
   print(getJobTable())
  }
