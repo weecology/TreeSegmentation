@@ -22,11 +22,12 @@
 <%
 # relative paths are not handled well by Slurm
 log.file = fs::path_expand(log.file)
--%>
 
 if (!"ncpus" %in% names(resources)) {
   resources$ncpus = 1
 }
+-%>
+
 
 
   # Job name and who to send updates to

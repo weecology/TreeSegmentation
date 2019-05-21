@@ -1,7 +1,7 @@
 library(batchtools)
 
 #Batchtools tmp registry
-reg = makeRegistry(file.dir = NA, seed = 1)
+reg = makeRegistry(file.dir = NA, seed = 1,  work.dir="/home/b.weinstein/logs/")
 print(reg)
 print("registry created")
 
