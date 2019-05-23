@@ -4,7 +4,7 @@ library(batchtools)
 
 #metadata
 testing=F
-site="TEAK"
+site="NIWO"
 basedir = "/orange/ewhite/NeonData/"
 year = "2018"
 
