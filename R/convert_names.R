@@ -10,7 +10,7 @@
 convert_names<-function(from,to,lidar=NULL,rgb=NULL,hyperspectral=NULL,site='OSBS'){
 
   #domain lookup
-  dlookup<-data.frame(site=c("OSBS","SJER","GRSM","HARV","TEAK"),domain=c("D03","D17","D07","D01","D17"))
+  dlookup<-data.frame(site=c("OSBS","SJER","GRSM","HARV","TEAK","NIWO"),domain=c("D03","D17","D07","D01","D17","D13"))
   if(from=="rgb" & to=="lidar"){
     #Get corresponding lidar tile
     geo_index<-stringr::str_match(rgb,"_(\\d+_\\d+)_image")[,2]
