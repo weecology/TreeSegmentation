@@ -52,7 +52,7 @@ if(testing){
   print(reg)
 
   # Set resources: enable memory measurement
-  res = list(measure.memory = TRUE,walltime = "12:00:00", memory = "12GB")
+  res = list(measure.memory = TRUE,walltime = "12:00:00", memory = "10GB")
 
   # Submit jobs using the currently configured cluster functions
   submitJobs(ids, resources = res, reg = reg)
