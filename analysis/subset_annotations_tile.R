@@ -1,20 +1,22 @@
 library(raster)
-
+library(lidR)
 #crop out a piece of tile to annotate
 
-r<-stack("/Users/ben/Dropbox/Weecology/NEON/Orthophotos/2018 4/FullSite/D17/2018_TEAK_3/L3/Camera/Mosaic/V01/2018_TEAK_3_315000_4094000_image.tif")
+r<-stack("/Users/Ben/Documents/DeepLidar/data/NIWO/training/2018_NIWO_2_450000_4426000_image.tif")
+tile<-readLAS("/Users/Ben/Documents/DeepLidar/data/NIWO/training/NEON_D13_NIWO_DP1_450000_4426000_classified_point_cloud.laz")
 
-xy<-sampleRandom(r,1,xy=T)
+e <- drawExtent()
 
-e<-extent(SpatialPoints(xy))
 plotRGB(r)
 plot(e,add=T,col="red")
 
 f<-e
-f@xmin<-e@xmin - 40*15
-f@ymax<- e@ymax + 40*15
+#f@xmin<-e@xmin - 40*15
+#f@ymax<- e@ymax + 40*15
 plot(f,add=T,col="red")
 
 rcrop<-crop(r,f)
 
-writeRaster(rcrop,"/Users/Ben/Documents/DeepForest/data/TEAK/2018_TEAK_3_315000_4094000_image_crop.tif",datatype='INT1U',overwrite=T)
+writeRaster(rcrop,"/Users/Ben/Documents/DeepLidar/data/NIWO/training/2018_NIWO_2_450000_4426000_image_crop.tif",datatype='INT1U',overwrite=T)
+las_crop<-lasclip(tile,f)
+writeLAS(las_crop,"/Users/Ben/Documents/DeepLidar/data/NIWO/training/NEON_D13_NIWO_DP1_450000_4426000_classified_point_cloud_crop.laz")

@@ -35,7 +35,8 @@ evaluateNeon<-function(trees,plotID,algorithm="silva",path_to_tiles=NULL,extra=F
   tiles<-list()
   if("silva" %in% algorithm){
     print("Silva")
-    silva<-run_silva2016(path = inpath, epsg_numeric = epsg_numeric)
+    silva<-try(run_silva2016(path = inpath, epsg_numeric = epsg_numeric))
+    if (length(silva) == 1){return(NULL)}
     predictions$silva<-silva$convex
     tiles$silva<-silva$tile
   }
