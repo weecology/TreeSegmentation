@@ -46,6 +46,10 @@ convert_names<-function(from,to,lidar=NULL,rgb=NULL,hyperspectral=NULL,site='OSB
       geo_index<-stringr::str_match(lidar,"_(\\d+_\\d+)_classified_point_cloud")[,2]
       fn<-paste("2018_NIWO_2_",geo_index,"_image.tif",sep="")
     }
+    if(site=="MLBS"){
+      geo_index<-stringr::str_match(lidar,"_(\\d+_\\d+)_classified_point_cloud")[,2]
+      fn<-paste("2018_MLBS_3_",geo_index,"_image.tif",sep="")
+    }
     return(fn)
   }
 
