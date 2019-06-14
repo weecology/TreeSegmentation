@@ -4,7 +4,7 @@ library(batchtools)
 
 #metadata
 testing=F
-site="NIWO"
+site="MLBS"
 basedir = "/orange/ewhite/NeonData/"
 year = "2018"
 
@@ -13,7 +13,7 @@ clearRegistry()
 print("registry created")
 
 #Define optimal parameters
-silva_params<-data.frame(Site=c("SJER","TEAK","NIWO"),max_cr_factor=c(0.9,0.2,0.2),exclusion=c(0.3,0.5,0.5))
+silva_params<-data.frame(Site=c("SJER","TEAK","NIWO","MLBS"),max_cr_factor=c(0.9,0.2,0.2,0.9),exclusion=c(0.3,0.5,0.5,0.3))
 site_params<-silva_params[silva_params$Site == site,]
 
 #Quick debug option
@@ -23,11 +23,11 @@ if(testing){
  } else {
 
   #Lidar dir
-  lidar_dir<-paste(basedir,site,"/DP1.30003.001/2018/FullSite/D13/2018_",site,"_2/L1/DiscreteLidar/ClassifiedPointCloud",sep="")
+  lidar_dir<-paste(basedir,site,"/DP1.30003.001/2018/FullSite/D07/2018_",site,"_3/L1/DiscreteLidar/ClassifiedPointCloud",sep="")
   lidar_files<-list.files(lidar_dir,full.names = T,pattern=".laz")
   #lidar_files<-lidar_files[!str_detect(lidar_files,"colorized")]
 
-  rgb_dir<-paste(basedir,site,"/DP3.30010.001/2018/FullSite/D13/2018_",site,"_2/L3/Camera/Mosaic/V01/",sep="")
+  rgb_dir<-paste(basedir,site,"/DP3.30010.001/2018/FullSite/D07/2018_",site,"_3/L3/Camera/Mosaic/V01/",sep="")
 
   #batchtools submission
   reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
