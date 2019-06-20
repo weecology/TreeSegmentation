@@ -44,7 +44,7 @@ get_convex_hulls<-function(tile,ID){
   IDs <- sapply(slot(convex_polygons, "polygons"), function(x) slot(x, "ID"))
   df <- data.frame(ID=1:length(IDs), row.names=IDs)
   result<-sp::SpatialPolygonsDataFrame(convex_polygons,df)
-  sp::proj4string(result)<-projection(tile)
+  sp::proj4string(result)<-raster::projection(tile)
 
   return(result)
 }

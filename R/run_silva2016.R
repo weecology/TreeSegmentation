@@ -11,16 +11,15 @@ run_silva2016<-function(path=NULL,tile=NULL,output=c("all"),epsg_numeric, max_cr
 
   if(is.null(tile)){
     tile = lidR::readLAS(path)
-    epsg(tile)<-epsg_numeric
+    lidR::epsg(tile)<-epsg_numeric
   }
 
   #Read in tile
   #Compute ground model
   tile<-ground_model(tile,ground=F)
 
-
   #3. canopy model
-  chm=canopy_model(tile,res=0.5)
+  chm<-canopy_model(tile,res=0.5)
 
   #Compute unsupervised classification method
   result<-segment_trees(las=tile,algorithm = "silva2016",chm=chm, max_cr_factor=max_cr_factor, exclusion=exclusion)

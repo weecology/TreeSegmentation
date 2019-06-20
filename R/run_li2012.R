@@ -19,7 +19,7 @@ run_li2012<-function(path=NULL,tile=NULL,output="all",epsg_numeric){
 
   if(is.null(tile)){
     tile = lidR::readLAS(path)
-    epsg(tile)<-epsg_numeric
+    lidR::epsg(tile)<-epsg_numeric
   }
 
   #Read in tile

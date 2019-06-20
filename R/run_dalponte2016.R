@@ -11,7 +11,7 @@ run_dalponte2016<-function(path=NULL,tile=NULL,output="all",epsg_numeric){
 
   if(is.null(tile)){
     tile = lidR::readLAS(path, filter = "-drop_z_below 0")
-    epsg(tile)<-epsg_numeric
+    lidR::epsg(tile)<-epsg_numeric
   }
 
   #Read in tile

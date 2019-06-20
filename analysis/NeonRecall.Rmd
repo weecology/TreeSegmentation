@@ -30,7 +30,7 @@ opts_chunk$set(warning=F,message=F)
 #set color ramp for treeID
 col = pastel.colors(200)
 
-site="NIWO"
+site=""
 
 #set data paths
 path_to_tiles=paste("../data/NeonTreeEvaluation/",site,"/plots/",sep="")
