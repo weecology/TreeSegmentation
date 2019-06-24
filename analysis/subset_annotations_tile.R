@@ -23,7 +23,7 @@ writeLAS(las_crop,"/Users/Ben/Documents/DeepLidar/data/MLBS/training/NEON_D07_ML
 
 library(lidR)
 library(TreeSegmentation)
-r<-readLAS("/USers/ben/Documents/DeepLidar/data/MLBS/training/NEON_D07_MLBS_DP1_541000_4140000_classified_point_cloud_crop2.laz")
+r<-readLAS("/USers/ben/Documents/DeepLidar/data/MLBS/training/NEON_D07_MLBS_DP1_541000_4140000_classified_point_cloud_crop.laz")
 r<-ground_model(r)
 r<-lasfilter(r,Z<25)
 chm<-canopy_model(r)
@@ -31,4 +31,4 @@ plot(chm)
 #normalize to 0-255
 stretched<-calc(chm,function(x) x/max(chm[],na.rm=T) * 255)
 plot(stretched)
-writeRaster(stretched,"/Users/ben/Documents/DeepLidar/data/MLBS/training/2018_MLBS_3_541000_4140000_image_crop_depth2.tif",datatype='INT1U',overwrite=T)
+writeRaster(stretched,"/Users/ben/Documents/DeepLidar/data/MLBS/training/2018_MLBS_3_541000_4140000_image_crop2_depth.tif",datatype='INT1U',overwrite=T)
