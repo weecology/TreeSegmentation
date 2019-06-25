@@ -8,6 +8,8 @@ library(dplyr)
 reg = loadRegistry(file.dir = "/home/b.weinstein/logs/batchtools/",writeable=TRUE)
 clearRegistry()
 print("registry created")
+reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
+
 
 process_site<-function(site){
   fold<-paste("/orange/ewhite/NeonData/",site,sep="")
