@@ -5,7 +5,7 @@
 #SBATCH --account=ewhite
 #SBATCH --qos=ewhite-b
 #SBATCH --ntasks=1                 # Number of MPI ranks
-#SBATCH --cpus-per-task=10            # Number of cores per MPI rank
+#SBATCH --cpus-per-task=1            # Number of cores per MPI rank
 #SBATCH --mem-per-cpu=5GB
 #SBATCH --time=72:00:00       #Time limit hrs:min:sec
 #SBATCH --output=/home/b.weinstein/logs/download_BART.out   # Standard output and error log
@@ -13,4 +13,4 @@
 
 #This is a generic R submission script
 module load gcc/6.3.0 R gdal/2.2.1
-Rscript ParallelDownload.R
+Rscript Process_NEON_Plots.R

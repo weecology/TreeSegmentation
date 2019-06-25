@@ -12,6 +12,7 @@
     dat<-read.csv("../data/Terrestrial/field_data.csv")
     site<-dat[dat$siteID %in% siteID,]
     site_plots<-plots[plots$plotID %in% site$plotID,]
+
     #Only baseplots
     site_plots<-site_plots[site_plots$subtype=="basePlot",]
 
