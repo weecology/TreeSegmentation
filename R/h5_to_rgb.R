@@ -10,14 +10,15 @@
 h5_to_rgb<-function(file_path,write=F,outpath=NULL,bands=list(58,34,19)){
 
   #r get spatial info and map info using the  h5readAttributes function
-  #spInfo <- rhdf5::h5readAttributes(file_path,"coordinate system string")
+
   #define coordinate reference system
   #myCrs <- spInfo$projdef
   #define the resolution
   #res <- spInfo$xscale
+  f <- hdf5r::H5File$new(file_path, mode = "r")
+  site<-names(f)
+  mapInfo<-f[[site]][["Reflectance"]][["Metadata"]][["Coordinate_System"]][["Map_Info"]]$read()
 
-  #Populate the raster image extent value.
-  mapInfo<-rhdf5::h5read(file_path,"map info")
   #the map info string contains the lower left hand coordinates of our raster
   #let's grab those next
   # split out the individual components of the mapinfo string

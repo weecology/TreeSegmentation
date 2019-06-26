@@ -1,6 +1,6 @@
 # Read a .h5 tile and convert a band to a raster object
 #'
-#' \code{band2Raster} computes an lidar-based segmentation, based on multiple available methods, and splits the results into individual las files for each predicted tree. It then writes the resulting files in h5 format for machine learning input
+#' \code{band2Raster}
 #' @param file: the hdf file
 #' @param band: the band you want to process
 #' @return returns: a matrix containing the reflectance data for the specific band
@@ -9,6 +9,7 @@
 band2Raster <- function(file, band, noDataValue, xMin, yMin, res, crs){
   #first read in the raster
   out<- h5read(file,"Reflectance",index=list(1:nCols,1:nRows,band))
+
   #Convert from array to matrix
   out <- (out[,,1])
   #transpose data to fix flipped row and column order
