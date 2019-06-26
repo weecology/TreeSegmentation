@@ -12,7 +12,7 @@ reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.t
 
 process_site<-function(site, year="2018"){
   fold<-paste("/orange/ewhite/NeonData/",site,sep="")
-  crop_hyperspectral_plots(site,year)
+  TreeSegmentation::crop_hyperspectral_plots(site,year)
 }
 
 #sites<-c("ARIK","BARR","BART","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
