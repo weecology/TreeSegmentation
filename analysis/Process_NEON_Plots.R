@@ -12,10 +12,12 @@ reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.t
 
 
 process_site<-function(site){
+  #Ugly requirement structure from inline data
+  library(neonUtilities)
   fold<-paste("/orange/ewhite/NeonData/",site,sep="")
   #byPointsAOP(dpID="DP3.30010.001",site=site,year="2018",check.size=F, savepath=fold)
   #byPointsAOP(dpID="DP1.30003.001",site=site,year="2018",check.size=F, savepath=fold)
-  neonUtilities::byPointsAOP(dpID="DP3.30006.001",site=site,year="2018",check.size=F, savepath=fold)
+  byPointsAOP(dpID="DP3.30006.001",site=site,year="2018",check.size=F, savepath=fold)
 
   ##Cut Tiles
   #crop_rgb_plots(sites[x])
