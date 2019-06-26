@@ -10,16 +10,9 @@ clearRegistry()
 print("registry created")
 reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
 
-
-process_site<-function(site){
+process_site<-function(site, year="2018"){
   fold<-paste("/orange/ewhite/NeonData/",site,sep="")
-  byPointsAOP(dpID="DP3.30010.001",site=site,year="2018",check.size=F, savepath=fold)
-  byPointsAOP(dpID="DP1.30003.001",site=site,year="2018",check.size=F, savepath=fold)
-  neonUtilities::byPointsAOP(dpID="DP3.30006.001",site=site,year="2018",check.size=F, savepath=fold)
-
-  ##Cut Tiles
-  crop_rgb_plots(site)
-  crop_lidar_plots(site)
+  crop_hyperspectral_plots(site,year)
 }
 
 #sites<-c("ARIK","BARR","BART","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
@@ -30,7 +23,7 @@ ids = batchMap(fun = process_site,
                site=sites)
 
 #Run in chunks of 20
-ids[, chunk := chunk(job.id, chunk.size = 20)]
+ids[, chunk := chunk(job.id, chunk.size = 2)]
 
 # Set resources: enable memory measurement
 res = list(measure.memory = TRUE,walltime = "12:00:00", memory = "5GB")

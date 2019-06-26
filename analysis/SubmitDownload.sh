@@ -12,5 +12,9 @@
 #SBATCH --error=/home/b.weinstein/logs/download_plots.err
 
 #This is a generic R submission script
-module load gcc/6.3.0 R gdal/2.2.1
+module load R gcc gdal
 Rscript Process_NEON_Plots.R
+
+#Ugly dependency on gdal versions, best to be invoked seperately.
+module unload module unload python3-core/3.6.5
+Rscript Process_Hyperspectral_Plots
