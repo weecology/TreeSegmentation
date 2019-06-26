@@ -1,0 +1,7 @@
+library(raster)
+s<-stack("/Users/ben/Documents/NeonTreeEvaluation/MLBS/training/2018_MLBS_3_541000_4140000_image_crop_false_color.tif")
+nlayers(s)
+plotRGB(s,stretch="lin")
+stretched<-stretch(s,minq=0.02,maxq=0.98)
+plotRGB(stretched)
+writeRaster(stretched,"/Users/ben/Documents/DeepLidar/data/MLBS/training/2018_MLBS_3_541000_4140000_image_crop_false_color.tif",datatype='INT1U',overwrite=T)

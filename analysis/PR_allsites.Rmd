@@ -1,0 +1,44 @@
+---
+title: "Geographic Generalization"
+author: "Ben Weinstein"
+date: "6/20/2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r,echo=FALSE}
+library(TreeSegmentation)
+library(reshape2)
+library(dplyr)
+library(ggplot2)
+```
+
+```{r,message=FALSE,warning=FALSE}
+sites<-c("MLBS","TEAK","NIWO","SJER")
+results<-list()
+for(site in sites){
+  site_result<-list()
+  for(algorithm in c("Silva","Dalponte","Li")){
+    site_result[[algorithm]]<-compute_PR_site(site,algorithm)
+  }
+  results[[site]]<-site_result
+}
+dat<-melt(results)
+head(dat)
+```
+
+```{r}
+dat<-dat %>% dplyr::select(-L2,-L1)
+colnames(dat)<-c("site","algorithm","variable","value")
+dat<-dcast(dat,site + algorithm ~ variable)
+
+#rename sites
+levels(dat$site)<-c("Eastern Decidious","Mixed Pine","Alpine","Oak Woodland")
+
+ggplot(dat,aes(x=recall,y=precision,col=algorithm)) + geom_point(size=4) + facet_wrap(~site) + xlim(0,0.55) + ylim(0,0.55) + theme_bw() + labs(col="Algorithm")
+write.csv(dat,"/Users/Ben/Dropbox/Weecology/Generalization/lidR.csv")
+ggsave(dat,"/Users/Ben/Dropbox/Weecology/Generalization/Figures/lidR.png")
+ggsave("/Users/Ben/Dropbox/Weecology/Generalization/Figures/lidR.svg")
+```
+
