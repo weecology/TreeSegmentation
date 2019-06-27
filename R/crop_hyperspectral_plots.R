@@ -37,10 +37,11 @@ crop_hyperspectral_plots<-function(siteID="SJER",year="2018"){
       dir.create(save_dir,recursive=T)
     }
 
+    #TODO This needs to be fault tolerant and the its not respecting false_color
     #Clip in python!
     reticulate::use_condaenv("NEON",required=TRUE)
     reticulate::source_python("generate_h5_raster.py")
-    status <- run(rgb_filename=rgb_filename,h5_path=h5_path,save_dir=save_dir)
+    status <- try(run(rgb_filename=rgb_filename,h5_path=h5_path,save_dir=save_dir,bands="false_color"))
   }
 }
 

@@ -22,8 +22,8 @@ sites<-c("TEAK","SJER","MLBS","NIWO")
 ids = batchMap(fun = process_site,
                site=sites)
 
-#Run in chunks of 20
-ids[, chunk := chunk(job.id, chunk.size = 2)]
+#Run in chunks of 4
+ids[, chunk := chunk(job.id, chunk.size = 4)]
 
 # Set resources: enable memory measurement
 res = list(measure.memory = TRUE,walltime = "12:00:00", memory = "5GB")
