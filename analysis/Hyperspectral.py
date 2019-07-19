@@ -169,7 +169,7 @@ def create_raster(subInd, rgb,refl):
     return hcp
 
 
-def generate_raster(h5_path, save_dir, rgb_filename = None, bands="All"):
+def generate_raster(h5_path, save_dir, rgb_filename = None, bands="false_color"):
     """
     h5_path: input path to h5 file on disk
     bounds: Optional clipping boundary
@@ -197,11 +197,11 @@ def generate_raster(h5_path, save_dir, rgb_filename = None, bands="All"):
         rgb = np.delete(rgb, np.r_[419:425])
         rgb = np.delete(rgb, np.r_[283:315])
         rgb = np.delete(rgb, np.r_[192:210])
-    elif bands == "false_color":
+    
+    if bands == "false_color":
         rgb = [16, 54,112]
-    else:
-        raise ValueError('band selection must be either "All" or "false_color"')
-        
+
+    print(rgb)
     #print(itc_id, itc_xmin, itc_xmax, itc_ymin, itc_ymax, epsg)
     xmin, xmax, ymin, ymax = metadata['extent']
     

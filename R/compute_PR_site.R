@@ -1,10 +1,11 @@
 #' Site wrapper for calculating recall and precision from IoU overlap for a NEON site.
 #' @param lidar_file Character. Path to lidar .laz on disk
 #' @param algorithm Character. "Silva","Li", "Dalponte", see lidr::lastrees
+#' @param Bounding Box Character. Whether to return the convex hulls or bounding box of predicted clouds
 #' @return a dataframe of objects for all plots in a site
 #' @export
 #'
-compute_PR_site<-function(site,algorithm="Silva",threshold=0.5,plot=FALSE,save=FALSE){
+compute_PR_site<-function(site,algorithm="Silva",threshold=0.5,plot=FALSE,save=FALSE,bounding_box=FALSE){
 
   #Find ground truth
   ground_annotations <- parse_xml(site)
@@ -15,7 +16,7 @@ compute_PR_site<-function(site,algorithm="Silva",threshold=0.5,plot=FALSE,save=F
     #Find lidar file
     lidar_file<-paste("../data/NeonTreeEvaluation/",site,"/plots/",stringr::str_match(plot_name,"(\\w+).tif")[,2],".laz",sep="")
     plot_data = ground_annotations %>% filter(filename == plot_name)
-    PR_list[[plot_name]]<-computePR(lidar_file,plot_data, algorithm = algorithm)
+    PR_list[[plot_name]]<-computePR(lidar_file,plot_data, algorithm = algorithm, bounding_box=bounding_box)
   }
 
   maPdf<-dplyr::bind_rows(PR_list)

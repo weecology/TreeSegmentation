@@ -6,7 +6,7 @@
 #' @return A dataframe of matched objects
 #' @export
 #'
-computePR<-function(lidar_file,plot_data,algorithm="Silva",threshold=0.5,plot=FALSE,save=FALSE){
+computePR<-function(lidar_file,plot_data,algorithm="Silva",threshold=0.5,plot=TRUE,save=FALSE,bounding_box=FALSE){
 
   ######### Hard coded epsg and other params ######
   epsg_df<-data.frame(site=c("SJER","TEAK","NIWO","MLBS"),epsg=c("32611","32611","32613","32618"))
@@ -56,7 +56,12 @@ computePR<-function(lidar_file,plot_data,algorithm="Silva",threshold=0.5,plot=FA
   sp::proj4string(ground_truth)<-raster::projection(results$tile)
 
   #predictions
-  predictions<-lidR::tree_hulls(results$tile)
+  if(bounding_box){
+    predictions<-lidR::tree_hulls(results$tile,type="bbox")
+  } else{
+    predictions<-lidR::tree_hulls(results$tile)
+  }
+
 
   #match names
   predictions$ID<-1:nrow(predictions)

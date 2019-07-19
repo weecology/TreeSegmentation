@@ -12,6 +12,7 @@ library(TreeSegmentation)
 library(reshape2)
 library(dplyr)
 library(ggplot2)
+setwd("/Users/Ben/Documents/TreeSegmentation/analysis")
 ```
 
 ```{r,message=FALSE,warning=FALSE}
@@ -20,7 +21,7 @@ results<-list()
 for(site in sites){
   site_result<-list()
   for(algorithm in c("Silva","Dalponte","Li")){
-    site_result[[algorithm]]<-compute_PR_site(site,algorithm)
+    site_result[[algorithm]]<-compute_PR_site(site,algorithm,bounding_box=TRUE)
   }
   results[[site]]<-site_result
 }
