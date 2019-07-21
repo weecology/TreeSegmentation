@@ -16,14 +16,20 @@ crop_lidar_plots<-function(siteID="TEAK",year="2018"){
   #Only baseplots
   site_plots<-site_plots[site_plots$subtype=="basePlot",]
 
+  #get domain
   #if no rows
   if(nrow(site_plots)==0){
     print("No site plots with given name")
     return(NULL)
   }
 
-  #get lists of rasters
-  inpath<-paste("/orange/ewhite/NeonData/",siteID,"/DP1.30003.001/2018/FullSite/D17/2018_",siteID, "_3/L1/DiscreteLidar/ClassifiedPointCloud/",sep="")
+  #get lists of lidar tiles
+  domainID<-unique(site_plots$domainID)
+
+  #Generic path
+  generic_path <- paste("/orange/ewhite/NeonData/",siteID,"/DP1.30003.001/",year,"/FullSite/",domainID,"/",year,"_",siteID, "_*/L1/DiscreteLidar/ClassifiedPointCloud/",sep="")
+  inpath<-Sys.glob(generic_path)
+
   fils<-list.files(inpath,full.names = T,pattern=".laz",recursive = T)
   filname<-list.files(inpath,pattern=".tif",recursive = T)
 
@@ -38,7 +44,7 @@ crop_lidar_plots<-function(siteID="TEAK",year="2018"){
   path_to_tiles<-dirname(fils[1])
 
   #grab the first cloud for crs
-    r<-lidR::readLAS(fils[1])
+  r<-lidR::readLAS(fils[1])
 
   #Project
   site_plots<-sf::st_transform(site_plots,crs=raster::projection(r))
@@ -47,7 +53,7 @@ crop_lidar_plots<-function(siteID="TEAK",year="2018"){
   ctg<-lidR::catalog(path_to_tiles)
 
   #Create directory if needed
-  fold<-paste("/orange/ewhite/b.weinstein/NEON/",siteID,year,"/NEONPlots/Lidar/",sep="")
+  fold<-paste("/orange/ewhite/b.weinstein/NEON/",siteID,"/",year,"/NEONPlots/Lidar/",sep="")
   if(!dir.exists(fold)){
     dir.create(fold,recursive = T)
   }
