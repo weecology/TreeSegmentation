@@ -18,8 +18,8 @@ process_site<-function(site){
   neonUtilities::byPointsAOP(dpID="DP3.30006.001",site=site,year=year,check.size=F, savepath=fold)
 
   ##Cut Tiles
-  crop_rgb_plots(sit,year=year)
-  crop_lidar_plots(site,year=year)
+  TreeSegmentation::crop_rgb_plots(sit,year=year)
+  TreeSegmentation::crop_lidar_plots(site,year=year)
 }
 
 #sites<-c("ARIK","BARR","BART","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
