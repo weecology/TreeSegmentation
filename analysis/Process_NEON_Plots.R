@@ -11,20 +11,21 @@ print("registry created")
 reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
 
 process_site<-function(site){
+  year="2019"
   fold<-paste("/orange/ewhite/NeonData/",site,sep="")
-  neonUtilities::byPointsAOP(dpID="DP3.30010.001",site=site,year="2019",check.size=F, savepath=fold)
-  neonUtilities::byPointsAOP(dpID="DP1.30003.001",site=site,year="2019",check.size=F, savepath=fold)
-  neonUtilities::byPointsAOP(dpID="DP3.30006.001",site=site,year="2019",check.size=F, savepath=fold)
+  neonUtilities::byPointsAOP(dpID="DP3.30010.001",site=site,year=year,check.size=F, savepath=fold)
+  neonUtilities::byPointsAOP(dpID="DP1.30003.001",site=site,year=year,check.size=F, savepath=fold)
+  neonUtilities::byPointsAOP(dpID="DP3.30006.001",site=site,year=year,check.size=F, savepath=fold)
 
   ##Cut Tiles
-  crop_rgb_plots(site)
-  crop_lidar_plots(site)
+  crop_rgb_plots(sit,year=year)
+  crop_lidar_plots(site,year=year)
 }
 
 #sites<-c("ARIK","BARR","BART","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
 #"GUIL","HARV","HEAL","HOPB","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP","OAES","OSBS","PRIN","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF")
 
-sites<-c("MLBS","TALL")
+sites<-c("MLBS","TALL","SJER")
 ids = batchMap(fun = process_site,
                site=sites)
 
