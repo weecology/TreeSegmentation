@@ -18,7 +18,7 @@ process_site<-function(site){
   neonUtilities::byPointsAOP(dpID="DP3.30006.001",site=site,year=year,check.size=F, savepath=fold)
 
   ##Cut Tiles
-  TreeSegmentation::crop_rgb_plots(sit,year=year)
+  TreeSegmentation::crop_rgb_plots(site,year=year)
   TreeSegmentation::crop_lidar_plots(site,year=year)
 }
 
