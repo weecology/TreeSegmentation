@@ -7,7 +7,7 @@ library(neonUtilities)
 #TO DO, make %dopar% available without load
 library(foreach)
 
-sites=c("WREF","YELL")
+sites=c("WREF")
 
 for(site in sites){
   print(site)
