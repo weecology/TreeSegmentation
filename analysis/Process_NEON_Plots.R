@@ -11,7 +11,7 @@ print("registry created")
 reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
 
 process_site<-function(site){
-  year="2019"
+  year="2018"
   fold<-paste("/orange/ewhite/NeonData/",site,sep="")
   neonUtilities::byPointsAOP(dpID="DP3.30010.001",site=site,year=year,check.size=F, savepath=fold)
   neonUtilities::byPointsAOP(dpID="DP1.30003.001",site=site,year=year,check.size=F, savepath=fold)
@@ -22,10 +22,10 @@ process_site<-function(site){
   TreeSegmentation::crop_lidar_plots(site,year=year)
 }
 
-sites<-c("ARIK","BARR","BART","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
-"GUIL","HARV","HEAL","HOPB","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP","OAES","OSBS","PRIN","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF")
+#sites<-c("ABBY","ARIK","BARR","BART","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
+#"GUIL","HARV","HEAL","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP","OAES","OSBS","PRIN","PUUM","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF","YELL")
 
-#sites<-c("MLBS","TALL","SJER")
+sites<-c("YELL","ABBY")
 ids = batchMap(fun = process_site,
                site=sites)
 
