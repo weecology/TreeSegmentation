@@ -7,11 +7,14 @@ library(neonUtilities)
 #TO DO, make %dopar% available without load
 library(foreach)
 
-site="NIWO"
+site="BART"
 
 fold<-paste("/orange/ewhite/NeonData/",site=site,sep="")
 #RGB
-ParallelFileAOP(dpID = "DP3.30010.001",site = site,year="2018",check.size=F, savepath=fold,cores=10)
+ParallelFileAOP(dpID = "DP3.30010.001",site = site,year="2018",check.size=F, savepath=fold,cores=5)
 
 #LIDAR
-ParallelFileAOP(dpID = "DP1.30003.001",site = site,year="2018",check.size=F, savepath=fold,cores=10)
+ParallelFileAOP(dpID = "DP1.30003.001",site = site,year="2018",check.size=F, savepath=fold,cores=5)
+
+#Hyperspec
+ParallelFileAOP(dpID = "DP3.30006.001",site = site,year="2018",check.size=F, savepath=fold,cores=5)
