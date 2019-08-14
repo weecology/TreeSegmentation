@@ -15,7 +15,7 @@ def h5refl2array(refl_filename, epsg):
     try:
         hdf5_file = h5py.File(refl_filename, 'r')
     except Exception as e:
-        raise("Error occurred when reading filename {}: {}".format(refl_filename,e))
+        raise IOError("Error occurred when reading filename {}: {}".format(refl_filename,e))
     
     file_attrs_string = str(list(hdf5_file.items()))
     file_attrs_string_split = file_attrs_string.split("'")
