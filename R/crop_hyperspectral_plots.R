@@ -5,7 +5,7 @@
 #' @importFrom magrittr "%>%"
 #' @export
 #'
-crop_hyperspectral_plots<-function(siteID="SJER",year="2018"){
+crop_hyperspectral_plots<-function(siteID="SJER",year="2018",false_color=TRUE){
 
   #Construct site dir and find plots
   rgb_fold<-paste("/orange/ewhite/b.weinstein/NEON",siteID,year,"NEONPlots/Camera/L3/",sep="/")
@@ -37,14 +37,21 @@ crop_hyperspectral_plots<-function(siteID="SJER",year="2018"){
       dir.create(save_dir,recursive=T)
     }
 
-    #TODO This needs to be fault tolerant and the its not respecting false_color
     #Clip in python!
     reticulate::use_condaenv("NEON",required=TRUE)
     reticulate::source_python("generate_h5_raster.py")
-    status <- try(run(rgb_filename=rgb_filename,
-                      h5_path=h5_path,
-                      save_dir=save_dir,
-                      bands="false_color"))
+    if(false_color){
+      status <- try(run(rgb_filename=rgb_filename,
+                        h5_path=h5_path,
+                        save_dir=save_dir,
+                        bands="false_color"))
+    } else{
+      status <- try(run(rgb_filename=rgb_filename,
+                        h5_path=h5_path,
+                        save_dir=save_dir,
+                        bands="false_color"))
+    }
+
   }
 }
 

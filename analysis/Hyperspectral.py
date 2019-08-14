@@ -168,7 +168,6 @@ def create_raster(subInd, rgb,refl):
     
     return hcp
 
-
 def generate_raster(h5_path, save_dir, rgb_filename = None, bands="false_color"):
     """
     h5_path: input path to h5 file on disk
@@ -228,7 +227,10 @@ def generate_raster(h5_path, save_dir, rgb_filename = None, bands="false_color")
     sub_meta = metadata
     
     #Create new filepath
-    tilename = os.path.splitext(os.path.basename(rgb_filename))[0] + "_false_color.tif"
+    if bands == "false_color":
+        tilename = os.path.splitext(os.path.basename(rgb_filename))[0] + "_false_color.tif"
+    else:
+        tilename = os.path.splitext(os.path.basename(rgb_filename))[0]  + ".tif"        
 
     #Save georeference crop to file 
     array2raster(tilename, hyperspec_raster, sub_meta, clipExtent, save_dir)
