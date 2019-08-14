@@ -25,7 +25,7 @@ process_site<-function(site){
 #sites<-c("ABBY","ARIK","BARR","BART","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
 #"GUIL","HARV","HEAL","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP","OAES","OSBS","PRIN","PUUM","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF","YELL")
 
-sites<-c("YELL","ABBY")
+sites<-c("NIWO","SJER")
 ids = batchMap(fun = process_site,
                site=sites)
 
@@ -33,7 +33,7 @@ ids = batchMap(fun = process_site,
 ids[, chunk := chunk(job.id, chunk.size = 1)]
 
 # Set resources: enable memory measurement
-res = list(measure.memory = TRUE,walltime = "12:00:00", memory = "5GB")
+res = list(measure.memory = TRUE,walltime = "12:00:00", memory = "7GB")
 
 # Submit jobs using the currently configured cluster functions
 submitJobs(ids, resources = res, reg = reg)

@@ -12,7 +12,11 @@ def h5refl2array(refl_filename, epsg):
     Extract metadata from h5 object and reflectance values
     returns: metadata and a numpy array
     """
-    hdf5_file = h5py.File(refl_filename, 'r')
+    try:
+        hdf5_file = h5py.File(refl_filename, 'r')
+    except Exception as e:
+        raise("Error occurred when reading filename {}: {}".format(refl_filename,e))
+    
     file_attrs_string = str(list(hdf5_file.items()))
     file_attrs_string_split = file_attrs_string.split("'")
     sitename = file_attrs_string_split[1]
