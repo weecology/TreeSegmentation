@@ -15,10 +15,10 @@ process_site<-function(site, year="2018"){
   TreeSegmentation::crop_hyperspectral_plots(site,year)
 }
 
-#sites<-c("ARIK","BARR","BART","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
-#"GUIL","HARV","HEAL","HOPB","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP","OAES","OSBS","PRIN","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF")
+sites<-c("ABBY","ARIK","BARR","BART","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
+"GUIL","HARV","HEAL","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP",
+"OAES","OSBS","PRIN","PUUM","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF","YELL")
 
-sites<-c("TEAK")
 ids = batchMap(fun = process_site,
                site=sites)
 
@@ -34,4 +34,3 @@ waitForJobs(ids, reg = reg)
 getStatus(reg = reg)
 getErrorMessages(ids, missing.as.error = TRUE, reg = reg)
 print(getJobTable())
-
