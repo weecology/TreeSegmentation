@@ -5,7 +5,7 @@
 #' @importFrom magrittr "%>%"
 #' @export
 #'
-crop_hyperspectral_plots<-function(siteID="SJER",year="2018",false_color=TRUE){
+crop_hyperspectral_plots<-function(siteID="TEAK",year="2018",false_color=FALSE){
 
   #Construct site dir and find plots
   rgb_fold<-paste("/orange/ewhite/b.weinstein/NEON",siteID,year,"NEONPlots/Camera/L3/",sep="/")

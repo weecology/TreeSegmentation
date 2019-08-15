@@ -231,7 +231,7 @@ def generate_raster(h5_path, save_dir, rgb_filename = None, false_color=True):
     sub_meta = metadata
     
     #Create new filepath
-    if bands == "false_color":
+    if false_color:
         tilename = os.path.splitext(os.path.basename(rgb_filename))[0] + "_false_color.tif"
     else:
         tilename = os.path.splitext(os.path.basename(rgb_filename))[0]  + ".tif"        
