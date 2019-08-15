@@ -30,7 +30,7 @@ opts_chunk$set(warning=F,message=F)
 #set color ramp for treeID
 col = pastel.colors(200)
 
-site="MLBS"
+site="SJER"
 
 #set data paths
 path_to_tiles=paste("../data/NeonTreeEvaluation/",site,"/plots/",sep="")
@@ -62,11 +62,11 @@ sites<-sites %>% filter(!is.na(as.numeric(str_sub(individualID,-1))))
 trees<-sites  %>% filter(!is.na(UTM_E))
 
 #get tiles to evaluate, match with deep learning 
-rgb_tiles<-list.files(paste("/Users/Ben/Documents/DeepLidar/data/",site,"/plots/",sep=""))
+rgb_tiles<-list.files(paste("/Users/Ben/Documents/NeonTreeEvaluation/",site,"/plots/",sep=""))
 plotIDs<-str_match(rgb_tiles,"(\\w+_\\d+).tif")[,2]
 plotIDs<-plotIDs[!is.na(plotIDs)]
 
-epsg_df<-data.frame(site=c("SJER","TEAK","NIWO","MLBS"),epsg=c("32611","32611","32613","32618"))
+epsg_df<-data.frame(site=c("SJER","TEAK","NIWO","MLBS","DELA"),epsg=c("32611","32611","32613","32618","26916"))
 
 #set epsg
 epsg_numeric<-epsg_df[epsg_df$site %in% site,"epsg"]

@@ -40,17 +40,10 @@ crop_hyperspectral_plots<-function(siteID="SJER",year="2018",false_color=TRUE){
     #Clip in python!
     reticulate::use_condaenv("NEON",required=TRUE)
     reticulate::source_python("generate_h5_raster.py")
-    if(false_color){
-      status <- try(run(rgb_filename=rgb_filename,
-                        h5_path=h5_path,
-                        save_dir=save_dir,
-                        bands="false_color"))
-    } else{
-      status <- try(run(rgb_filename=rgb_filename,
-                        h5_path=h5_path,
-                        save_dir=save_dir,
-                        bands="All"))
-    }
+    status <- try(run(rgb_filename=rgb_filename,
+                      h5_path=h5_path,
+                      save_dir=save_dir,
+                      false_color=false_color))
 
   }
 }

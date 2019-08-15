@@ -172,7 +172,7 @@ def create_raster(subInd, rgb,refl):
     
     return hcp
 
-def generate_raster(h5_path, save_dir, rgb_filename = None, bands="false_color"):
+def generate_raster(h5_path, save_dir, rgb_filename = None, false_color=True):
     """
     h5_path: input path to h5 file on disk
     bounds: Optional clipping boundary
@@ -194,15 +194,15 @@ def generate_raster(h5_path, save_dir, rgb_filename = None, bands="false_color")
     metadata, refl = h5refl2array(h5_path, epsg = epsg)
     
     #Select nanometers RGB see NeonTreeEvaluation/utilities/neon_aop_bands.csv
-    if bands !="All":
+    
+    if false_color:
+        rgb = [16, 54,112]
+    else:
         #Delete water absorption bands
         rgb = np.r_[0:425]
         rgb = np.delete(rgb, np.r_[419:425])
         rgb = np.delete(rgb, np.r_[283:315])
-        rgb = np.delete(rgb, np.r_[192:210])
-    
-    if bands == "false_color":
-        rgb = [16, 54,112]
+        rgb = np.delete(rgb, np.r_[192:210])        
 
     print(rgb)
     #print(itc_id, itc_xmin, itc_xmax, itc_ymin, itc_ymax, epsg)
