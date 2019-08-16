@@ -197,7 +197,11 @@ def generate_raster(h5_path, save_dir, rgb_filename = None, false_color=True):
     
     if false_color:
         rgb = [16, 54,112]
+    else:
+        #Delete water absorption bands
+        rgb = np.r_[0:425]  
 
+    print(rgb)
     #print(itc_id, itc_xmin, itc_xmax, itc_ymin, itc_ymax, epsg)
     xmin, xmax, ymin, ymax = metadata['extent']
     
