@@ -197,14 +197,7 @@ def generate_raster(h5_path, save_dir, rgb_filename = None, false_color=True):
     
     if false_color:
         rgb = [16, 54,112]
-    else:
-        #Delete water absorption bands
-        rgb = np.r_[0:425]
-        rgb = np.delete(rgb, np.r_[419:425])
-        rgb = np.delete(rgb, np.r_[283:315])
-        rgb = np.delete(rgb, np.r_[192:210])        
 
-    print(rgb)
     #print(itc_id, itc_xmin, itc_xmax, itc_ymin, itc_ymax, epsg)
     xmin, xmax, ymin, ymax = metadata['extent']
     
@@ -234,7 +227,7 @@ def generate_raster(h5_path, save_dir, rgb_filename = None, false_color=True):
     if false_color:
         tilename = os.path.splitext(os.path.basename(rgb_filename))[0] + "_false_color.tif"
     else:
-        tilename = os.path.splitext(os.path.basename(rgb_filename))[0]  + ".tif"        
+        tilename = os.path.splitext(os.path.basename(rgb_filename))[0]  + "_hyperspectral.tif"        
 
     #Save georeference crop to file 
     array2raster(tilename, hyperspec_raster, sub_meta, clipExtent, save_dir)
