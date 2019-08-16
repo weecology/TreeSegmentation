@@ -16,5 +16,5 @@ module load R gcc gdal
 Rscript Process_NEON_Plots.R
 
 #Ugly dependency on gdal versions, best to be invoked seperately.
-#module unload module unload python3-core/3.6.5
-#Rscript Process_Hyperspectral_Plots.R
+module unload module unload python3-core/3.6.5
+Rscript Process_Hyperspectral_Plots.R
