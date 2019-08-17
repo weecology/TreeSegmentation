@@ -8,15 +8,15 @@ clearRegistry()
 print("registry created")
 reg$cluster.functions=makeClusterFunctionsSlurm(template = "crop_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
 
-process_site<-function(site="TEAK", year="2019",false_color=FALSE){
+process_site<-function(site="TEAK", year="2018",false_color=FALSE){
   TreeSegmentation::crop_hyperspectral_plots(site,year,false_color=false_color)
 }
 
-#sites<-c("ABBY","ARIK","BARR","BART","BLAN","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
-#"GUIL","HARV","HEAL","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP",
-#"OAES","OSBS","PRIN","PUUM","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF","YELL")
+sites<-c("ABBY","ARIK","BARR","BART","BLAN","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
+"GUIL","HARV","HEAL","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP",
+"OAES","OSBS","PRIN","PUUM","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF","YELL")
 
-sites<-c("BLAN","LENO","DELA","PUUM")
+#sites<-c("BLAN","LENO","DELA","PUUM")
 ids = batchMap(fun = process_site,
                site=sites)
 
