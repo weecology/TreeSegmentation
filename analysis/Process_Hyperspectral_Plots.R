@@ -6,7 +6,7 @@ library(dplyr)
 reg = loadRegistry(file.dir = "/home/b.weinstein/logs/batchtools/",writeable=TRUE)
 clearRegistry()
 print("registry created")
-reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
+reg$cluster.functions=makeClusterFunctionsSlurm(template = "crop_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
 
 process_site<-function(site="TEAK", year="2019",false_color=FALSE){
   TreeSegmentation::crop_hyperspectral_plots(site,year,false_color=false_color)
