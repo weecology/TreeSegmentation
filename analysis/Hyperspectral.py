@@ -108,6 +108,8 @@ def array2raster(newRaster, reflBandArray, reflArray_metadata, extent, ras_dir):
         "complex128": 11,
     }
 
+    pwd = os.getcwd()
+    os.chdir(ras_dir)
     cols = reflBandArray.shape[1]
     rows = reflBandArray.shape[0]
     bands = reflBandArray.shape[2]
@@ -118,8 +120,7 @@ def array2raster(newRaster, reflBandArray, reflArray_metadata, extent, ras_dir):
 
     driver = gdal.GetDriverByName('GTiff')
     gdaltype = NP2GDAL_CONVERSION[reflBandArray.dtype.name]
-    savepath=os.path.join(ras_dir,newRaster)
-    outRaster = driver.Create(savepath, cols, rows, bands, gdaltype)
+    outRaster = driver.Create(newRaster, cols, rows, bands, gdaltype)
     outRaster.SetGeoTransform((originX, pixelWidth, 0, originY, 0, pixelHeight))
     # outband = outRaster.GetRasterBand(1)
     # outband.WriteArray(reflBandArray[:,:,x])
@@ -131,6 +132,7 @@ def array2raster(newRaster, reflBandArray, reflArray_metadata, extent, ras_dir):
     #outRasterSRS.ImportFromEPSG(reflArray_metadata['epsg'])
     outRaster.SetProjection(outRasterSRS.ExportToWkt())
     outRaster.FlushCache()
+    os.chdir(pwd)
 
 def calc_clip_index(clipExtent, h5Extent, xscale=1, yscale=1):
     """Extract numpy index for the utm coordinates"""
@@ -197,7 +199,7 @@ def generate_raster(h5_path, save_dir, rgb_filename = None, false_color=True):
         rgb = [16, 54,112]
     else:
         #Delete water absorption bands
-        rgb = np.r_[0:]  
+        rgb = np.r_[0:426]  
 
     print(rgb)
     #print(itc_id, itc_xmin, itc_xmax, itc_ymin, itc_ymax, epsg)
