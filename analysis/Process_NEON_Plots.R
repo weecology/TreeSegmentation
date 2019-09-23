@@ -11,21 +11,21 @@ print("registry created")
 reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
 
 process_site<-function(site){
-  year="2018"
+  year="2019"
   fold<-paste("/orange/ewhite/NeonData/",site,sep="")
-  #neonUtilities::byPointsAOP(dpID="DP3.30010.001",site=site,year=year,check.size=F, savepath=fold)
-  #neonUtilities::byPointsAOP(dpID="DP1.30003.001",site=site,year=year,check.size=F, savepath=fold)
-  #neonUtilities::byPointsAOP(dpID="DP3.30006.001",site=site,year=year,check.size=F, savepath=fold)
+  neonUtilities::byPointsAOP(dpID="DP3.30010.001",site=site,year=year,check.size=F, savepath=fold)
+  neonUtilities::byPointsAOP(dpID="DP1.30003.001",site=site,year=year,check.size=F, savepath=fold)
+  neonUtilities::byPointsAOP(dpID="DP3.30006.001",site=site,year=year,check.size=F, savepath=fold)
 
   ##Cut Tiles
-  #TreeSegmentation::crop_rgb_plots(site,year=year)
+  TreeSegmentation::crop_rgb_plots(site,year=year)
   TreeSegmentation::crop_lidar_plots(site,year=year)
 }
 
-sites<-c("ABBY","ARIK","BARR","BART","BLAN","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
-"GUIL","HARV","HEAL","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP","OAES","OSBS","PRIN","PUUM","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF","YELL")
+#sites<-c("ABBY","ARIK","BARR","BART","BLAN","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
+#"GUIL","HARV","HEAL","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP","OAES","OSBS","PRIN","PUUM","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF","YELL")
 
-#sites<-c("DEJU")
+sites<-c("SOAP","SERC","REDB")
 ids = batchMap(fun = process_site,
                site=sites)
 
