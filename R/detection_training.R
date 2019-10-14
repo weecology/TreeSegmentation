@@ -3,14 +3,13 @@
 #' \code{detection training} is the pipeline for generating training data for a detection based nueral net (RCNN).
 #' @param path Character Location of the lidar tile to process.
 #' @param save_dir Where to save the boxes, a folder for the year will be added to relative to this base dir.
-#' @param site Four letter siteID code from NEON (e.g. SJER)
 #' @param silva_exclusion see lidR::lastrees
 #' @param silva_cr_factor see lidR::lastrees
 #' @return A .csv file is written to disk containing detections
 #' @export
 #'
 #'
-detection_training<-function(path,site,year,silva_cr_factor,silva_exclusion,save_dir="Results/detection_boxes/"){
+detection_training<-function(site,path,silva_cr_factor,silva_exclusion,save_dir="Results/detection_boxes/"){
   tile<-lidR::readLAS(path)
 
   #normalize

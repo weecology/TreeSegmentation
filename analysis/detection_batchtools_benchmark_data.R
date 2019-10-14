@@ -3,26 +3,11 @@ library(TreeSegmentation)
 library(batchtools)
 
 #Location of the training tiles
-base_dir = "/home/b.weinstein/logs/batchtools/NeonTreeEvaluation/training/"
+save_dir="/home/b.weinstein/NeonTreeEvaluation_analysis/Weinstein_unpublished/pretraining"
 log_dir = "/home/b.weinstein/logs/batchtools/"
 reg = loadRegistry(file.dir = log_dir,writeable=TRUE)
 clearRegistry()
 print("registry created")
-
-#Define testing function
-silva_benchmark<-function(site, silva_cr_factor,silva_exclusion){
-
-  #check if folder exists
-  save_dir="/home/b.weinstein/NeonTreeEvaluation_analysis/Weinstein_unpublished/pretraining"
-  results_path<-paste("Results/detection_boxes/benchmark/",site,"/",sep="")
-  if(!dir.exists(results_path)){
-    dir.create(results_path)
-  }
-
-  #Passed checks
-  print(paste(site,"Running"))
-  detection_training(site=site,silva_cr_factor=silva_cr_factor,silva_exclusion=silva_exclusion,save_dir = save_dir)
-}
 
 #batchtools submission
 reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
@@ -37,11 +22,18 @@ site_params<-site_df[site_df$Site == site,]
 silva_cr_factor<-site_params$max_cr_factor
 silva_exclusion<- site_params$exclusion
 
-ids = batchMap(fun = run_detection,
-               basedir=basedir,
-               site=site,
-               silva_cr_factor=silva_cr_factor,
-               silva_exclusion=silva_exclusion)
+tiles<-list.files("/orange/ewhite/b.weinstein/NeonTreeEvaluation",pattern=".laz")
+sites<-str_match(tiles,"NEON_\\w+_(\\w+)_DP1")[,2]
+tile_df<-data.frame(Site=sites,Tile=tiles)
+batch_df<-merge(site_df,tile_df)
+
+#find site index
+
+ids = batchMap(fun = detection_training_benchmark,
+               site=batch_df$Site,
+               path=batch_df$Tile,
+               silva_cr_factor=batch_df$max_cr_factor,
+               silva_exclusion=batch_df$exclusion)
 
 #Run in chunks of 10
 ids[, chunk := chunk(job.id, chunk.size = 2)]
