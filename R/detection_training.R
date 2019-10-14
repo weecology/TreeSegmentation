@@ -58,5 +58,5 @@ detection_training<-function(path,site,year,silva_cr_factor,silva_exclusion,save
   filepath<-paste(save_dir ,site,"/",year,"/",sep="")
   if(dir.exists(filepath) == F) dir.create(filepath, showWarnings=F,recursive = T)
 
-  write.csv(origin_result,fname,row.names = T)
+  write.csv(origin_result,fname,row.names = F)
 }
