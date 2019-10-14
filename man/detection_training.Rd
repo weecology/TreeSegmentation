@@ -4,10 +4,19 @@
 \alias{detection_training}
 \title{Generate detection network training files}
 \usage{
-detection_training(path, site, year, silva_cr_factor, silva_exclusion)
+detection_training(path, site, year, silva_cr_factor, silva_exclusion,
+  save_dir = "Results/detection_boxes/")
 }
 \arguments{
 \item{path}{Character Location of the lidar tile to process.}
+
+\item{site}{Four letter siteID code from NEON (e.g. SJER)}
+
+\item{silva_cr_factor}{see lidR::lastrees}
+
+\item{silva_exclusion}{see lidR::lastrees}
+
+\item{save_dir}{Where to save the boxes, a folder for the year will be added to relative to this base dir.}
 }
 \value{
 A .csv file is written to disk containing detections
