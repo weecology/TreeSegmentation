@@ -16,7 +16,7 @@ process_site<-function(site="TEAK", year="2019",false_color=FALSE){
 #"GUIL","HARV","HEAL","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP",
 #"OAES","OSBS","PRIN","PUUM","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF","YELL")
 
-#sites<-c("REDB","SOAP","SERC")
+sites<-c("UNDE","STEI","REDB","PUUM","UKFS")
 ids = batchMap(fun = process_site,
                site=sites)
 
