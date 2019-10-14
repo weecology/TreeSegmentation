@@ -1,6 +1,7 @@
 ## Detection network training
 library(TreeSegmentation)
 library(batchtools)
+library(stringr)
 
 #Location of the training tiles
 save_dir="/home/b.weinstein/NeonTreeEvaluation_analysis/Weinstein_unpublished/pretraining"
