@@ -12,7 +12,7 @@ reg = loadRegistry(file.dir = "/home/b.weinstein/logs/batchtools/",writeable=TRU
 clearRegistry()
 print("registry created")
 
-#Define optimal parameters
+#Define optimal parameters TODO
 silva_params<-data.frame(Site=c("SJER","TEAK","NIWO","MLBS"),max_cr_factor=c(0.9,0.2,0.2,0.9),exclusion=c(0.3,0.5,0.5,0.3))
 site_params<-silva_params[silva_params$Site == site,]
 

@@ -14,7 +14,7 @@ crop_hyperspectral_plots<-function(siteID="TEAK",year="2018",false_color=FALSE){
   #Read in plot list
   data(package="neonUtilities","plots")
   site_plots<-plots[plots$subtype=="basePlot",]
-
+  site_plots <-plots[plots$siteID==siteID,]
   #Hyperspectral dir
   h5_dir<-paste("/orange/ewhite/NeonData",siteID,"DP3.30006.001",year,sep="/")
   h5_files<-list.files(h5_dir,recursive = TRUE,full.names = T, pattern="*.h5")
