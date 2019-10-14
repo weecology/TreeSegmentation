@@ -10,13 +10,10 @@ clearRegistry()
 print("registry created")
 
 #Define testing function
-silva_benchmark<-function(base_dir, site, silva_cr_factor,silva_exclusion){
+silva_benchmark<-function(site, silva_cr_factor,silva_exclusion){
 
-  #check if tile can be processed
-  site_folder<-paste(base_dir,site,sep="/")
-  rgb_files<-list.files(site_folder,pattern=".tif")
-
-  #check if exists
+  #check if folder exists
+  save_dir="/home/b.weinstein/NeonTreeEvaluation_analysis/Weinstein_unpublished/pretraining"
   results_path<-paste("Results/detection_boxes/benchmark/",site,"/",sep="")
   if(!dir.exists(results_path)){
     dir.create(results_path)
@@ -24,7 +21,7 @@ silva_benchmark<-function(base_dir, site, silva_cr_factor,silva_exclusion){
 
   #Passed checks
   print(paste(site,"Running"))
-  detection_training(site=site,silva_cr_factor=silva_cr_factor,silva_exclusion=silva_exclusion)
+  detection_training(site=site,silva_cr_factor=silva_cr_factor,silva_exclusion=silva_exclusion,save_dir = save_dir)
 }
 
 #batchtools submission
