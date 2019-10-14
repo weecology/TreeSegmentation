@@ -4,13 +4,11 @@
 \alias{detection_training}
 \title{Generate detection network training files}
 \usage{
-detection_training(path, site, year, silva_cr_factor, silva_exclusion,
+detection_training(site, path, silva_cr_factor, silva_exclusion,
   save_dir = "Results/detection_boxes/")
 }
 \arguments{
 \item{path}{Character Location of the lidar tile to process.}
-
-\item{site}{Four letter siteID code from NEON (e.g. SJER)}
 
 \item{silva_cr_factor}{see lidR::lastrees}
 

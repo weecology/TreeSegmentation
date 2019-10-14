@@ -17,11 +17,6 @@ reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.t
 site_df<-data.frame(Site=c("SJER","TEAK","NIWO","MLBS","BART","BLAN","BONA","CLBJ","DELA","DSNY","HARV","JERC","LENO","ONAQ","OSBS","SCBI","SOAP","TALL","UNDE","WREF"),Type=c("D","C","C","D","D","D","D","D","D","C","D","D","D","C","C","D","D","D","D","C"))
 parameter_df<-data.frame(Type=c("C","D"),max_cr_factor=c(0.2,0.9),exclusion=c(0.4,0.3))
 site_df<-merge(site_df,parameter_df)
-site_params<-site_df[site_df$Site == site,]
-
-silva_cr_factor<-site_params$max_cr_factor
-silva_exclusion<- site_params$exclusion
-
 tiles<-list.files("/orange/ewhite/b.weinstein/NeonTreeEvaluation",pattern=".laz")
 sites<-str_match(tiles,"NEON_\\w+_(\\w+)_DP1")[,2]
 tile_df<-data.frame(Site=sites,Tile=tiles)
