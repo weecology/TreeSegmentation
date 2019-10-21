@@ -19,6 +19,9 @@ detection_training_benchmark<-function(site,path,silva_cr_factor,silva_exclusion
   #Compute silva segmentation
   las<-run_silva2016(tile=tile,output = "tile",max_cr_factor = silva_cr_factor, exclusion=silva_exclusion)
 
+  #2m height filter
+  las@data$treeID[las@data$Z<2]<-NA
+
   #format bounding boxes
   tree_polygons<- lidR::tree_hulls(las,type="bbox")
   bboxes<-lapply(tree_polygons@polygons,sp::bbox)
@@ -47,13 +50,19 @@ detection_training_benchmark<-function(site,path,silva_cr_factor,silva_exclusion
   sanitized_fn<-stringr::str_match(string=path,pattern="(\\w+).laz")[,2]
 
   #Set origin to top left corner of image, following numpy convention, flipped from raster origin (bottom left)
-  #in cell units, not meters
+  #in cell units, not meters, round to nearest.
   e<-raster::extent(tile)
   origin_result<-result
-  origin_result$xmin<-(result$xmin - e@xmin)*10
-  origin_result$xmax<-(result$xmax - e@xmin)*10
-  origin_result$ymin<-(e@ymax - result$ymax)*10
-  origin_result$ymax<-(origin_result$ymin + (result$ymax-result$ymin))*10
+  origin_result$xmin<-(result$xmin - e@xmin)
+  origin_result$xmax<-(result$xmax - e@xmin)
+  origin_result$ymin<-(e@ymax - result$ymax)
+  origin_result$ymax<-(origin_result$ymin + (result$ymax-result$ymin))
+
+  #resoution of 0.1m per cell
+  origin_result$xmin =  round(origin_result$xmin * 10)
+  origin_result$ymin =  round(origin_result$ymin * 10)
+  origin_result$xmax =  round(origin_result$xmax * 10)
+  origin_result$ymax =  round(origin_result$ymax * 10)
 
   #Write to dir
   fname<-paste(save_dir,"/",sanitized_fn,".csv",sep="")
