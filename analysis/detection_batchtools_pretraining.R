@@ -8,7 +8,7 @@ library(dplyr)
 save_dir="/home/b.weinstein/NeonTreeEvaluation_analysis/Weinstein_unpublished/pretraining"
 
 log_dir = "/home/b.weinstein/logs/detection/"
-reg = makeRegistry(file.dir = log_dir, make.default = FALSE)
+reg = makeRegistry(file.dir = log_dir, make.default = TRUE)
 
 #reg = loadRegistry(file.dir = log_dir,writeable=TRUE)
 #clearRegistry()
