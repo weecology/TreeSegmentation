@@ -8,11 +8,9 @@ library(dplyr)
 save_dir="/home/b.weinstein/NeonTreeEvaluation_analysis/Weinstein_unpublished/pretraining"
 
 log_dir = "/home/b.weinstein/logs/detection/"
-reg = makeRegistry(file.dir = log_dir, make.default = TRUE)
-
-#reg = loadRegistry(file.dir = log_dir,writeable=TRUE)
-#clearRegistry()
-#print("registry created")
+reg = loadRegistry(file.dir = log_dir,writeable=TRUE)
+clearRegistry()
+print("registry created")
 
 #batchtools submission
 reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
