@@ -6,10 +6,13 @@ library(dplyr)
 
 #Location of the training tiles
 save_dir="/home/b.weinstein/NeonTreeEvaluation_analysis/Weinstein_unpublished/pretraining"
+
 log_dir = "/home/b.weinstein/logs/detection/"
-reg = loadRegistry(file.dir = log_dir,writeable=TRUE)
-clearRegistry()
-print("registry created")
+reg = makeRegistry(file.dir = log_dir, make.default = FALSE)
+
+#reg = loadRegistry(file.dir = log_dir,writeable=TRUE)
+#clearRegistry()
+#print("registry created")
 
 #batchtools submission
 reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
