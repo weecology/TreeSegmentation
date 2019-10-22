@@ -8,12 +8,11 @@ library(stringr)
 library(neonUtilities)
 
 pdownload<-function(site,year="2019"){
-  library(foreach)
   print(site)
   fold<-paste("/orange/ewhite/NeonData/",site=site,sep="")
 
   #RGB
-  byFileAOP("DP1.30008.001", site = "OSBS", year = "2017", check.size = FALSE, savepath=fold)
+  neonUtilities::ParallelFileAOP(dpID = "DP3.30010.001",site = site,year="2019",check.size=F, savepath=fold)
 
   #LIDAR
   #ParallelFileAOP(dpID = "DP1.30003.001",site = site,year="2018",check.size=F, savepath=fold,cores=5)
