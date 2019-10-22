@@ -12,7 +12,7 @@ pdownload<-function(site,year="2019"){
   fold<-paste("/orange/ewhite/NeonData/",site=site,sep="")
 
   #RGB
-  ParallelFileAOP(dpID = "DP3.30010.001",site = site,year="2019",check.size=F, savepath=fold,cores=20)
+  neonUtilities::ParallelFileAOP(dpID = "DP3.30010.001",site = site,year="2019",check.size=F, savepath=fold,cores=20)
 
   #LIDAR
   #ParallelFileAOP(dpID = "DP1.30003.001",site = site,year="2018",check.size=F, savepath=fold,cores=5)
