@@ -35,8 +35,8 @@ ids = batchMap(fun = detection_training_benchmark,
                silva_exclusion=batch_df$exclusion,
                save_dir=save_dir)
 
-#Run in chunks of 10
-ids[, chunk := chunk(job.id, chunk.size = 20)]
+#Run in chunks of 30
+ids[, chunk := chunk(job.id, chunk.size = 30)]
 
 print(reg)
 
