@@ -9,12 +9,14 @@
   crop_rgb_plots<-function(siteID="SJER",year="2018"){
 
     plots<-sf::st_read("../data/NEONFieldSites/All_NEON_TOS_Plots_V5/All_Neon_TOS_Polygons_V5.shp")
-    dat<-read.csv("../data/Terrestrial/field_data.csv")
+
+    #dat<-read.csv("../data/Terrestrial/field_data.csv")
     site<-dat[dat$siteID %in% siteID,]
-    site_plots<-plots[plots$plotID %in% site$plotID,]
+
+    #site_plots<-plots[plots$plotID %in% site$plotID,]
 
     #Only baseplots
-    site_plots<-site_plots[site_plots$subtype=="basePlot",]
+    site_plots<-plots %>% filter(siteID==siteID,subtype=="basePlot")
 
     #if no rows
     if(nrow(site_plots)==0){
