@@ -7,15 +7,16 @@ library(batchtools)
 library(stringr)
 library(neonUtilities)
 
-pdownload<-function(site,year="2019"){
+pdownload<-function(site,year="2018"){
   print(site)
   fold<-paste("/orange/ewhite/NeonData/",site=site,sep="")
 
   #RGB
-  neonUtilities::byFileAOP(dpID = "DP3.30010.001",site = site,year="2019",check.size=F, savepath=fold)
+  #neonUtilities::byFileAOP(dpID = "DP3.30010.001",site = site,year="2019",check.size=F, savepath=fold)
 
   #LIDAR
-  #neonUtilities::byFileAOP(dpID = "DP1.30003.001",site = site,year="2018",check.size=F, savepath=fold,cores=5)
+  neonUtilities::byFileAOP(dpID = "DP1.30003.001",site = site,year="2018",check.size=F, savepath=fold)
+  neonUtilities::byFileAOP(dpID = "DP1.30003.001",site = site,year="2019",check.size=F, savepath=fold)
 
   #Hyperspec
   #neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2018",check.size=F, savepath=fold,cores=5)
