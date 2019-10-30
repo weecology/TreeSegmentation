@@ -1,22 +1,22 @@
 #' Clip RGB Data Based on Neon Plots
 #'
 #' \code{crop_rgb_plots} overlays the polygons of the NEON plots with the RGB airborne data
-#' @param siteID NEON site abbreviation (e.g. "HARV")
+#' @param site_name NEON site abbreviation (e.g. "HARV")
 #' @return Saved tif files for each plot
 #' @importFrom magrittr "%>%"
 #' @export
 #'
-  crop_rgb_plots<-function(siteID="SJER",year="2018"){
+  crop_rgb_plots<-function(site_name="SJER",year="2018"){
 
     plots<-sf::st_read("../data/NEONFieldSites/All_NEON_TOS_Plots_V5/All_Neon_TOS_Polygons_V5.shp")
 
     #dat<-read.csv("../data/Terrestrial/field_data.csv")
-    site<-dat[dat$siteID %in% siteID,]
+    #site<-dat[dat$siteID %in% siteID,]
 
     #site_plots<-plots[plots$plotID %in% site$plotID,]
 
     #Only baseplots
-    site_plots<-plots %>% filter(siteID==siteID,subtype=="basePlot")
+    site_plots<-plots %>% filter(siteID==site_name,subtype=="basePlot")
 
     #if no rows
     if(nrow(site_plots)==0){
@@ -25,7 +25,7 @@
     }
 
     #get lists of rasters
-    inpath<-paste("/orange/ewhite/NeonData/",siteID,"/DP3.30010.001/",sep="")
+    inpath<-paste("/orange/ewhite/NeonData/",site_name,"/DP3.30010.001/",sep="")
     fils<-list.files(inpath,full.names = T,pattern=".tif",recursive = T)
     filname<-list.files(inpath,pattern=".tif",recursive = T)
     #drop summary image and L1 data
@@ -36,7 +36,7 @@
     fils<-fils[stringr::str_detect(fils,year)]
 
     if (length(fils)==0){
-      print(paste(siteID,"No rgb files available"))
+      print(paste(site_name,"No rgb files available"))
       return(NULL)
     }
 
@@ -46,7 +46,7 @@
     site_plots<-sf::st_transform(site_plots,crs=raster::projection(r))
 
     #Create directory if needed
-    fold<-paste("/orange/ewhite/b.weinstein/NEON",siteID,year,"NEONPlots/Camera/L3/",sep="/")
+    fold<-paste("/orange/ewhite/b.weinstein/NEON",site_name,year,"NEONPlots/Camera/L3/",sep="/")
     if(!dir.exists(fold)){
       dir.create(fold,recursive = T)
     }

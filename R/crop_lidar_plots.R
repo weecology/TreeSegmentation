@@ -1,24 +1,19 @@
 #' Clip Lidar Data Based on Neon Plots
 #'
 #' \code{crop_lidar_plots} overlays the polygons of the NEON plots with the lidar airborne data
-#' @param siteID NEON site abbreviation (e.g. "HARV")
+#' @param site_name NEON site abbreviation (e.g. "HARV")
 #' @return Saved tif files for each plot
 #' @importFrom magrittr "%>%"
 #' @export
 #'
-crop_lidar_plots<-function(siteID="TEAK",year="2018"){
+crop_lidar_plots<-function(site_name="TEAK",year="2018"){
 
   plots<-sf::st_read("../data/NEONFieldSites/All_NEON_TOS_Plots_V5/All_Neon_TOS_Polygons_V5.shp")
   #dat<-read.csv("../data/Terrestrial/field_data.csv")
-  site<-dat[dat$siteID %in% siteID,]
-
   #site_plots<-plots[plots$plotID %in% site$plotID,]
 
   #Only baseplots
-  site_plots<-plots %>% filter(siteID==siteID,subtype=="basePlot")
-
-  #Only baseplots
-  site_plots<-site_plots[site_plots$subtype=="basePlot",]
+  site_plots<-plots %>% filter(siteID==site_name,subtype=="basePlot")
 
   #get domain
   #if no rows
@@ -31,7 +26,7 @@ crop_lidar_plots<-function(siteID="TEAK",year="2018"){
   domainID<-unique(site_plots$domainID)
 
   #Generic path
-  generic_path <- paste("/orange/ewhite/NeonData/",siteID,"/DP1.30003.001/",year,"/FullSite/",domainID,"/",year,"_",siteID, "_*/L1/DiscreteLidar/ClassifiedPointCloud/",sep="")
+  generic_path <- paste("/orange/ewhite/NeonData/",site_name,"/DP1.30003.001/",year,"/FullSite/",domainID,"/",year,"_",site_name, "_*/L1/DiscreteLidar/ClassifiedPointCloud/",sep="")
   inpath<-Sys.glob(generic_path)
 
   fils<-list.files(inpath,full.names = T,pattern=".laz",recursive = T)
@@ -41,7 +36,7 @@ crop_lidar_plots<-function(siteID="TEAK",year="2018"){
   fils<-fils[stringr::str_detect(fils,"_classified_")]
 
   if (length(fils)==0){
-    print(paste(siteID,"No lidar files available"))
+    print(paste(site_name,"No lidar files available"))
     return(NULL)
   }
 
@@ -57,7 +52,7 @@ crop_lidar_plots<-function(siteID="TEAK",year="2018"){
   ctg<-lidR::catalog(path_to_tiles)
 
   #Create directory if needed
-  fold<-paste("/orange/ewhite/b.weinstein/NEON/",siteID,"/",year,"/NEONPlots/Lidar/",sep="")
+  fold<-paste("/orange/ewhite/b.weinstein/NEON/",site_name,"/",year,"/NEONPlots/Lidar/",sep="")
   if(!dir.exists(fold)){
     dir.create(fold,recursive = T)
   }
