@@ -25,7 +25,7 @@ convert_names<-function(from,to,lidar=NULL,rgb=NULL,hyperspectral=NULL,site='OSB
     geo_index<-stringr::str_match(lidar,"_(\\d+_\\d+)_classified")[,2]
 
     if(site=="OSBS"){
-      fn<-paste("2019",site,"_5_",geo_index,"_image.tif",sep="")
+      fn<-paste("2019","_", site,"_5_",geo_index,"_image.tif",sep="")
     }
     if(site=="SJER"){
       fn<-paste("2018","_",site,"_3_",geo_index,"_image.tif",sep="")
