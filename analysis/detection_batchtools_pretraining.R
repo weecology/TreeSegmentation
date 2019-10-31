@@ -27,6 +27,9 @@ sites<-str_match(tiles,"\\w+_(\\w+)_DP1")[,2]
 tile_df<-data.frame(Site=sites,Tile=tiles) %>% filter(!is.na(Site)) %>% filter(!str_detect(Tile,"2017_Campaign")) %>% filter(!str_detect(Tile,"2017/FullSite")) %>% filter(str_detect(Tile,"ClassifiedPointCloud"))
 batch_df<-merge(site_df,tile_df)
 
+#For each site, only use most recent year.
+batch_df <- batch_df %>% mutate(year=as.numeric(str_match(Tile,"/(\\w+)_\\w+_\\w+/L1")[,2])) %>% group_by(Site) %>% filter(year==max(year))
+
 #find site index
 ids = batchMap(fun = detection_training_benchmark,
                site=batch_df$Site,
@@ -41,7 +44,7 @@ ids[, chunk := chunk(job.id, chunk.size = 30)]
 print(reg)
 
 # Set resources: enable memory measurement
-res = list(measure.memory = TRUE,walltime = "12:00:00", memory = "12GB")
+res = list(measure.memory = TRUE,walltime = "12:00:00", memory = "10GB")
 
 # Submit jobs using the currently configured cluster functions
 submitJobs(ids, resources = res, reg = reg)

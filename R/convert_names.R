@@ -46,6 +46,22 @@ convert_names<-function(from,to,lidar=NULL,rgb=NULL,hyperspectral=NULL,site='OSB
       geo_index<-stringr::str_match(lidar,"_(\\d+_\\d+)_classified_point_cloud")[,2]
       fn<-paste("2018_MLBS_3_",geo_index,"_image.tif",sep="")
     }
+    if(site=="ABBY"){
+      geo_index<-stringr::str_match(lidar,"_(\\d+_\\d+)_classified_point_cloud")[,2]
+      fn<-paste("2019_ABBY_3_",geo_index,"_image.tif",sep="")
+    }
+    if(site=="REDB"){
+      geo_index<-stringr::str_match(lidar,"_(\\d+_\\d+)_classified_point_cloud")[,2]
+      fn<-paste("2019_REDB_2_",geo_index,"_image.tif",sep="")
+    }
+    if(site=="YELL"){
+      geo_index<-stringr::str_match(lidar,"_(\\d+_\\d+)_classified_point_cloud")[,2]
+      fn<-paste("2019_YELL_2_",geo_index,"_image.tif",sep="")
+    }
+    if(site=="KONZ"){
+      geo_index<-stringr::str_match(lidar,"_(\\d+_\\d+)_classified_point_cloud")[,2]
+      fn<-paste("2019_KONZ_5_",geo_index,"_image.tif",sep="")
+    }
     if(site=="BART"){
       geo_index<-stringr::str_match(lidar,"_(\\d+_\\d+)_classified_point_cloud")[,2]
       fn<-paste("2018_BART_4_",geo_index,"_image.tif",sep="")
@@ -89,6 +105,10 @@ convert_names<-function(from,to,lidar=NULL,rgb=NULL,hyperspectral=NULL,site='OSB
     if(site=="SOAP"){
       geo_index<-stringr::str_match(lidar,"_(\\d+_\\d+)_classified_point_cloud")[,2]
       fn<-paste("2019_SOAP_4_",geo_index,"_image.tif",sep="")
+    }
+    if(site=="SCBI"){
+      geo_index<-stringr::str_match(lidar,"_(\\d+_\\d+)_classified_point_cloud")[,2]
+      fn<-paste("2019_SCBI_3_",geo_index,"_image.tif",sep="")
     }
     if(site=="WREF"){
       geo_index<-stringr::str_match(lidar,"_(\\d+_\\d+)_classified_point_cloud")[,2]
