@@ -5,7 +5,7 @@ library(stringr)
 library(dplyr)
 
 #Location of the training tiles
-save_dir="/home/b.weinstein/NeonTreeEvaluation_analysis/Weinstein_unpublished/pretraining"
+save_dir="/home/b.weinstein/DeepForest_Model/pretraining"
 
 log_dir = "/home/b.weinstein/logs/detection/"
 reg = loadRegistry(file.dir = log_dir,writeable=TRUE)
