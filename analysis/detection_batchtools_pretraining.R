@@ -30,6 +30,10 @@ batch_df<-merge(site_df,tile_df)
 #For each site, only use most recent year.
 batch_df <- batch_df %>% mutate(year=as.numeric(str_match(Tile,"/(\\w+)_\\w+_\\w+/L1")[,2])) %>% group_by(Site) %>% filter(year==max(year))
 
+#Print number of tiles per site
+print("Number of tiles per site")
+batch_df %>% group_by(Site) %>% summarize(n=n()) %>% as.data.frame() %>% arrange(desc(n))
+
 #find site index
 ids = batchMap(fun = detection_training_benchmark,
                site=batch_df$Site,
@@ -38,8 +42,8 @@ ids = batchMap(fun = detection_training_benchmark,
                silva_exclusion=batch_df$exclusion,
                save_dir=save_dir)
 
-#Run in chunks of 30
-ids[, chunk := chunk(job.id, chunk.size = 30)]
+#Run in chunks of 20
+ids[, chunk := chunk(job.id, chunk.size = 20)]
 
 print(reg)
 
