@@ -4,10 +4,10 @@
 \alias{crop_rgb_plots}
 \title{Clip RGB Data Based on Neon Plots}
 \usage{
-crop_rgb_plots(siteID = "SJER", year = "2018")
+crop_rgb_plots(site_name = "SJER", year = "2018")
 }
 \arguments{
-\item{siteID}{NEON site abbreviation (e.g. "HARV")}
+\item{site_name}{NEON site abbreviation (e.g. "HARV")}
 }
 \value{
 Saved tif files for each plot

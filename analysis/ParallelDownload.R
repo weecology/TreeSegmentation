@@ -21,7 +21,8 @@ pdownload<-function(site,year="2018"){
   tryCatch(neonUtilities::byFileAOP(dpID = "DP1.30003.001",site = site,year="2019",check.size=F, savepath=fold),error=function(e){})
 
   #Hyperspec
-  #try(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2019",check.size=F, savepath=fold),error=function(e){})
+  tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2018",check.size=F, savepath=fold),error=function(e){})
+  #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2019",check.size=F, savepath=fold),error=function(e){})
 }
 
 
