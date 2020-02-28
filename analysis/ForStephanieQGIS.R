@@ -7,7 +7,7 @@
   library(sf)
   library(dplyr)
 
-  plotID = "MLBS_063"
+  plotID = "TALL_043"
   save_path = "/Users/ben/Dropbox/Weecology/Benchmark/ForStephanie/"
   data_path = "/Users/ben/Documents/NeonTreeEvaluation/evaluation/"
 

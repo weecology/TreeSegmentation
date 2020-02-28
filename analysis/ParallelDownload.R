@@ -13,15 +13,17 @@ pdownload<-function(site,year="2018"){
 
   #try catch all
   #RGB
-  tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30010.001",site = site,year="2018",check.size=F, savepath=fold),error=function(e){})
-  tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30010.001",site = site,year="2019",check.size=F, savepath=fold),error=function(e){})
+  #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30010.001",site = site,year="2018",check.size=F, savepath=fold),error=function(e){})
+  #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30010.001",site = site,year="2019",check.size=F, savepath=fold),error=function(e){})
 
   #LIDAR
-  tryCatch(neonUtilities::byFileAOP(dpID = "DP1.30003.001",site = site,year="2018",check.size=F, savepath=fold),error=function(e){})
-  tryCatch(neonUtilities::byFileAOP(dpID = "DP1.30003.001",site = site,year="2019",check.size=F, savepath=fold),error=function(e){})
+  #tryCatch(neonUtilities::byFileAOP(dpID = "DP1.30003.001",site = site,year="2018",check.size=F, savepath=fold),error=function(e){})
+  #tryCatch(neonUtilities::byFileAOP(dpID = "DP1.30003.001",site = site,year="2019",check.size=F, savepath=fold),error=function(e){})
+  tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30015.001",site = site,year="2018",check.size=F, savepath=fold),error=function(e){})
+  tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30015.001",site = site,year="2019",check.size=F, savepath=fold),error=function(e){})
 
   #Hyperspec
-  tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2018",check.size=F, savepath=fold),error=function(e){})
+  #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2018",check.size=F, savepath=fold),error=function(e){})
   #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2019",check.size=F, savepath=fold),error=function(e){})
 }
 
