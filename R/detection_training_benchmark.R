@@ -33,7 +33,6 @@ detection_training_benchmark<-function(site,path,silva_cr_factor,silva_exclusion
   #Format according the keras-retinet requirements "CSV datasets" https://github.com/fizyr/keras-retinanet
   #as a single row
   result<-lapply(bboxes, function(x){
-
     df<-data.frame(xmin=x["x","min"],ymin=x["y","min"],xmax=x["x","max"],ymax=x["y","max"])
     return(df)
   })

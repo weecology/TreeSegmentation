@@ -2,8 +2,7 @@ library(raster)
 library(lidR)
 #crop out a piece of tile to annotate
 
-r<-brick("/Users/ben/Dropbox/Weecology/DeepForest/Oregon/OSIP_zips/m_45_122_27_SE_4/m_45_122_27_SE_4.tif")
-#r<-brick("/Users/ben/Dropbox/Weecology/temp_training/2019_DSNY_5_452000_3113000_image_crop.tif")
+r<-brick("/Users/ben/Downloads/2019_TALL_5_456000_3644000_image.tif")
 tile<-readLAS("/Users/ben/Downloads/NEON_D03_DSNY_DP1_452000_3113000_classified_point_cloud_colorized.laz")
 
 plotRGB(r)
@@ -16,8 +15,8 @@ f<-e
 plot(f,add=T,col="red")
 
 rcrop<-crop(r,f)
-
-writeRaster(rcrop,"/Users/ben/Dropbox/Weecology/temp_training/street_trees_test.tif",datatype='INT1U',overwrite=T)
+plotRGB(rcrop)
+writeRaster(rcrop,"/Users/ben/Downloads/2019_TALL_5_456000_3644000_image_crop.tif",datatype='INT1U',overwrite=T)
 las_crop<-lasclip(tile,extent(r))
 chm<-canopy_model(las_crop)
 plot(chm)
