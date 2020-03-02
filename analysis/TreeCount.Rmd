@@ -1,0 +1,50 @@
+---
+title: "Tree Count Comparison Across Years"
+author: "Ben Weinstein"
+date: "2/25/2020"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(sf)
+library(dplyr)
+library(stringr)
+library(ggplot2)
+all_files<-list.files("/Users/Ben/Downloads/",pattern=".shp",full.names=T)
+
+#split into 2018 and 2019
+files_2018<-all_files[str_detect(all_files,"2018_")]
+files_2019<-all_files[str_detect(all_files,"2019_")]
+
+#find geo_index in each
+geo_index_2018<-str_match(files_2018,"(\\d+_\\d+)_image")[,2]
+geo_index_2019<-str_match(files_2019,"(\\d+_\\d+)_image")[,2]
+
+results<-list()
+
+for(x in 1:length(geo_index_2018)){
+  path_2018 <-files_2018[x]
+  path_2019 <- files_2019[which(geo_index_2018[x] == geo_index_2019)]
+  
+  if(length(path_2019)==0){
+    next
+  }
+  
+  shp_2018<-read_sf(path_2018)
+  shp_2019<-read_sf(path_2019)
+  
+  result<-data.frame(index=geo_index_2018[x],
+             n2018=nrow(shp_2018),
+             n2019=nrow(shp_2019))
+  
+  results[[x]]<-result
+}
+
+results<-bind_rows(results)
+
+ggplot(results,aes(x=n2018,y=n2019)) + geom_smooth(method="lm") + geom_point(size=3,alpha=0.6) + labs(y="Tree Count 2019",x="Tree Count 2018")
+summary(lm(data=results,n2018~n2019))
+```
