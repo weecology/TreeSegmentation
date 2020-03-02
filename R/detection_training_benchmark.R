@@ -44,8 +44,8 @@ detection_training_benchmark<-function(path,silva_cr_factor,silva_exclusion,rgb_
   lidar_basename<-stringr::str_match(path,"\\/(\\w+.laz)")[,2]
 
   #Search the rgb_tiles for matching paths
-  lidar_geo_index<-str_match(lidar_basename,"DP1_(\\d+_\\d+)_")[,2]
-  lidar_year<-str_match(path,"DP1.30003.001/(\\d+)/FullSite/")[,2]
+  lidar_geo_index<-stringr::str_match(lidar_basename,"DP1_(\\d+_\\d+)_")[,2]
+  lidar_year<-stringr::str_match(path,"DP1.30003.001/(\\d+)/FullSite/")[,2]
   selected_rgb<-rgb_tiles %>% filter(geo_index == lidar_geo_index,year == lidar_year) %>% droplevels()
 
   #ignore v01 data if multiple tiles remaining
