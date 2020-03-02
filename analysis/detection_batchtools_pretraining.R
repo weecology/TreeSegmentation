@@ -29,6 +29,7 @@ sites<-str_match(lidar_tiles,"\\w+_(\\w+)_DP1")[,2]
 tile_df<-data.frame(Site=sites,Tile=lidar_tiles) %>% filter(!is.na(Site)) %>% filter(!str_detect(Tile,"Metadata")) %>% filter(str_detect(Tile,"ClassifiedPointCloud"))
 batch_df<-merge(site_df,tile_df)
 
+
 #Find matching RGB tile and give the index and year metadata
 rgb_tiles<-list.files("/orange/ewhite/NeonData/",pattern=".tif",full.names = T,recursive = T)
 rgb_tiles<-data.frame(RGB=rgb_tiles) %>% filter(str_detect(RGB,"Mosaic")) %>% filter(str_detect(RGB,"image"))
@@ -46,11 +47,11 @@ batch_df %>% group_by(Site) %>% summarize(n=n()) %>% as.data.frame() %>% arrange
 
 #find site index
 ids = batchMap(fun = detection_training_benchmark,
-               rgb_tiles=rgb_tiles,
                path=as.character(batch_df$Tile),
                silva_cr_factor=batch_df$max_cr_factor,
                silva_exclusion=batch_df$exclusion,
-               save_dir=save_dir)
+               save_dir=save_dir,
+               more.args=list(rgb_tiles=rgb_tiles))
 
 #Run in chunks of 20
 ids[, chunk := chunk(job.id, chunk.size = 20)]
