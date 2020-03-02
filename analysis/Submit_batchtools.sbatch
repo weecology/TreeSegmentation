@@ -6,7 +6,7 @@
 #SBATCH --qos=ewhite-b
 #SBATCH --ntasks=1                 # Number of MPI ranks
 #SBATCH --cpus-per-task=1            # Number of cores per MPI rank
-#SBATCH --mem-per-cpu=10GB
+#SBATCH --mem-per-cpu=20GB
 #SBATCH --time=72:00:00       #Time limit hrs:min:sec
 #SBATCH --output=/home/b.weinstein/logs/detection.out   # Standard output and error log
 #SBATCH --error=/home/b.weinstein/logs/detection.err

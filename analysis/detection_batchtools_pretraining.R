@@ -29,7 +29,6 @@ sites<-str_match(lidar_tiles,"\\w+_(\\w+)_DP1")[,2]
 tile_df<-data.frame(Site=sites,Tile=lidar_tiles) %>% filter(!is.na(Site)) %>% filter(!str_detect(Tile,"Metadata")) %>% filter(str_detect(Tile,"ClassifiedPointCloud"))
 batch_df<-merge(site_df,tile_df)
 
-
 #Find matching RGB tile and give the index and year metadata
 rgb_tiles<-list.files("/orange/ewhite/NeonData/",pattern=".tif",full.names = T,recursive = T)
 rgb_tiles<-data.frame(RGB=rgb_tiles) %>% filter(str_detect(RGB,"Mosaic")) %>% filter(str_detect(RGB,"image"))

@@ -35,8 +35,9 @@ crop_target_CHM<-function(siteID="TEAK",rgb_filename,year="2019",tif_base_dir="/
   #filename
   basename <- stringr::str_match(rgb_filename,"/(\\w+).tif")[,2]
   fname <- paste(basename,"_CHM.tif",sep="")
-  raster::writeRaster(cropped_CHM,fname,datatype='INT1U',overwrite=T)
+  full_fname<-paste(save_dir,fname,sep="/")
+  raster::writeRaster(cropped_CHM,full_fname,datatype='INT1U',overwrite=T)
 
-  return(fname)
+  return(full_fname)
 }
 
