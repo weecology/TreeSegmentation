@@ -1,4 +1,4 @@
-#' Clip Hyperspectral Data Based on extent of NEON Tower Plots
+#' Clip Hyperspectral Data Based on extent of RGB file
 #'
 #' @param siteID NEON site abbreviation (e.g. "HARV")
 #' @return Saved tif files for each plot
