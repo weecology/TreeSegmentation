@@ -8,8 +8,6 @@ dependencies:
   - matplotlib
   - numpy
   - poppler
-  - python
-  - pip:
-    - ogr
-    - rasterio
+  - python=3.6
+  - rasterio
 

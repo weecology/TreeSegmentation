@@ -13,4 +13,4 @@ easting <- as.integer(ext@xmin/1000)*1000
 northing <- as.integer(ext@ymin/1000)*1000
 geo_index <- paste(easting,northing,sep="_")
 
-crop_target_hyperspectral(siteID="MLBS",rgb_filename,geo_index,false_color=TRUE, year="2019",h5_base_dir="/orange/ewhite/NeonData",save_base_dir="/orange/ewhite/b.weinstein/NEON")
+crop_target_hyperspectral(siteID="MLBS",rgb_filename,geo_index,false_color=FALSE, year="2019",h5_base_dir="/orange/ewhite/NeonData",save_base_dir="/orange/ewhite/b.weinstein/NEON")
