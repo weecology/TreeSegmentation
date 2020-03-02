@@ -8,6 +8,5 @@ dependencies:
   - matplotlib
   - numpy
   - poppler
-  - python=3.6
   - rasterio
 
