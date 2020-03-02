@@ -4,7 +4,7 @@
 \alias{detection_training_benchmark}
 \title{Generate detection network training files}
 \usage{
-detection_training_benchmark(site, path, silva_cr_factor, silva_exclusion,
+detection_training_benchmark(path, silva_cr_factor, silva_exclusion, rgb_tiles,
   save_dir = "Results/detection_boxes/")
 }
 \arguments{

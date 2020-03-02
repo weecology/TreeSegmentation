@@ -2,7 +2,7 @@
 % Please edit documentation in R/crop_target_hyperspectral.R
 \name{crop_target_hyperspectral}
 \alias{crop_target_hyperspectral}
-\title{Clip Hyperspectral Data Based on extent of NEON Tower Plots}
+\title{Clip Hyperspectral Data Based on extent of RGB file}
 \usage{
 crop_target_hyperspectral(siteID = "TEAK", rgb_filename, geo_index,
   false_color = FALSE, year = "2019",
@@ -16,5 +16,5 @@ crop_target_hyperspectral(siteID = "TEAK", rgb_filename, geo_index,
 Saved tif files for each plot
 }
 \description{
-Clip Hyperspectral Data Based on extent of NEON Tower Plots
+Clip Hyperspectral Data Based on extent of RGB file
 }

@@ -40,6 +40,8 @@ rgb_tiles$year<-str_match(rgb_tiles$RGB,"DP3.30010.001/(\\d+)/FullSite/")[,2]
 batch_df <- batch_df %>% mutate(year=as.numeric(str_match(Tile,"/(\\w+)_\\w+_\\w+/L1")[,2])) %>% group_by(Site) %>% filter(year==max(year))
 
 #Print number of tiles per site
+print(paste("Total tiles:",nrow(batch_df)))
+
 print("Number of tiles per site")
 batch_df %>% group_by(Site) %>% summarize(n=n()) %>% as.data.frame() %>% arrange(desc(n))
 
