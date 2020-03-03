@@ -5,7 +5,7 @@
 #' @importFrom magrittr "%>%"
 #' @export
 #'
-crop_target_hyperspectral<-function(siteID="TEAK",rgb_filename,geo_index,false_color=FALSE, year="2019",h5_base_dir="/orange/ewhite/NeonData",save_base_dir="/orange/ewhite/b.weinstein/NEON"){
+crop_target_hyperspectral<-function(siteID="TEAK",rgb_filename,geo_index,false_color=FALSE, year="2018",h5_base_dir="/orange/ewhite/NeonData",save_base_dir="/orange/ewhite/b.weinstein/NEON"){
 
   #Hyperspectral dir
   h5_dir<-paste(h5_base_dir,siteID,"DP3.30006.001",year,sep="/")

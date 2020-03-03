@@ -1,7 +1,8 @@
-#quick export to shp
-library(sf)
 library(NeonTreeEvaluation)
-
-a<-load_ground_truth("LENO_066")
-b<-st_as_sf(a)
-write_sf(b,"/Users/Ben/Dropbox/Weecology/Benchmark/ForStephanie/LENO_066_Ben.shp")
+library(dplyr)
+library(raster)
+library(sf)
+dat<-xml_parse("/Users/ben/Dropbox/Weecology/Benchmark/NEON_field_polygons/crops/2.xml")
+r<-stack("/Users/ben/Dropbox/Weecology/Benchmark/NEON_field_polygons/crops/2.tif")
+s<-boxes_to_spatial_polygons(dat,r)
+write_sf(st_as_sf(s), "/Users/ben/Dropbox/Weecology/Benchmark/NEON_field_polygons/crops/2.shp")
