@@ -14,6 +14,10 @@ crop_target_hyperspectral<-function(siteID="TEAK",rgb_filename,geo_index,false_c
   #Find corresponding h5 tile
   h5_path<-h5_files[stringr::str_detect(h5_files,geo_index)]
 
+  if(length(h5_path)==0){
+    stop(paste("Cannot find any matching files to index",geo_index))
+  }
+
   save_dir<-paste(save_base_dir,siteID,year,"NEONPlots/Hyperspectral/L3/",sep="/")
   if(!dir.exists(save_dir)){
     dir.create(save_dir,recursive=T)
