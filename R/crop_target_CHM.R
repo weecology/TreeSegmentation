@@ -8,9 +8,9 @@
 #' @importFrom magrittr "%>%"
 #' @export
 #'
-crop_target_CHM<-function(siteID="TEAK",rgb_filename,year="2019",tif_base_dir="/orange/ewhite/NeonData",save_base_dir="/orange/ewhite/b.weinstein/NEON"){
+crop_target_CHM<-function(siteID="TEAK",rgb_filename,year="2019",tif_base_dir="/orange/ewhite/NeonData",save_base_dir="/orange/ewhite/b.weinstein/NEON", save=T){
 
-  #Hyperspectral dir
+  #CHM dir
   tif_dir<-paste(tif_base_dir,siteID,"DP3.30015.001",year,sep="/")
   chm_files<-list.files(tif_dir,recursive = TRUE,full.names = T, pattern="*CHM.tif")
 
@@ -33,11 +33,14 @@ crop_target_CHM<-function(siteID="TEAK",rgb_filename,year="2019",tif_base_dir="/
   cropped_CHM<-raster::crop(CHM,ext)
 
   #filename
-  basename <- stringr::str_match(rgb_filename,"/(\\w+).tif")[,2]
-  fname <- paste(basename,"_CHM.tif",sep="")
-  full_fname<-paste(save_dir,fname,sep="/")
-  raster::writeRaster(cropped_CHM,full_fname,datatype='INT1U',overwrite=T)
-
-  return(full_fname)
+  if(save){
+    basename <- stringr::str_match(rgb_filename,"/(\\w+).tif")[,2]
+    fname <- paste(basename,"_CHM.tif",sep="")
+    full_fname<-paste(save_dir,fname,sep="/")
+    raster::writeRaster(cropped_CHM,full_fname,datatype='INT1U',overwrite=T)
+    return(full_fname)
+  } else{
+    return(cropped_CHM)
+  }
 }
 

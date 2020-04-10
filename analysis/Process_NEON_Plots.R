@@ -20,6 +20,7 @@ process_site<-function(site){
   ##Cut Tiles
   TreeSegmentation::crop_rgb_plots(site,year=year)
   TreeSegmentation::crop_lidar_plots(site,year=year)
+  TreeSegmentation::crop_target_CHM(site,year)
 }
 
 sites<-c("ABBY","ARIK","BARR","BART","BLAN","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",

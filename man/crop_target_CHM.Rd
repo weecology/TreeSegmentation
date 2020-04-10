@@ -6,7 +6,7 @@
 \usage{
 crop_target_CHM(siteID = "TEAK", rgb_filename, year = "2019",
   tif_base_dir = "/orange/ewhite/NeonData",
-  save_base_dir = "/orange/ewhite/b.weinstein/NEON")
+  save_base_dir = "/orange/ewhite/b.weinstein/NEON", save = T)
 }
 \arguments{
 \item{rgb_filename}{path to a projected file to extract coordinates}

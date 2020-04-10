@@ -175,7 +175,6 @@ def create_raster(subInd, rgb,refl):
 def generate_raster(h5_path, save_dir, rgb_filename = None, false_color=True):
     """
     h5_path: input path to h5 file on disk
-    bounds: Optional clipping boundary
     epsg: String of epsg code for projection
     bands: "All" bands or "false color" bands
     save_dir: Directory to save raster object

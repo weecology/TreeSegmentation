@@ -81,6 +81,5 @@ crop_lidar_plots<-function(site_name="TEAK",year="2018"){
 
     lidR::writeLAS(clipped_las,cname)
     print(cname)
-
   }
 }

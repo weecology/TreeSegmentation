@@ -5,7 +5,7 @@
 \title{Clip Hyperspectral Data Based on extent of RGB file}
 \usage{
 crop_target_hyperspectral(siteID = "TEAK", rgb_filename, geo_index,
-  false_color = FALSE, year = "2019",
+  false_color = FALSE, year = "2018",
   h5_base_dir = "/orange/ewhite/NeonData",
   save_base_dir = "/orange/ewhite/b.weinstein/NEON")
 }

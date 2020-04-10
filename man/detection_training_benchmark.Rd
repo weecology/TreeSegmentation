@@ -4,8 +4,8 @@
 \alias{detection_training_benchmark}
 \title{Generate detection network training files}
 \usage{
-detection_training_benchmark(path, silva_cr_factor, silva_exclusion, rgb_tiles,
-  save_dir = "Results/detection_boxes/")
+detection_training_benchmark(path, silva_cr_factor = 0.7,
+  silva_exclusion = 0.5, rgb_tiles, save_dir = "Results/detection_boxes/")
 }
 \arguments{
 \item{path}{Character Location of the lidar tile to process.}
