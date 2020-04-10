@@ -13,14 +13,14 @@ reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.t
 process_site<-function(site){
   year="2019"
   fold<-paste("/orange/ewhite/NeonData/",site,sep="")
-  neonUtilities::byPointsAOP(dpID="DP3.30010.001",site=site,year=year,check.size=F, savepath=fold)
-  neonUtilities::byPointsAOP(dpID="DP1.30003.001",site=site,year=year,check.size=F, savepath=fold)
-  neonUtilities::byPointsAOP(dpID="DP3.30006.001",site=site,year=year,check.size=F, savepath=fold)
+  #neonUtilities::byPointsAOP(dpID="DP3.30010.001",site=site,year=year,check.size=F, savepath=fold)
+  #neonUtilities::byPointsAOP(dpID="DP1.30003.001",site=site,year=year,check.size=F, savepath=fold)
+  #neonUtilities::byPointsAOP(dpID="DP3.30006.001",site=site,year=year,check.size=F, savepath=fold)
 
   ##Cut Tiles
-  TreeSegmentation::crop_rgb_plots(site,year=year)
-  TreeSegmentation::crop_lidar_plots(site,year=year)
-  TreeSegmentation::crop_target_CHM(site,year)
+  #TreeSegmentation::crop_rgb_plots(site,year=year)
+  #TreeSegmentation::crop_lidar_plots(site,year=year)
+  TreeSegmentation::crop_CHM_plots(site,year)
 }
 
 sites<-c("ABBY","ARIK","BARR","BART","BLAN","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
