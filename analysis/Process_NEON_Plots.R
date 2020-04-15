@@ -5,7 +5,9 @@ library(TreeSegmentation)
 library(neonUtilities)
 library(dplyr)
 
+
 reg = loadRegistry(file.dir = "/home/b.weinstein/logs/batchtools/",writeable=TRUE)
+makeRegistry(file.dir = "/home/b.weinstein/logs/batchtools/")
 clearRegistry()
 print("registry created")
 reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)

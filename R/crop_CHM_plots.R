@@ -63,6 +63,6 @@ crop_CHM_plots<-function(site_name="TEAK",year="2018"){
     CHM<-raster::raster(tif_path)
     cropped_CHM<-raster::crop(CHM,ext)
 
-    raster::writeRaster(cropped_CHM,cname,datatype='INT1U',overwrite=T)
+    raster::writeRaster(cropped_CHM,cname,overwrite=T)
     }
 }
