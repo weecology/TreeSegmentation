@@ -60,6 +60,10 @@ crop_CHM_plots<-function(site_name="TEAK",year="2018"){
 
     #Find corresponding h5 tile
     tif_path<-chm_files[stringr::str_detect(chm_files,geo_index)]
+
+    #If exists
+    if(length(tif_path)==0){next}
+
     CHM<-raster::raster(tif_path)
     cropped_CHM<-raster::crop(CHM,ext)
 
