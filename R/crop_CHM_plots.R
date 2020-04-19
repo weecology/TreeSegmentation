@@ -8,7 +8,7 @@
 #'
 crop_CHM_plots<-function(site_name="TEAK",year="2018"){
 
-  plots<-sf::st_read("../data/NEONFieldSites/All_NEON_TOS_Plots_V5/All_Neon_TOS_Polygons_V5.shp")
+  plots<-sf::st_read("../data/NEONFieldSites/All_NEON_TOS_Plots_V7/All_Neon_TOS_Polygons_V7.shp")
 
   #Only baseplots
   site_plots<-plots %>% filter(siteID==site_name,subtype=="basePlot")

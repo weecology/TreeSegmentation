@@ -8,7 +8,7 @@
 #'
   crop_rgb_plots<-function(site_name="SJER",year="2018"){
 
-    plots<-sf::st_read("../data/NEONFieldSites/All_NEON_TOS_Plots_V5/All_Neon_TOS_Polygons_V5.shp")
+    plots<-sf::st_read("../data/NEONFieldSites/All_NEON_TOS_Plots_V7/All_Neon_TOS_Polygons_V7.shp")
 
     #dat<-read.csv("../data/Terrestrial/field_data.csv")
     #site<-dat[dat$siteID %in% siteID,]
@@ -28,8 +28,9 @@
     inpath<-paste("/orange/ewhite/NeonData/",site_name,"/DP3.30010.001/",sep="")
     fils<-list.files(inpath,full.names = T,pattern=".tif",recursive = T)
     filname<-list.files(inpath,pattern=".tif",recursive = T)
+
     #drop summary image and L1 data
-    fils<-fils[!stringr::str_detect(fils,"all_5m")]
+    fils<-fils[!stringr::str_detect(fils,"all_")]
     fils<-fils[stringr::str_detect(fils,"L3")]
 
     #get current year
