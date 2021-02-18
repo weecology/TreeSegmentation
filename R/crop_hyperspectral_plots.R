@@ -38,6 +38,11 @@ crop_hyperspectral_plots<-function(siteID="TEAK",year="2018",false_color=FALSE){
       dir.create(save_dir,recursive=T)
     }
 
+    #Check that it exists
+    if(!file.exists(rgb_filename)){
+      next
+    }
+    
     #Clip in python!
     reticulate::use_condaenv("NEON",required=TRUE)
     reticulate::source_python("generate_h5_raster.py")
