@@ -12,7 +12,8 @@ crop_hyperspectral_plots<-function(siteID="TEAK",year="2018",false_color=FALSE){
   tifs<-list.files(rgb_fold, pattern=".tif",full.names = T)
 
   #Read in plot list
-  data(package="neonUtilities","plots")
+  plots <- sf::st_read("../data/NEONFieldSites/All_NEON_TOS_Plots_V7/All_NEON_TOS_Plot_Polygons_V7.shp")
+
   site_plots<-plots[plots$subtype=="basePlot",]
   site_plots <-plots[plots$siteID==siteID,]
   #Hyperspectral dir

@@ -12,5 +12,5 @@
 #SBATCH --error=/home/b.weinstein/logs/detection.err
 
 #This is a generic R submission script
-module load gcc/6.3.0 R gdal/2.2.1
-Rscript detection_batchtools_pretraining.R
+module load R
+Rscript Process_NEON_Plots.R

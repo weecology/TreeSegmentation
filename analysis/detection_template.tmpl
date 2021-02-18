@@ -27,7 +27,7 @@ if (!"ncpus" %in% names(resources)) {
   resources$ncpus = 1
 }
 if (!"walltime" %in% names(resources)) {
-  resources$walltime<-"1:00:00"
+  resources$walltime<-"12:00:00"
 }
 if (!"memory" %in% names(resources)) {
   resources$memory <- "5GB"
@@ -39,9 +39,6 @@ if (!"memory" %in% names(resources)) {
   #SBATCH --mail-user=benweinstein2010@gmail.com
   #SBATCH --mail-type=FAIL,END
   #SBATCH --account=ewhite
-  #SBATCH --partition=hpg2-compute
-  #SBATCH --qos=ewhite-b   # Remove the `-b` if the script will take more than 4 days; see "bursting" below
-
   #SBATCH --job-name=<%= job.name %>
   #SBATCH --output=<%= log.file %>
   #SBATCH --error=<%= log.file %>
@@ -55,6 +52,8 @@ if (!"memory" %in% names(resources)) {
 ## Initialize work environment like
 ## source /etc/profile
 ## module add ...
+echo $PATH
+source /etc/profile
 
 ## Export value of DEBUGME environemnt var to slave
 export DEBUGME=<%= Sys.getenv("DEBUGME") %>
@@ -66,7 +65,7 @@ export DEBUGME=<%= Sys.getenv("DEBUGME") %>
 ## Run R:
 ## we merge R output with stdout from SLURM, which gets then logged via --output option
 echo "submitting job"
-module load gcc/6.3.0 R gdal/2.2.1
+module load R
 
 #add to path
 Rscript -e 'batchtools::doJobCollection("<%= uri %>")'
