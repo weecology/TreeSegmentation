@@ -28,15 +28,15 @@ pdownload<-function(site,year="2018"){
 
   #Hyperspec
   #Check directory first
-  if(!dir.exists(fold)){
+  if(!dir.exists(paste(fold,"DP3.30006.001","2018",sep="/"))){
     tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2018",check.size=F, savepath=fold),error=function(e){})
   }
 
-  if(!dir.exists(fold)){
+  if(!dir.exists(paste(fold,"DP3.30006.001","2019",sep="/"))){
     tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2019",check.size=F, savepath=fold),error=function(e){})
   }
 
-  if(!dir.exists(fold)){
+  if(!dir.exists(paste(fold,"DP3.30006.001","2021",sep="/"))){
     tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2021",check.size=F, savepath=fold),error=function(e){})
   }
 
