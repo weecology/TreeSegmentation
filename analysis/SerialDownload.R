@@ -16,7 +16,7 @@ pdownload<-function(site,year="2018"){
   #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30010.001",site = site,year="2015",check.size=F, savepath=fold),error=function(e){})
   #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30010.001",site = site,year="2022",check.size=F, savepath=fold),error=function(e){print(e)})
   #neonUtilities::byFileAOP(dpID = "DP3.30010.001",site = site,year="2022",check.size=F, savepath=fold)
-  
+
 #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30010.001",site = site,year="2017",check.size=F, savepath=fold),error=function(e){})
   #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30010.001",site = site,year="2013",check.size=F, savepath=fold),error=function(e){})
 
@@ -27,16 +27,28 @@ pdownload<-function(site,year="2018"){
   #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30015.001",site = site,year="2022",check.size=F, savepath=fold),error=function(e){})
 
   #Hyperspec
-  tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2021",check.size=F, savepath=fold),error=function(e){})
+  #Check directory first
+  if(!dir.exists(fold)){
+    tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2018",check.size=F, savepath=fold),error=function(e){})
+  }
+
+  if(!dir.exists(fold)){
+    tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2019",check.size=F, savepath=fold),error=function(e){})
+  }
+
+  if(!dir.exists(fold)){
+    tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2021",check.size=F, savepath=fold),error=function(e){})
+  }
+
   #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2019",check.size=F, savepath=fold),error=function(e){})
   #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2021",check.size=F, savepath=fold),error=function(e){})
 }
 
 
-#sites<-c("ABBY","ARIK","BARR","BART","BLAN","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
-#"GUIL","HARV","HEAL","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP","OAES","OSBS","PRIN","PUUM","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF","YELL")
+sites<-c("ABBY","ARIK","BARR","BART","BLAN","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
+"GUIL","HARV","HEAL","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP","OAES","OSBS","PRIN","PUUM","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF","YELL")
 
-sites <- c("SCBI")
+#sites <- c("SCBI","HARV")
 
 for (x in sites){
 	pdownload(site=x)
