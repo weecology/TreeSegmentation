@@ -29,7 +29,7 @@ pdownload<-function(site,year="2018"){
   #Hyperspec
   #Check directory first
   if(!dir.exists(fold)){
-    tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2018",check.size=F, savepath=fold),error=function(e){})
+    tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2016",check.size=F, savepath=fold),error=function(e){})
   }
 
   if(!dir.exists(fold)){
