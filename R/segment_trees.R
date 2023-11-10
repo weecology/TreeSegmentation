@@ -26,7 +26,7 @@ segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F, max_cr_factor
     crowns = lidR::segment_trees(las, mcwatershed(chm, ttops))
 
     # display
-    tree = lidR::lasfilter(crowns, !is.na(treeID))
+    tree = lidR::filter_poi(crowns, !is.na(treeID))
 
     # More stuff
     contour = raster::rasterToPolygons(crowns, dissolve = TRUE)
