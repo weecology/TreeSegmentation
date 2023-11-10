@@ -56,7 +56,7 @@ segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F, max_cr_factor
     crowns<-lidR::segment_trees(las, lidR::li2012(dt1 = 1,dt2=2,hmin=2,speed_up = 10))
 
     # display
-    tree = lidR::lasfilter(crowns, !is.na(treeID))
+    tree = lidR::filter_poi(crowns, !is.na(treeID))
 
     if(plots){
       plot(tree, color = "treeID", colorPalette = pastel.colors(100), size = 1)
@@ -69,7 +69,7 @@ segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F, max_cr_factor
     crowns<-lidR::segment_trees(las, lidR::silva2016(chm, ttops, max_cr_factor = max_cr_factor, exclusion = exclusion))
 
     # display
-    tree = lidR::lasfilter(crowns, !is.na(treeID))
+    tree = lidR::filter_poi(crowns, !is.na(treeID))
 
     # More stuff
     contour = lidR::tree_hulls(crowns)
