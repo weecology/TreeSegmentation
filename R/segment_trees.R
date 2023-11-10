@@ -41,7 +41,7 @@ segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F, max_cr_factor
 
     # Dalponte 2016
     crowns <- lidR::segment_trees(las, lidR::dalponte2016(chm, ttops,max_cr = 7))
-    contour = lidR::tree_hulls(crowns)
+    contour = lidR::delineate_crowns(crowns)
 
     if(plots){
       plot(crowns, color = "treeID", colorPalette = col)
@@ -72,7 +72,7 @@ segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F, max_cr_factor
     tree = lidR::filter_poi(crowns, !is.na(treeID))
 
     # More stuff
-    contour = lidR::tree_hulls(crowns)
+    contour = lidR::delineate_crowns(crowns)
 
     if(plots){
       plot(tree, color = "treeID", colorPalette = pastel.colors(100), size = 1,backend="rgl")
