@@ -19,26 +19,26 @@ pdownload<-function(site,year="2018"){
   #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30010.001",site = site,year="2016",check.size=F, savepath=fold),error=function(e){})
   tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30010.001",site = site,year="2022",check.size=F, savepath=fold),error=function(e){})
   
-#tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30010.001",site = site,year="2017",check.size=F, savepath=fold),error=function(e){})
-  #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30010.001",site = site,year="2013",check.size=F, savepath=fold),error=function(e){})
+  #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30010.001",site = site,year="2017",check.size=F, savepath=fold),error=function(e){})
+  tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30010.001",site = site,year="2022",check.size=F, savepath=fold),error=function(e){})
 
   #LIDAR
   tryCatch(neonUtilities::byFileAOP(dpID = "DP1.30003.001",site = site,year="2022",check.size=F, savepath=fold),error=function(e){})
   #tryCatch(neonUtilities::byFileAOP(dpID = "DP1.30003.001",site = site,year="2019",check.size=F, savepath=fold),error=function(e){})
-  tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30015.001",site = site,year="2022",check.size=F, savepath=fold),error=function(e){})
+  #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30015.001",site = site,year="2022",check.size=F, savepath=fold),error=function(e){})
   #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30015.001",site = site,year="2013",check.size=F, savepath=fold),error=function(e){})
 
   #Hyperspec
-  #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2018",check.size=F, savepath=fold),error=function(e){})
-  #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2019",check.size=F, savepath=fold),error=function(e){})
   tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2022",check.size=F, savepath=fold),error=function(e){})
+  tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2020",check.size=F, savepath=fold),error=function(e){})
+  #tryCatch(neonUtilities::byFileAOP(dpID = "DP3.30006.001",site = site,year="2022",check.size=F, savepath=fold),error=function(e){})
 }
 
 
-sites<-c("ABBY","ARIK","BARR","BART","BLAN","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
-"GUIL","HARV","HEAL","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP","OAES","OSBS","PRIN","PUUM","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF","YELL")
+#sites<-c("ABBY","ARIK","BARR","BART","BLAN","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
+#"GUIL","HARV","HEAL","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP","OAES","OSBS","PRIN","PUUM","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF","YELL")
 
-#sites<-c("SJER","OSBS","TEAK","MLBS","SOAP","WREF","HARV")
+sites<-c("TREE")
 
 #Location of the training tiles
 log_dir = "/home/b.weinstein/logs/batchtools/"

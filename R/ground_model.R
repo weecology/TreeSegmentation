@@ -17,10 +17,10 @@ ground_model<-function(las,ground=T){
     th = seq(0.1, 1.5, length.out = length(ws))
     las<-lidR::lasground(las, pmf( ws, th))
     # normalization
-    las<-lidR::lasnormalize(las, knnidw(k = 10 , p = 2))
+    las<-lidR::normalize_height(las, knnidw(k = 10 , p = 2))
   } else{
     dtm <- lidR::grid_terrain(las,res=1, algorithm = lidR::knnidw(k = 10 , p = 2))
-    las <- lidR::lasnormalize(las, dtm)
+    las <- lidR::normalize_height(las, dtm)
   }
 
   return(las)
