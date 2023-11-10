@@ -40,7 +40,7 @@ detection_training_benchmark<-function(path,silva_cr_factor=0.7,silva_exclusion=
   las@data$treeID[las@data$Z<2]<-NA
 
   #format bounding boxes
-  tree_polygons<- lidR::tree_hulls(las,type="bbox")
+  tree_polygons<- lidR::delineate_crowns(las,type="bbox")
   bboxes<-lapply(tree_polygons@polygons,sp::bbox)
 
   #min areas

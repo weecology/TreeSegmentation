@@ -57,9 +57,9 @@ computePR<-function(lidar_file,plot_data,algorithm="Silva",threshold=0.5,plot=TR
 
   #predictions
   if(bounding_box){
-    predictions<-lidR::tree_hulls(results$tile,type="bbox")
+    predictions<-lidR::delineate_crowns(results$tile,type="bbox")
   } else{
-    predictions<-lidR::tree_hulls(results$tile)
+    predictions<-lidR::delineate_crowns(results$tile)
   }
 
 

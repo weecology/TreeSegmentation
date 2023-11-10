@@ -20,7 +20,7 @@ detection_training<-function(site,path,silva_cr_factor,silva_exclusion,save_dir=
   las<-run_silva2016(tile=tile,output = "tile",max_cr_factor = silva_cr_factor, exclusion=silva_exclusion)
 
   #format bounding boxes
-  tree_polygons<- lidR::tree_hulls(las,type="bbox")
+  tree_polygons<- lidR::delineate_crowns(las,type="bbox")
   bboxes<-lapply(tree_polygons@polygons,sp::bbox)
 
   #Format according the keras-retinet requirements "CSV datasets" https://github.com/fizyr/keras-retinanet
