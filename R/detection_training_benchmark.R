@@ -80,6 +80,6 @@ detection_training_benchmark<-function(path,silva_cr_factor=0.7,silva_exclusion=
   origin_result$ymax =  round(origin_result$ymax * 10)
 
   #Write to dir
-  fname<-paste(save_dir,"/",sanitized_fn,".csv",sep="")
+  fname<-paste(save_dir,"/",lidar_year,"_",sanitized_fn,".csv",sep="")
   write.csv(origin_result,fname,row.names = F)
 }
