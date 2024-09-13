@@ -6,12 +6,18 @@ library(neonUtilities)
 library(dplyr)
 
 
-#reg = loadRegistry(file.dir = "/home/b.weinstein/logs/process_neon_plots/",writeable=TRUE)
-reg = makeRegistry(file.dir = "/home/b.weinstein/logs/process_neon_plots/")
-#clearRegistry()
-print("registry created")
-reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
+# Add a try catch loop in case the registry already exists
+tryCatch({
+  reg = loadRegistry(file.dir = "/home/b.weinstein/logs/process_neon_plots/",writeable=TRUE)
+  print("registry loaded")
+  clearRegistry()
+}, error = function(e) {
+  reg = makeRegistry(file.dir = "/home/b.weinstein/logs/process_neon_plots/")
+  print("registry created")
+})
 
+reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
+setwd("/home/b.weinstein/TreeSegmentation/analysis")
 process_site<-function(site){
   #year="2017"
   #fold<-paste("/orange/ewhite/NeonData/",site,sep="")
@@ -21,7 +27,7 @@ process_site<-function(site){
 
   ##Cut Tiles
   TreeSegmentation::crop_rgb_plots(site,year="2020")
-  TreeSegmentation::crop_lidar_plots(site,year="2020")
+  TreeSegmentation::crop_lidar_plots(site,year="2023")
   TreeSegmentation::crop_CHM_plots(site,"2020")
 }
 

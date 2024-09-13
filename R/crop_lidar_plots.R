@@ -26,7 +26,7 @@ crop_lidar_plots<-function(site_name="TEAK",year="2018"){
   domainID<-unique(site_plots$domainID)
 
   #Generic path
-  generic_path <- paste("/orange/ewhite/NeonData/",site_name,"/DP1.30003.001/",year,"/FullSite/",domainID,"/",year,"_",site_name, "_*/L1/DiscreteLidar/ClassifiedPointCloud/",sep="")
+  generic_path <- paste("/orange/ewhite/NeonData/",site_name,"/DP1.30003.001/neon-aop-products/",year,"/FullSite/",domainID,"/",year,"_",site_name, "_*/L1/DiscreteLidar/ClassifiedPointCloud/",sep="")
   inpath<-Sys.glob(generic_path)
 
   fils<-list.files(inpath,full.names = T,pattern=".laz",recursive = T)
@@ -46,7 +46,7 @@ crop_lidar_plots<-function(site_name="TEAK",year="2018"){
   r<-lidR::readLAS(fils[1])
 
   #Project
-  site_plots<-sf::st_transform(site_plots,crs=raster::projection(r))
+  site_plots<-sf::st_transform(site_plots,crs=r@crs)
 
   #create lidar catalog
   ctg<-lidR::catalog(path_to_tiles)
@@ -72,7 +72,7 @@ crop_lidar_plots<-function(site_name="TEAK",year="2018"){
     }
 
     #clip
-    clipped_las<-lidR::lasclip(ctg,plotextent)
+    clipped_las<-lidR::clip_roi(ctg,plotextent)
 
     #if null, return NA
     if(nrow(clipped_las@data)==0){
