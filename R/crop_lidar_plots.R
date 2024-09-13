@@ -63,7 +63,7 @@ crop_lidar_plots<-function(site_name="TEAK",year="2018"){
     plotextent<-raster::extent(site_plots[x,])
 
     #construct filename
-    cname<-paste(fold,plotid,".laz",sep="")
+    cname<-paste(fold,plotid,"_",year,".laz",sep="")
 
     #Check if already complete
     if(file.exists(cname)){

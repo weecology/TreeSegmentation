@@ -60,7 +60,7 @@
       plotextent<-raster::extent(site_plots[x,])
 
       #construct filename
-      cname<-paste(fold,plotid,".tif",sep="")
+      cname<-paste(fold,plotid,"_",year,".tif",sep="")
       print(cname)
 
       #Check if already complete

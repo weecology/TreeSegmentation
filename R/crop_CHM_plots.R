@@ -45,7 +45,7 @@ crop_CHM_plots<-function(site_name="TEAK",year="2018"){
     ext<-raster::extent(site_plots[x,])
 
     #construct filename
-    cname<-paste(fold,plotid,"_CHM.tif",sep="")
+    cname<-paste(fold,plotid,"CHM_",year,".tif",sep="")
 
     #Check if already complete
     if(file.exists(cname)){
