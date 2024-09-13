@@ -77,7 +77,10 @@ crop_lidar_plots<-function(site_name="TEAK",year="2018"){
     #if null, return NA
     if(nrow(clipped_las@data)==0){
       next
-      }
+    }
+
+    # add predicted treeid from segment_trees
+    clipped_las<-lidR::segment_trees(las, lidR::li2012(dt1 = 1,dt2=2,hmin=2,speed_up = 10))
 
     lidR::writeLAS(clipped_las,cname)
     print(cname)

@@ -59,7 +59,7 @@ segment_trees<-function(las,algorithm="watershed",chm=chm,plots=F, max_cr_factor
     tree = lidR::filter_poi(crowns, !is.na(treeID))
 
     if(plots){
-      plot(tree, color = "treeID", colorPalette = pastel.colors(100), size = 1)
+      plot(tree, color = "treeID", pal = pastel.colors(100), size = 1)
     }
 
   }
