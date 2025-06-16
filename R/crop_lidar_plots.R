@@ -26,7 +26,7 @@ crop_lidar_plots<-function(site_name="TEAK",year="2018"){
   domainID<-unique(site_plots$domainID)
 
   #Generic path
-  generic_path <- paste("/orange/ewhite/NeonData/",site_name,"/DP1.30003.001/neon-aop-products/",year,"/FullSite/",domainID,"/",year,"_",site_name, "_*/L1/DiscreteLidar/ClassifiedPointCloud/",sep="")
+  generic_path <- paste("/orange/ewhite/NeonData/",site_name,"/DP1.30003.001/",sep="")
   inpath<-Sys.glob(generic_path)
 
   fils<-list.files(inpath,full.names = T,pattern=".laz",recursive = T)

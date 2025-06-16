@@ -8,40 +8,55 @@ library(dplyr)
 
 # Add a try catch loop in case the registry already exists
 tryCatch({
-  reg = loadRegistry(file.dir = "/home/b.weinstein/logs/process_neon_plots/",writeable=TRUE)
+  reg = loadRegistry(file.dir = "logs/process_neon_plots/", writeable = TRUE)
   print("registry loaded")
   clearRegistry()
 }, error = function(e) {
-  reg = makeRegistry(file.dir = "/home/b.weinstein/logs/process_neon_plots/")
+  reg = makeRegistry(file.dir = "logs/process_neon_plots/")
   print("registry created")
 })
 
-reg$cluster.functions=makeClusterFunctionsSlurm(template = "detection_template.tmpl", array.jobs = TRUE,nodename = "localhost", scheduler.latency = 5, fs.latency = 65)
-setwd("/home/b.weinstein/TreeSegmentation/analysis")
-process_site<-function(site){
-  #year="2017"
-  #fold<-paste("/orange/ewhite/NeonData/",site,sep="")
-  #neonUtilities::byPointsAOP(dpID="DP3.30010.001",site=site,year=year,check.size=F, savepath=fold)
-  #neonUtilities::byPointsAOP(dpID="DP1.30003.001",site=site,year=year,check.size=F, savepath=fold)
-  #neonUtilities::byPointsAOP(dpID="DP3.30006.001",site=site,year=year,check.size=F, savepath=fold)
+reg$cluster.functions = makeClusterFunctionsSlurm(
+  template = "detection_template.tmpl",
+  array.jobs = TRUE,
+  nodename = "localhost",
+  scheduler.latency = 5,
+  fs.latency = 65
+)
+
+setwd("analysis")
+
+process_site <- function(site) {
+  #year = "2017"
+  #fold <- paste("/orange/ewhite/NeonData/", site, sep = "")
+  #neonUtilities::byPointsAOP(dpID = "DP3.30010.001", site = site, year = year, check.size = F, savepath = fold)
+  #neonUtilities::byPointsAOP(dpID = "DP1.30003.001", site = site, year = year, check.size = F, savepath = fold)
+  #neonUtilities::byPointsAOP(dpID = "DP3.30006.001", site = site, year = year, check.size = F, savepath = fold)
 
   ##Cut Tiles
-  TreeSegmentation::crop_rgb_plots(site,year="2023")
-  TreeSegmentation::crop_lidar_plots(site,year="2023")
-  TreeSegmentation::crop_CHM_plots(site,"2023")
+  TreeSegmentation::crop_rgb_plots(site, year = "2023")
+  tryCatch({
+    TreeSegmentation::crop_lidar_plots(site, year = "2023")
+  }, error = function(e) {
+    print(paste("Error processing lidar for site:", site))
+  })
+  TreeSegmentation::crop_CHM_plots(site, "2023")
 }
 
-sites<-c("ABBY","ARIK","BARR","BART","BLAN","BONA","CLBJ","CPER","CUPE","DEJU","DELA","DSNY","GRSM","GUAN",
-"GUIL","HARV","HEAL","HOPB","JERC","JORN","KONZ","LAJA","LENO","LIRO","MCDI","MLBS","MOAB","NIWO","NOGP","OAES","OSBS","PRIN","PUUM","REDB","RMNP","SCBI","SERC","SJER","SOAP","SRER","STEI","STER","TALL","TEAK","TOOL","UKFS","UNDE","WLOU","WOOD","WREF","YELL")
+sites <- c("ABBY", "ARIK", "BARR", "BART", "BLAN", "BONA", "CLBJ", "CPER", "CUPE", "DEJU", "DELA", "DSNY", "GRSM", "GUAN",
+           "GUIL", "HARV", "HEAL", "HOPB", "JERC", "JORN", "KONZ", "LAJA", "LENO", "LIRO", "MCDI", "MLBS", "MOAB", "NIWO", "NOGP", "OAES", "OSBS", "PRIN", "PUUM", "REDB", "RMNP", "SCBI", "SERC", "SJER", "SOAP", "SRER", "STEI", "STER", "TALL", "TEAK", "TOOL", "UKFS", "UNDE", "WLOU", "WOOD", "WREF", "YELL")
 
-ids = batchMap(fun = process_site,
-               site=sites)
+for (site in sites) {
+  process_site(site)
+}
+
+ids = batchMap(fun = process_site, site = sites)
 
 #Run in chunks of 20
 ids[, chunk := chunk(job.id, chunk.size = 1)]
 
 # Set resources: enable memory measurement
-res = list(measure.memory = TRUE,walltime = "12:00:00", memory = "7GB")
+res = list(measure.memory = TRUE, walltime = "12:00:00", memory = "7GB")
 
 # Submit jobs using the currently configured cluster functions
 submitJobs(ids, resources = res, reg = reg)
